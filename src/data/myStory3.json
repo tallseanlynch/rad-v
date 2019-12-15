@@ -1,0 +1,178 @@
+{
+    "_id": {
+        "$oid": "de106387-aedb-4409-973f-d8fd7c8a22a3"
+    },
+    "cardInstances": [
+        {
+            "id": "card-instance-8bcee815-5634-48c8-892c-2be52bfec0d9",
+            "cardElements": [
+                {
+                    "type": "CardHeader",
+                    "text": "Start Card"
+                },
+                {
+                    "type": "CardBody",
+                    "text": "Choose a direction"
+                },
+                {
+                    "id": "card-option-748f3eaa-6336-4dfb-8ad7-75fd25cc62d6",
+                    "goToCard": "card-instance-c665716d-4c4f-4b33-bbb3-f000bd96df66",
+                    "text": "Left",
+                    "variables": {},
+                    "type":"CardPath"
+                },
+                {
+                    "id": "card-option-81afb9a3-304f-4b1d-bb17-8bfa16d6eb3e",
+                    "goToCard": "card-instance-3d69aaf2-91b3-40e3-ba94-26fe9540c21c",
+                    "text": "Right",
+                    "variables": {},
+                    "type": "CardPath"
+                }
+            ],
+            "backgroundElements": [
+                {
+                    "classes": ["flex", "flex-col", "justify-center", "text-center", "w-full", "break-words", "h-full", "fixed", "items-center", "layer"],
+                    "type": "div",
+                    "children": [
+                        {
+                            "type": "img",
+                            "classes": ["absolute", "h-full", "w-full"],
+                            "src": "./assets/gifs/seq-0-p.gif"
+                        }
+                    ]
+                },
+                {
+                    "classes": ["animation-group"],
+                    "type": "div",
+                    "children": [
+                        {
+                            "classes": ["screen-bar-2"],
+                            "type": "div"
+                        },
+                        {
+                            "classes": ["opacity-flux-0", "animation-duration-15"],
+                            "type": "div"
+                        },
+                        {
+                            "classes": ["screen-bar-2", "animation-duration-16"],
+                            "type": "div"
+                        },
+                        {
+                            "classes": ["screen-bar-2", "animation-duration-17"],
+                            "type": "div"
+                        },
+                        {
+                            "classes": ["screen-bar-2", "animation-duration-12"],
+                            "type": "div"
+                        },
+                        {
+                            "classes": ["screen-bar-3", "animation-duration-18"],
+                            "type": "div"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "card-instance-c665716d-4c4f-4b33-bbb3-f000bd96df66",
+            "cardNumber": 1,
+            "cardOptions": [
+                {
+                    "id": "card-option-2264e3b6-1ea9-4d46-b94c-4dd7d296b7a9",
+                    "goToCard": "card-instance-1adc8f80-1190-4b08-bcb6-dda9ad3d605c",
+                    "optionText": "Up",
+                    "variables": {}
+                },
+                {
+                    "id": "card-option-f354d4ce-d0e7-4d3b-8575-58fb5b153f61",
+                    "goToCard": "card-instance-170b566f-4b56-41a5-bd7b-d1b0a8f1b8e6",
+                    "optionText": "Down",
+                    "variables": {}
+                }
+            ],
+            "x": 294,
+            "y": -23
+        },
+        {
+            "id": "card-instance-3d69aaf2-91b3-40e3-ba94-26fe9540c21c",
+            "cardNumber": 2,
+            "cardOptions": [
+                {
+                    "id": "card-option-81aafed1-6759-49e0-9674-29aec4f23f66",
+                    "goToCard": "card-instance-5abe9ce7-55a1-4ac9-87b5-d9a396efa7e9",
+                    "optionText": "Up",
+                    "variables": {}
+                },
+                {
+                    "id": "card-option-0bd815b2-a738-4d2e-b3b2-4ae356ff4f3e",
+                    "goToCard": "card-instance-9bfd6a64-27ec-4698-88c2-9c24a76f74f7",
+                    "optionText": "Down",
+                    "variables": {}
+                }
+            ],
+            "x": 274,
+            "y": 251
+        },
+        {
+            "id": "card-instance-5abe9ce7-55a1-4ac9-87b5-d9a396efa7e9",
+            "cardNumber": 3,
+            "cardOptions": [],
+            "x": 542,
+            "y": 375
+        },
+        {
+            "id": "card-instance-9bfd6a64-27ec-4698-88c2-9c24a76f74f7",
+            "cardNumber": 4,
+            "cardOptions": [],
+            "x": 505,
+            "y": 655
+        },
+        {
+            "id": "card-instance-170b566f-4b56-41a5-bd7b-d1b0a8f1b8e6",
+            "cardNumber": 4,
+            "cardOptions": [],
+            "x": 544,
+            "y": 146
+        },
+        {
+            "id": "card-instance-1adc8f80-1190-4b08-bcb6-dda9ad3d605c",
+            "cardNumber": 3,
+            "cardOptions": [],
+            "x": 548,
+            "y": -63
+        }
+    ],
+    "cards": [
+        {
+            "id": "stage-card-f7270ac4-cb07-4cf2-9ad1-9c54b9bec885",
+            "cardNumber": 0,
+            "cardTitle": "Start Card",
+            "cardText": "Which way should I go?"
+        },
+        {
+            "id": "stage-card-063b901d-7d0c-4e30-bc0e-f0a308cee17c",
+            "cardNumber": 1,
+            "cardTitle": "Left",
+            "cardText": "It's very hot over here"
+        },
+        {
+            "id": "stage-card-ef480ec3-20e2-4581-9187-4be0b860f447",
+            "cardNumber": 2,
+            "cardTitle": "Right",
+            "cardText": "Such cold very brrrr"
+        },
+        {
+            "id": "stage-card-f6861c34-eb70-468c-b920-5b62024e1020",
+            "cardNumber": 3,
+            "cardTitle": "Up",
+            "cardText": "There is a puddle on the floor"
+        },
+        {
+            "id": "stage-card-0aeb05c5-9dc3-4cd3-8aa2-76e16fc98a98",
+            "cardNumber": 4,
+            "cardTitle": "Down",
+            "cardText": "Timberrrrrr"
+        }
+    ],
+    "title": "My Awesome Story"
+}

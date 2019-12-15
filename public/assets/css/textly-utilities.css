@@ -1,0 +1,359 @@
+/* 
+----------
+----------
+STORY CARDS BASE UTILITIES 
+----------
+----------
+*/
+
+.letter {
+    position: relative;
+}
+
+.option {
+    z-index: 1;
+    font-size: 2em;
+    font-family: slkscrb;
+    font-style: italic;
+}
+
+.option-extra {
+    height: .25em;
+}
+
+.layer {
+    image-rendering: pixelated;
+    filter: contrast(3) saturate(3)
+}
+
+.text-group {
+    position: relative;
+    font-size: 2em;
+    font-family: slkscrb;
+    max-width: 800px;
+}
+
+.pixel-image {
+    image-rendering: pixelated;
+    filter: saturate(2) contrast(2);
+}
+
+/* 
+----------
+----------
+BASE CSS UTILITIES 
+----------
+----------
+*/
+
+.pointer-events-none {
+    pointer-events: none;
+}
+
+.pointer-events-auto {
+    pointer-events: auto;
+}
+
+.pointer-events-initial {
+    pointer-events: initial;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.opacity-10 {
+    opacity: .1;
+}
+
+.opacity-20 {
+    opacity: .2;
+}
+
+.opacity-30 {
+    opacity: .3;
+}
+
+.opacity-40 {
+    opacity: .4;
+}
+
+.opacity-50 {
+    opacity: .5;
+}
+
+.opacity-60 {
+    opacity: .6;
+}
+
+.opacity-70 {
+    opacity: .7;
+}
+
+.opacity-80 {
+    opacity: .8;
+}
+
+.opacity-90 {
+    opacity: .9;
+}
+
+.opacity-100 {
+    opacity: 1;
+}
+
+.z-index-0 {
+    z-index: 0;
+}
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.z-index-2 {
+    z-index: 2;
+}
+
+.z-index-3 {
+    z-index:3 ;
+}
+
+.z-index-4 {
+    z-index:4 ;
+}
+.z-index-5 {
+    z-index:5 ;
+}
+.z-index-6 {
+    z-index:6 ;
+}
+.z-index-7 {
+    z-index:7 ;
+}
+.z-index-8 {
+    z-index:8 ;
+}
+.z-index-9 {
+    z-index:9 ;
+}
+.z-index-10 {
+    z-index:10 ;
+}
+.z-index-11 {
+    z-index:11 ;
+}
+.z-index-12 {
+    z-index:12 ;
+}
+.z-index-13 {
+    z-index:13 ;
+}
+.z-index-14 {
+    z-index:14 ;
+}
+.z-index-15 {
+    z-index:15 ;
+}
+.z-index-16 {
+    z-index:16 ;
+}
+.z-index-17 {
+    z-index:17 ;
+}
+.z-index-18 {
+    z-index:18 ;
+}
+.z-index-19 {
+    z-index:19 ;
+}
+.z-index-20 {
+    z-index:20 ;
+}
+
+.animation-duration-0, .ad-0 {
+    animation-duration: 0.5s;
+}
+
+.animation-duration-1, .ad-1 {
+    animation-duration: 1s;
+}
+
+.animation-duration-2, .ad-2 {
+    animation-duration: 1.5s;
+}
+
+.animation-duration-3, .ad-3 {
+    animation-duration: 2s;
+}
+
+.animation-duration-4, .ad-4 {
+    animation-duration: 2.5s;
+}
+
+.animation-duration-5, .ad-5 {
+    animation-duration: 3s;
+}
+
+.animation-duration-6, .ad-6 {
+    animation-duration: 3.5s;
+}
+
+.animation-duration-7, .ad-7 {
+    animation-duration: 4s;
+}
+
+.animation-duration-8, .ad-8 {
+    animation-duration: 4.5s;
+}
+
+.animation-duration-9, .ad-9 {
+    animation-duration: 5s;
+}
+
+.animation-duration-10, .ad-10 {
+    animation-duration: 5.5s;
+}
+
+.animation-duration-11, .ad-11 {
+    animation-duration: 6s;
+}
+
+.animation-duration-12, .ad-12 {
+    animation-duration: 6.5s;
+}
+
+.animation-duration-13, .ad-13 {
+    animation-duration: 7s;
+}
+
+.animation-duration-14, .ad-14 {
+    animation-duration: 7.5s;
+}
+
+.animation-duration-15, .ad-15 {
+    animation-duration: 8s;
+}
+
+.animation-duration-16, .ad-16 {
+    animation-duration: 8.5s;
+}
+
+.animation-duration-17, .ad-17 {
+    animation-duration: 9s;
+}
+
+.animation-duration-18, .ad-18 {
+    animation-duration: 9.5s;
+}
+
+.animation-duration-19, .ad-19 {
+    animation-duration: 10s;
+}
+
+.animation-direction-normal, .adir-normal {
+    animation-direction: normal;
+}
+
+.animation-direction-reverse, .adir-reverse {
+    animation-direction: reverse;
+}
+
+.animation-direction-alternate, .adir-alternate {
+    animation-direction: alternate;
+}
+
+.animation-direction-alternate-reverse, .adir-alternate-reverse {
+    animation-direction: alternate-reverse;
+}
+
+.animation-direction-initial, .adir-initial {
+    animation-direction: initial;
+}
+
+.animation-direction-inherit, .adir-inherit {
+    animation-direction: inherit;
+}
+
+.transition-duration-0 {
+    animation-duration: 0.5s;
+}
+
+.transition-duration-1 {
+    animation-duration: 1s;
+}
+
+.transition-duration-2 {
+    animation-duration: 1.5s;
+}
+
+.transition-duration-3 {
+    animation-duration: 2s;
+}
+
+.transition-duration-4 {
+    animation-duration: 2.5s;
+}
+
+.transition-duration-5 {
+    animation-duration: 3s;
+}
+
+.transition-duration-6 {
+    animation-duration: 3.5s;
+}
+
+.transition-duration-7 {
+    animation-duration: 4s;
+}
+
+.transition-duration-8 {
+    animation-duration: 4.5s;
+}
+
+.transition-duration-9 {
+    animation-duration: 5s;
+}
+
+.transition-duration-10 {
+    animation-duration: 5.5s;
+}
+
+.transition-duration-11 {
+    animation-duration: 6s;
+}
+
+.transition-duration-12 {
+    animation-duration: 6.5s;
+}
+
+.transition-duration-13 {
+    animation-duration: 7s;
+}
+
+.transition-duration-14 {
+    animation-duration: 7.5s;
+}
+
+.transition-duration-15 {
+    animation-duration: 8s;
+}
+
+.transition-duration-16 {
+    animation-duration: 8.5s;
+}
+
+.transition-duration-17 {
+    animation-duration: 9s;
+}
+
+.transition-duration-18 {
+    animation-duration: 9.5s;
+}
+
+.transition-duration-19 {
+    animation-duration: 10s;
+}
+
+.animation-direction-normal, .adir-normal {
+    animation-direction: normal;
+}

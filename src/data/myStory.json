@@ -1,0 +1,288 @@
+{
+    "_id": {
+        "$oid": "5d2e5e26e7179a26a9717bf9"
+    },
+    "scr-config": {
+        "class-groups": {
+            "group-1" : "font-size-flux",
+            "group-2" : "border-style-flux left-flux italic-flux"
+        }
+    },
+    "branches": {
+        "head": "branch-0001",
+        "branch-0001": {
+            "id": "branch-0001",
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "branchPaths": [
+                "branch-6f697878-8cf3-447f-adb6-9db05d2d3ee3",
+                "branch-4694953c-ca53-41a2-b725-97d828b40119",
+                "branch-0f18b902-38c8-4254-8c91-96dbf244ec52",
+                "branch-b6fd5fcc-d9f3-4e47-9452-536b434ce356",
+                "branch-f6e72f2c-9845-4133-9ec9-71cfd5f3b80e"
+            ]
+        },
+        "branch-6f697878-8cf3-447f-adb6-9db05d2d3ee3": {
+            "cardId": "card-4065f4b6-50cb-4870-9992-1368a5be000f",
+            "id": "branch-6f697878-8cf3-447f-adb6-9db05d2d3ee3",
+            "branchPaths": [
+                "branch-da41a92d-cd68-4923-a01f-ef37e914abba"
+            ]
+        },
+        "branch-4694953c-ca53-41a2-b725-97d828b40119": {
+            "cardId": "card-4acddc89-6591-4593-ab5a-4934a4562c7f",
+            "id": "branch-4694953c-ca53-41a2-b725-97d828b40119",
+            "branchPaths": [
+                "branch-9141ce96-a62a-49d9-a53d-902ebeb817c7",
+                "branch-5e0148e0-a44d-4761-8a66-2d891e8aa000",
+                "branch-10eaf6c1-8921-4211-a7e7-c066aeed6115",
+                "branch-7404fe26-78dd-40ce-86fc-e1a5681a9b80",
+                "branch-21202b9c-af7f-40e4-8987-15e7f1983b09"
+            ]
+        },
+        "branch-0f18b902-38c8-4254-8c91-96dbf244ec52": {
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "id": "branch-0f18b902-38c8-4254-8c91-96dbf244ec52",
+            "branchPaths": [
+                "branch-3c6da1b9-d460-4669-84fa-2ff68f5d8445",
+                "branch-e8f6e16d-d71c-461b-8dad-17d584ee9d92",
+                "branch-fd5bf94a-1a6c-414a-bd4e-a907f226b064"
+            ]
+        },
+        "branch-b6fd5fcc-d9f3-4e47-9452-536b434ce356": {
+            "cardId": "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9",
+            "id": "branch-b6fd5fcc-d9f3-4e47-9452-536b434ce356",
+            "branchPaths": [
+                "branch-7ba83179-5b84-426a-8da9-b9eaead6df8e",
+                "branch-e97070c1-db8b-47f7-881c-ebfa8cc581fa"
+            ]
+        },
+        "branch-3c6da1b9-d460-4669-84fa-2ff68f5d8445": {
+            "cardId": "card-4acddc89-6591-4593-ab5a-4934a4562c7f",
+            "id": "branch-3c6da1b9-d460-4669-84fa-2ff68f5d8445",
+            "branchPaths": []
+        },
+        "branch-e8f6e16d-d71c-461b-8dad-17d584ee9d92": {
+            "cardId": "card-d42a5470-fe7d-4b89-9926-a8ed2c37f79a",
+            "id": "branch-e8f6e16d-d71c-461b-8dad-17d584ee9d92",
+            "branchPaths": []
+        },
+        "branch-fd5bf94a-1a6c-414a-bd4e-a907f226b064": {
+            "cardId": "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9",
+            "id": "branch-fd5bf94a-1a6c-414a-bd4e-a907f226b064",
+            "branchPaths": []
+        },
+        "branch-7ba83179-5b84-426a-8da9-b9eaead6df8e": {
+            "cardId": "card-4acddc89-6591-4593-ab5a-4934a4562c7f",
+            "id": "branch-7ba83179-5b84-426a-8da9-b9eaead6df8e",
+            "branchPaths": []
+        },
+        "branch-e97070c1-db8b-47f7-881c-ebfa8cc581fa": {
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "id": "branch-e97070c1-db8b-47f7-881c-ebfa8cc581fa",
+            "branchPaths": []
+        },
+        "branch-9141ce96-a62a-49d9-a53d-902ebeb817c7": {
+            "cardId": "card-5d550171-e041-4af8-9ac5-356269f4f932",
+            "id": "branch-9141ce96-a62a-49d9-a53d-902ebeb817c7",
+            "branchPaths": [
+                "branch-9e3e6cc0-00ec-4dff-ac1b-14cc16523c38",
+                "branch-46244447-ccb8-42d2-9c08-71b9e08fb0c4"
+            ]
+        },
+        "branch-5e0148e0-a44d-4761-8a66-2d891e8aa000": {
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "id": "branch-5e0148e0-a44d-4761-8a66-2d891e8aa000",
+            "branchPaths": []
+        },
+        "branch-10eaf6c1-8921-4211-a7e7-c066aeed6115": {
+            "cardId": "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9",
+            "id": "branch-10eaf6c1-8921-4211-a7e7-c066aeed6115",
+            "branchPaths": []
+        },
+        "branch-7404fe26-78dd-40ce-86fc-e1a5681a9b80": {
+            "cardId": "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9",
+            "id": "branch-7404fe26-78dd-40ce-86fc-e1a5681a9b80",
+            "branchPaths": []
+        },
+        "branch-21202b9c-af7f-40e4-8987-15e7f1983b09": {
+            "cardId": "card-d42a5470-fe7d-4b89-9926-a8ed2c37f79a",
+            "id": "branch-21202b9c-af7f-40e4-8987-15e7f1983b09",
+            "branchPaths": []
+        },
+        "branch-f6e72f2c-9845-4133-9ec9-71cfd5f3b80e": {
+            "cardId": "card-d42a5470-fe7d-4b89-9926-a8ed2c37f79a",
+            "id": "branch-f6e72f2c-9845-4133-9ec9-71cfd5f3b80e",
+            "branchPaths": []
+        },
+        "branch-da41a92d-cd68-4923-a01f-ef37e914abba": {
+            "cardId": "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9",
+            "id": "branch-da41a92d-cd68-4923-a01f-ef37e914abba",
+            "branchPaths": [
+                "branch-df741f2f-ab58-4590-a58c-963ce2049aa0",
+                "branch-2887411d-e20a-4ce4-b54c-834f5364859d",
+                "branch-c2923d67-da62-4eba-b297-27ffb8f28505"
+            ]
+        },
+        "branch-df741f2f-ab58-4590-a58c-963ce2049aa0": {
+            "cardId": "card-5d550171-e041-4af8-9ac5-356269f4f932",
+            "id": "branch-df741f2f-ab58-4590-a58c-963ce2049aa0",
+            "branchPaths": []
+        },
+        "branch-2887411d-e20a-4ce4-b54c-834f5364859d": {
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "id": "branch-2887411d-e20a-4ce4-b54c-834f5364859d",
+            "branchPaths": [
+                "branch-2b5308fd-66b7-41c9-8ee9-3b8456c60748",
+                "branch-9a772503-0efb-4146-b4f4-e26877875098"
+            ]
+        },
+        "branch-c2923d67-da62-4eba-b297-27ffb8f28505": {
+            "cardId": "card-4acddc89-6591-4593-ab5a-4934a4562c7f",
+            "id": "branch-c2923d67-da62-4eba-b297-27ffb8f28505",
+            "branchPaths": [
+                "branch-def43e90-6f18-4ad1-b69d-07beb0815449"
+            ]
+        },
+        "branch-2b5308fd-66b7-41c9-8ee9-3b8456c60748": {
+            "cardId": "card-4acddc89-6591-4593-ab5a-4934a4562c7f",
+            "id": "branch-2b5308fd-66b7-41c9-8ee9-3b8456c60748",
+            "branchPaths": [
+                "branch-dcb87ec1-1217-4657-b5a0-1ca43241466e"
+            ]
+        },
+        "branch-9a772503-0efb-4146-b4f4-e26877875098": {
+            "cardId": "card-5d550171-e041-4af8-9ac5-356269f4f932",
+            "id": "branch-9a772503-0efb-4146-b4f4-e26877875098",
+            "branchPaths": [
+                "branch-bbeb3530-cdf0-40d6-a03c-70e92aa3b2a2"
+            ]
+        },
+        "branch-def43e90-6f18-4ad1-b69d-07beb0815449": {
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "id": "branch-def43e90-6f18-4ad1-b69d-07beb0815449",
+            "branchPaths": [
+                "branch-4b925008-c8bb-43d0-a52a-92c1920db8d5"
+            ]
+        },
+        "branch-9e3e6cc0-00ec-4dff-ac1b-14cc16523c38": {
+            "cardId": "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9",
+            "id": "branch-9e3e6cc0-00ec-4dff-ac1b-14cc16523c38",
+            "branchPaths": [
+                "branch-9b609bb1-7aca-46cd-89be-9e88469ae965",
+                "branch-aa6baea8-ec02-45e2-ac71-bcdf12f013db"
+            ]
+        },
+        "branch-46244447-ccb8-42d2-9c08-71b9e08fb0c4": {
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "id": "branch-46244447-ccb8-42d2-9c08-71b9e08fb0c4",
+            "branchPaths": []
+        },
+        "branch-9b609bb1-7aca-46cd-89be-9e88469ae965": {
+            "cardId": "card-5d550171-e041-4af8-9ac5-356269f4f932",
+            "id": "branch-9b609bb1-7aca-46cd-89be-9e88469ae965",
+            "branchPaths": [
+                "branch-48713a45-ed24-482d-99be-591d76bd3ce9"
+            ]
+        },
+        "branch-aa6baea8-ec02-45e2-ac71-bcdf12f013db": {
+            "cardId": "card-5d550171-e041-4af8-9ac5-356269f4f932",
+            "id": "branch-aa6baea8-ec02-45e2-ac71-bcdf12f013db",
+            "branchPaths": [
+                "branch-ca8ed291-2cd0-4b33-b1f7-756e06845a0e"
+            ]
+        },
+        "branch-ca8ed291-2cd0-4b33-b1f7-756e06845a0e": {
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "id": "branch-ca8ed291-2cd0-4b33-b1f7-756e06845a0e",
+            "branchPaths": []
+        },
+        "branch-48713a45-ed24-482d-99be-591d76bd3ce9": {
+            "cardId": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "id": "branch-48713a45-ed24-482d-99be-591d76bd3ce9",
+            "branchPaths": []
+        },
+        "branch-4b925008-c8bb-43d0-a52a-92c1920db8d5": {
+            "cardId": "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9",
+            "id": "branch-4b925008-c8bb-43d0-a52a-92c1920db8d5",
+            "branchPaths": []
+        },
+        "branch-bbeb3530-cdf0-40d6-a03c-70e92aa3b2a2": {
+            "cardId": "card-d42a5470-fe7d-4b89-9926-a8ed2c37f79a",
+            "id": "branch-bbeb3530-cdf0-40d6-a03c-70e92aa3b2a2",
+            "branchPaths": []
+        },
+        "branch-dcb87ec1-1217-4657-b5a0-1ca43241466e": {
+            "cardId": "card-4065f4b6-50cb-4870-9992-1368a5be000f",
+            "id": "branch-dcb87ec1-1217-4657-b5a0-1ca43241466e",
+            "branchPaths": []
+        }
+    },
+    "cards": {
+        "card-4acddc89-6591-4593-ab5a-4934a4562c7f": {
+            "id": "card-4acddc89-6591-4593-ab5a-4934a4562c7f",
+            "header": "This adventure is gonna be dope",
+            "text": "You approach a clearing in the woods and there's a penguin eating an ice cream cone...wtf where did he get ice cream!?kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddds",
+            "color": {
+                "hue": 209,
+                "saturation": 85,
+                "lightness": 27,
+                "alpha": 1
+            }
+        },
+        "card-5d550171-e041-4af8-9ac5-356269f4f932": {
+            "id": "card-5d550171-e041-4af8-9ac5-356269f4f932",
+            "header": "Better bring snacks",
+            "text": "**ddddddf** fddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "color": {
+                "hue": 102,
+                "saturation": 77,
+                "lightness": 23,
+                "alpha": 1
+            }
+        },
+        "card-443834cc-3e84-47da-9d9d-78944210380e": {
+            "id": "card-443834cc-3e84-47da-9d9d-78944210380e",
+            "header": "Dark and stormy night",
+            "text": "[[font-size-flux]] font-weight-flux[[font-size-flux]] \n [[gif-0]]normal[[gif-0]] [font-weight-flux]] font-weight-flux[[font-weight-flux]] \n[[opacity-flux]] opacity-flux [[opacity-flux]] \n what about here[[left-flux]] left-flux [[left-flux]] \n [[top-flux]] top-flux [[top-flux]] \n here is my text before will any of this show up[[width-flux]] width-flux [[width-flux]] blah blah\n[[height-flux]] height-flux [[height-flux]] \n[[color-flux]] color-flux [[color-flux]] \n[[border-flux]] border-flux [[border-flux]] \n[[border-style-flux]] border-style-flux [[border-style-flux]] \n[[italic-flux]] italic-flux [[italic-flux]] \n",                "color": {
+                "hue": 252,
+                "saturation": 78,
+                "lightness": 26,
+                "alpha": 1
+            }
+        },
+        "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9": {
+            "id": "card-9f412d0b-3a16-4889-8cc3-0cdad354ced9",
+            "header": "blah blah 1",
+            "text": "um what is going on I wish I had some loren ipsum instead of coming up with stuff on the fly. oh well this project is comign along.",
+            "color": {
+                "hue": 294,
+                "saturation": 77,
+                "lightness": 27,
+                "alpha": 1
+            }
+        },
+        "card-d42a5470-fe7d-4b89-9926-a8ed2c37f79a": {
+            "id": "card-d42a5470-fe7d-4b89-9926-a8ed2c37f79a",
+            "header": "whoop de whoop",
+            "text": "mating call",
+            "color": {
+                "hue": 20,
+                "saturation": 80,
+                "lightness": 22,
+                "alpha": 1
+            }
+        },
+        "card-4065f4b6-50cb-4870-9992-1368a5be000f": {
+            "id": "card-4065f4b6-50cb-4870-9992-1368a5be000f",
+            "header": "[[font-left-flux]]wow such tree indeed there is a lot of tree it is all mine[[font-left-flux]]",
+            "text": "bark lets fill in some more text i am listening to this soothing music it is simply fantastic i feel like I am floating.",
+            "color": {
+                "hue": 132,
+                "saturation": 79,
+                "lightness": 21,
+                "alpha": 1
+            }
+        }
+    },
+    "title": "my Story"
+}
