@@ -17,7 +17,8 @@ export default class App {
         Text0: Text0.bind(this),
         Option9: Option9.bind(this),
         OptionDotDotDot: OptionDotDotDot.bind(this),
-        OptionDownArrow: OptionDownArrow.bind(this)
+        OptionDownArrow: OptionDownArrow.bind(this),
+        Empty: Empty.bind(this)
       }
       this.currentCardInstanceId = 'card-instance-0-0'
       this.currentCardOptionsActive = true
@@ -44,6 +45,8 @@ export default class App {
       this.parseCardInstance = this.parseCardInstance.bind(this)
       this.returnRandomId = this.returnRandomId.bind(this)
       this.addCardToCardHistory = this.addCardToCardHistory.bind(this)
+      this.addClassesToDOMNode = addClassesToDOMNode.bind(this)
+      this.removeClassesFromDOMNode = removeClassesFromDOMNode.bind(this)
     }
 
     setAppStateValue (key, value) {
@@ -65,6 +68,7 @@ export default class App {
         ...options
       }
       console.log('cardData', cardData)
+      console.log('CARDHISTORY OPTIONS', options)
       this.cardHistory.push(cardData)
       this.updateCurrentCardInstanceId(this.parseCardInstance(cardInstanceId))
       const beforeHist = document.querySelector('.full-card').scrollTop
@@ -112,21 +116,21 @@ function bus (elId) {
 
 function element (el = {}) {
 
-  if(el.isHistory && el.goTo) {
+  // if(el.isHistory && el.goTo) {
     // user has been to this element's card before
     // element is an option from the card history
     // meaning user should see the selected option as text and not the option
 
-    let historyElementInterior = ''
-    if(el.text && ([...this.cardHistory.map(h => h.cardInstance), this.currentCardInstanceId ].indexOf(el.goTo) > -1)) {
-      if(defaults && el.defaults.text && el.defaults.text.template) {
-        historyElementInterior = `<span id="${this.returnRandomId()}" class="card-element--text opacity-in-0 animation-duration-0">${el.template(el.text)}</span>`
-      } else {
-        historyElementInterior = `<span id="${this.returnRandomId()}" class="card-element--text opacity-in-0 animation-duration-0">${el.text}</span>`              
-      }
-    }
-    return `<div class="card-element--container ${el.cardElementClasses} history">${historyElementInterior}</div>`
-  } else {
+    // let historyElementInterior = ''
+    // if(el.text && ([...this.cardHistory.map(h => h.cardInstance), this.currentCardInstanceId ].indexOf(el.goTo) > -1)) {
+    //   if(defaults && el.defaults.text && el.defaults.text.template) {
+    //     historyElementInterior = `<span id="${this.returnRandomId()}" class="card-element--text opacity-in-0 animation-duration-1 history-option">${el.template(el.text)}</span>`
+    //   } else {
+    //     historyElementInterior = `<span id="${this.returnRandomId()}" class="card-element--text opacity-in-0 animation-duration-1 history-option">${el.text}</span>`              
+    //   }
+    // }
+    // return `<div class="card-element--container ${el.cardElementClasses} history">${historyElementInterior}</div>`
+  // } else {
     // user has NOT been to this element's card before
     if(el.anchor) {
       return `<div class="card-element--anchor" id="${this.returnRandomId()}"></div>`
@@ -141,11 +145,168 @@ function element (el = {}) {
       cardElementInterior = `<div class="card-element--template">${this.templates[el.template](templateInterior)}</div>`        
     }
     let generatedId = this.returnRandomId()
-    this.busFunctions[generatedId] = el.callback
-    return `<div class="card-element--container ${el.cardElementClasses ? el.cardElementClasses : ''} object"  id="${generatedId}" onClick="bus('${generatedId}')">${cardElementInterior}</div>`
-  }
+
+    // if(el.goTo) {
+      this.busFunctions[generatedId] = function () {
+        // console.log('OOOOOOOOOOOOOOOOOOO', this)
+        // this.addClassesToDOMNode(`#${generatedId}`, ['opacity-out-0','animation-duration-1'])
+        this.addClassesToDOMNode(`.card-option.${el.cardInstance}`, ['opacity-out-0','animation-duration-1'])
+        console.log(el)
+        setTimeout(() => {
+          el.callback && el.callback.bind(this)(el, {generatedId})
+          el.goTo && this.addCardToCardHistory(el.goTo, {generatedId})  
+        }, 1000)
+      }
+    // } else {
+    //   this.busFunctions[generatedId] = el.callback
+    // }
+    return `<div class="card-element--container ${el.goTo ? 'card-option' : ''} ${el.cardInstance} ${el.cardElementClasses ? el.cardElementClasses : ''} object"  id="${generatedId}" onClick="bus('${generatedId}')">${cardElementInterior}</div>`
+  // }
 }
 
+function addClassesToDOMNode (node, classes) {
+  [...document.querySelectorAll(node)].forEach(addClass => {
+    addClass.classList.add(...classes)
+  })
+}
+
+function removeClassesFromDOMNode (node, classes) {
+  [...document.querySelectorAll(node)].forEach(addClass => {
+    addClass.classList.remove(...classes)
+  })
+}
+
+function backgroundElements (els = []) {
+
+  // let parsedCardInstance = this.parseCardInstance(ch.cardInstance)
+
+  let allCardElements = this.cardHistory.map((ch) => {
+    return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).backgroundElements.map((ce => {
+      if(typeof ce === 'string') {
+        return { 
+          text: ce, 
+          template: this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).defaults.text.template,
+        }   
+      } else {
+        return {
+          ...ce, 
+          // cardElementClasses: 'opacity-in-0 animation-duration-1'          
+        }
+      }
+    }))
+  })[0]
+
+  console.log('backgroundElements', els)
+  return `<div class="layer--background-elements fixed h-full w-full">${allCardElements.map(el => {console.log(el); return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
+
+
+  // return `<div class="layer--background-elements fixed h-full w-full">${els.map(el => this.templates.element(el)).join('')}</div>`
+}
+
+function cardElements (els = [], options) {
+  // cardHistory ids as an array
+  let historyCardInstanceIds = this.cardHistory.map(histCardId => histCardId.cardInstance)
+
+  // get all cards and transform strings into objects {text:'text'} with templates
+  let allCards = this.cardHistory.map((ch, chi) => {
+    console.log('ch', ch)
+    return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).cardElements.map((ce => {
+      if(typeof ce === 'string') {
+        return { 
+          text: ce, 
+          template: this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).defaults.text.template,
+          cardInstance: ch.cardInstance,
+          // cardElementClasses: 'opacity-in-0 animation-duration-1'
+        }   
+      } else {
+        return {
+          ...ce,
+          cardInstance: ch.cardInstance,
+          // cardElementClasses: 'opacity-in-0 animation-duration-1'
+        }
+      }
+    }))
+  })
+
+  // all card elements
+  let allCardElements = [].concat(...allCards)
+
+  let firstCurrentCardElementIndex = allCardElements.map(ace => this.parseCardInstance(ace.cardInstance)).indexOf(this.parseCardInstance(this.currentCardInstanceId)) // === this.currentCardInstanceId && console.log()})
+  console.log('firstCurrentCardElement', firstCurrentCardElementIndex)
+
+  const animationTop = {
+    html: `<div class="current-card-transition-in w-full animation-duration-1"></div>`,
+    cardInstance: this.currentCardInstanceId
+  }
+  console.log(allCardElements)
+  allCardElements.splice(firstCurrentCardElementIndex, 0, animationTop)
+  // 
+  console.log(allCardElements)
+  // 
+  // all options
+  let filteredOptions = allCardElements.filter(ac => ac.goTo ).filter(op => op.goTo) 
+
+  // chosen history option
+  let filteredHistoryOptions = filteredOptions.filter(ho => historyCardInstanceIds.indexOf(ho.goTo) > -1).map(mho => mho.goTo)
+  // filteredHistoryOptions = filteredHistoryOptions.map(fho => {return {...fho, cardElementClasses: 'opacity-in-0 animation-duration-1'}})
+
+  // unchosen history options
+  let staleFilteredHistoryOptions = filteredOptions.filter(sho => historyCardInstanceIds.indexOf(sho.goTo) < 0 && historyCardInstanceIds.map(phc => this.parseCardInstance(phc)).indexOf(this.parseCardInstance(sho.goTo)) > -1).map(show => show.goTo)
+
+  console.log('allCardElements', allCardElements)
+  console.log('filteredOptions', filteredOptions)
+  console.log('filteredHistoryOptions', filteredHistoryOptions)
+  console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
+  filteredHistoryOptions.length > 0 && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>> FILTERED AN EXISTING OPTION', filteredHistoryOptions)
+
+  let filteredAllCardElements = allCardElements.filter(ace => (ace.goTo === undefined || staleFilteredHistoryOptions.indexOf(ace.goTo) < 0)).map(face => {
+    if(face.cardInstance === undefined) {
+      console.log('!!!!!!!!!!!!!!!!!! FACE', face)
+    }
+    if(filteredHistoryOptions.indexOf(face.goTo) < 0) {
+      return face
+    } else {
+      console.log(face.cardInstance)
+      if(face.text) {
+        return {
+          ...face,
+          goTo: undefined,
+          template: this.getCardInstanceById(this.parseCardInstance(face.cardInstance)).defaults.text.template,
+          cardElementClasses: 'opacity-in-0 animation-duration-1'
+        }  
+      } else {
+        return {
+          template: 'Empty'
+        }
+      }
+    }
+  }).filter(ce => ce !== undefined)
+  //.filter(ce => ce.template !== 'Empty' || ce.cardInstance === undefined)
+  console.log('filteredAllCardElements', filteredAllCardElements)
+  return `<div class="layer--main-elements max-w-3xl p-16 block z-index-1 w-full">${filteredAllCardElements.map(el => {console.log(el); return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
+}
+
+function foregroundElements (els = []) {
+  console.log(els)
+  return els
+}
+
+function appContainer (config = {}) {
+  return `
+  <div
+    class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0"
+    ref="card"
+  >
+    ${this.templates.backgroundElements()}
+    ${this.templates.cardElements()}
+    ${this.templates.foregroundElements()}
+  </div>
+`
+}
+
+function cardContainer (config = {}) {
+  return ``
+}
 
 function OptionDotDotDot () {
   return `<div class="option mt-8 relative p-8 bg-white text-black border-b-1">
@@ -176,116 +337,9 @@ function Option9 (interior) {
 }
 
 function Text0 (interior) {
-  
   return `<div class="text text-group text-white my-8 bg-black p-8 text0">${interior}</div>`
 }
 
-function backgroundElements (els = []) {
-
-  // let parsedCardInstance = this.parseCardInstance(ch.cardInstance)
-
-  let allCardElements = this.cardHistory.map((ch) => {
-    return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).backgroundElements.map((ce => {
-      if(typeof ce === 'string') {
-        return { 
-          text: ce, 
-          template: this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).defaults.text.template
-        }   
-      } else {
-        return ce
-      }
-    }))
-  })[0]
-
-  console.log('backgroundElements', els)
-  return `<div class="layer--background-elements fixed h-full w-full">${allCardElements.map(el => {console.log(el); return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
-
-
-  // return `<div class="layer--background-elements fixed h-full w-full">${els.map(el => this.templates.element(el)).join('')}</div>`
-}
-
-function cardElements (els = [], options) {
-  // cardHistory ids as an array
-  let historyCardInstanceIds = this.cardHistory.map(histCardId => histCardId.cardInstance)
-
-  // get all cards and transform strings into objects {text:'text'} with templates
-  let allCards = this.cardHistory.map((ch, chi) => {
-    console.log('ch', ch)
-    return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).cardElements.map((ce => {
-      if(typeof ce === 'string') {
-        return { 
-          text: ce, 
-          template: this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).defaults.text.template,
-          cardInstance: ch.cardInstance
-        }   
-      } else {
-        return {...ce, cardInstance: ch.cardInstance}
-      }
-    }))
-  })
-
-  // all card elements
-  let allCardElements = [].concat(...allCards)
-
-  let firstCurrentCardElementIndex = allCardElements.map(ace => this.parseCardInstance(ace.cardInstance)).indexOf(this.parseCardInstance(this.currentCardInstanceId)) // === this.currentCardInstanceId && console.log()})
-  console.log('firstCurrentCardElement', firstCurrentCardElementIndex)
-
-  const animationTop = {
-    html: `<div class="current-card-transition-in w-full animation-duration-1"></div>`
-  }
-
-  // 
-  console.log(allCardElements.splice(firstCurrentCardElementIndex, 0, animationTop))
-  // 
-  // all options
-  let filteredOptions = allCardElements.filter(ac => ac.goTo ).filter(op => op.goTo) 
-
-  // chosen history option
-  let filteredHistoryOptions = filteredOptions.filter(ho => historyCardInstanceIds.indexOf(ho.goTo) > -1).map(mho => mho.goTo)
-
-  // unchosen history options
-  let staleFilteredHistoryOptions = filteredOptions.filter(sho => historyCardInstanceIds.indexOf(sho.goTo) < 0 && historyCardInstanceIds.map(phc => this.parseCardInstance(phc)).indexOf(this.parseCardInstance(sho.goTo)) > -1).map(show => show.goTo)
-
-  console.log('allCardElements', allCardElements)
-  console.log('filteredOptions', filteredOptions)
-  console.log('filteredHistoryOptions', filteredHistoryOptions)
-  console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
-  filteredHistoryOptions.length > 0 && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>> FILTERED AN EXISTING OPTION', filteredHistoryOptions)
-
-  let filteredAllCardElements = allCardElements.filter(ace => (ace.goTo === undefined || staleFilteredHistoryOptions.indexOf(ace.goTo) < 0)).map(face => {
-    if(filteredHistoryOptions.indexOf(face.goTo) < 0) {
-      return face
-    } else {
-      console.log(face.cardInstance)
-      return {
-        ...face,
-        goTo: undefined,
-        template: this.getCardInstanceById(this.parseCardInstance(face.cardInstance)).defaults.text.template
-      }
-    }
-  })
-  console.log('filteredAllCardElements', filteredAllCardElements)
-  return `<div class="layer--main-elements max-w-3xl p-16 block z-index-1 w-full">${filteredAllCardElements.map(el => {console.log(el); return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
-}
-
-function foregroundElements (els = []) {
-  console.log(els)
-  return els
-}
-
-function appContainer (config = {}) {
-  return `
-  <div
-    class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0"
-    ref="card"
-  >
-    ${this.templates.backgroundElements()}
-    ${this.templates.cardElements()}
-    ${this.templates.foregroundElements()}
-  </div>
-`
-}
-
-function cardContainer (config = {}) {
+function Empty () {  
   return ``
 }

@@ -151,46 +151,49 @@ const cards = () => {
                         // game will track user history and check for this specific goTo property
                         text: 'Pheasant',
                         template: 'Option9', 
-                        callback: function (el) {
+                        callback: function (el, options) {
                             // debugger
+                            console.log('CALLBACK CALLED')
                             console.log(el)
                             console.log(this)
                             console.log('***********', el.goTo)
                             this.setAppStateValue('mascot', 'pheasant')
-                            this.addCardToCardHistory('card-instance-0-1_A')
+                            // this.addCardToCardHistory('card-instance-0-1_A')
                             console.log('found el')
                             console.log(this)
+                            console.log('getAppState', this.getAppState())
+                            console.log('OPTIONS +++++++++++', options)
                         }
                     },
                     {
                         goTo: 'card-instance-0-1_B',
                         text: 'Wolf',
                         template: 'Option9', 
-                        callback: () => {
-                            store.setValue('mascot', 'wolf')
+                        callback: function (el, options) {
+                            this.setAppStateValue('mascot', 'wolf')
                         }
                     },
                     {
                         goTo: 'card-instance-0-1_C',
                         text: 'Cat',
                         template: 'Option9', 
-                        callback: () => {
-                            store.setValue('mascot', 'cat')
+                        callback: function (el, options) {
+                            this.setAppStateValue('mascot', 'cat')
                         }
                     },
                     {
                         goTo: 'card-instance-0-1_D',
                         text: 'Butterfly',
                         template: 'Option9', 
-                        callback: () => {
-                            store.setValue('mascot', 'butterfly')
+                        callback: function (el, options) {
+                            this.setAppStateValue('mascot', 'butterfly')
                         }
                     },
-                    {
-                        html: `
-                            <div class='background-color-rainbow-0 animation-duration-12 z-index-2'></div>`,
-                        callback: () => console.log('SPECIAL CLICK')
-                    }            
+                    // {
+                    //     html: `
+                    //         <div class='background-color-rainbow-0 animation-duration-12 z-index-2'></div>`,
+                    //     callback: function (el, options) {console.log('SPECIAL CLICK')}
+                    // }            
                 ]        
             },
             {
