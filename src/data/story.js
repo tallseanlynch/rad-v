@@ -16,10 +16,10 @@ const empty = { html:'' }
 const chapterCardProps = {
     backgroundElements: [
         {
-            html: `<img class="absolute h-full w-full pixel-image" src="./assets/gifs/seq-2-p.gif"></img>`
+            html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-5" src="./assets/gifs/seq-3-p.gif"></img>`
         },
         {
-            html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-10" src="./assets/gifs/seq-3-p.gif"></img>`
+            html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-10" src="./assets/gifs/seq-2-p.gif"></img>`
         },
         {
             html: `
@@ -57,7 +57,10 @@ const chapterCardProps = {
 const cardProps = {
     backgroundElements: [
         {
-            html: `<img class="absolute h-full w-full pixel-image" src="./assets/gifs/seq-2-p.gif"></img>`
+            html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-5" src="./assets/gifs/seq-3-p.gif"></img>`
+        },
+        {
+            html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-10" src="./assets/gifs/seq-2-p.gif"></img>`
         },
         {
             html: `<div class='screen-bar-1 animation-duration-20'></div>
@@ -105,7 +108,7 @@ const cardProps = {
 // props will be important later to parameterize the story 
 // const cards = (props) => {
 
-const cards = () => {
+function cards() {
     return {
         cardInstances: [
 
@@ -152,7 +155,7 @@ const cards = () => {
                         text: 'Pheasant',
                         template: 'Option9', 
                         callback: function (el, options) {
-                            // debugger
+                            // debuggerdebugger
                             console.log('CALLBACK CALLED')
                             console.log(el)
                             console.log(this)
@@ -189,11 +192,11 @@ const cards = () => {
                             this.setAppStateValue('mascot', 'butterfly')
                         }
                     },
-                    // {
-                    //     html: `
-                    //         <div class='background-color-rainbow-0 animation-duration-12 z-index-2'></div>`,
-                    //     callback: function (el, options) {console.log('SPECIAL CLICK')}
-                    // }            
+                    {
+                        html: `
+                            <div class='background-color-rainbow-0 animation-duration-12 z-index-2'></div>`,
+                        callback: function (el, options) {console.log('SPECIAL CLICK')}
+                    }            
                 ]        
             },
             {
@@ -779,14 +782,16 @@ const cards = () => {
                     {
                         goTo: 'card-instance-0-7-0',
                         template: 'Option9' ,
-                        text: `A ${store.getValue('mascot')} in a hologram.`,
-                        callback: () => store.setValue('simForm', 'hologram')
+                        text: `A ${ this.getAppState().mascot } in a hologram.`,
+                        callback: function () { this.setAppStateValue('simForm', 'hologram') }//store.setValue('simForm', 'hologram')
+                        
                     },
                     {
                         goTo: 'card-instance-0-7-1',
                         template: 'Option9',
                         text: 'As I did in reality.',
-                        callback: () => store.setValue('simForm', 'person')
+                        // callback: () => store.setValue('simForm', 'person')
+                        callback: function () {this.setAppStateValue('simForm', 'person')}
                     },
                 ]        
             },

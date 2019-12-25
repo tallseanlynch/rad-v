@@ -1,7 +1,58 @@
-import * as tailwindCSS from '../../assets/css/tailwind.min.css'
-import * as textlyUtilities from '../../assets/css/textly-utilities.css'
+import '../../assets/css/tailwind.min.css'
+import '../../assets/css/textly-utilities.css'
 import { cards } from '../../data/story.js'
 import moment from 'moment'
+
+let testCardHistory = [
+  {
+    "cardInstance": "card-instance-0-0",
+    "time": 1576892605515,
+    "formatTime": "20 Dec 2019 07:43 pm",
+    "chapter": false
+  },
+  {
+    "cardInstance": "card-instance-0-1_B",
+    "time": 1576892867086,
+    "formatTime": "20 Dec 2019 07:47 pm",
+    "chapter": false,
+    "generatedId": "id_345288608"
+  },
+  {
+    "cardInstance": "card-instance-0-1---0",
+    "time": 1576893772296,
+    "formatTime": "20 Dec 2019 08:02 pm",
+    "chapter": false,
+    "generatedId": "id_188415536"
+  },
+  {
+    "cardInstance": "card-instance-0-1---1",
+    "time": 1576893777711,
+    "formatTime": "20 Dec 2019 08:02 pm",
+    "chapter": false,
+    "generatedId": "id_172301382"
+  },
+  {
+    "cardInstance": "card-instance-0-2",
+    "time": 1576893781743,
+    "formatTime": "20 Dec 2019 08:03 pm",
+    "chapter": false,
+    "generatedId": "id_735737441"
+  },
+  {
+    "cardInstance": "card-instance-0-3",
+    "time": 1576893785615,
+    "formatTime": "20 Dec 2019 08:03 pm",
+    "chapter": false,
+    "generatedId": "id_909091624"
+  },
+  {
+    "cardInstance": "card-instance-0-4",
+    "time": 1576893789793,
+    "formatTime": "20 Dec 2019 08:03 pm",
+    "chapter": false,
+    "generatedId": "id_17673057"
+  }
+]
 
 export default class App {
     constructor (elem) {
@@ -20,22 +71,26 @@ export default class App {
         OptionDownArrow: OptionDownArrow.bind(this),
         Empty: Empty.bind(this)
       }
-      this.currentCardInstanceId = 'card-instance-0-0'
+      this.currentCardInstanceId = 'card-instance-0-4'
       this.currentCardOptionsActive = true
-      this.cardHistory = [
-        {
-          cardInstance: this.currentCardInstanceId,
-          time: Date.now(),
-          formatTime: moment(Date.now()).format("DD MMM YYYY hh:mm a"),
-          chapter: false
-        },
-      ]
-      this.cards = cards
+      this.cardHistory = testCardHistory
+      // this.cardHistory = [
+      //   {
+      //     cardInstance: this.currentCardInstanceId,
+      //     time: Date.now(),
+      //     formatTime: moment(Date.now()).format("DD MMM YYYY hh:mm a"),
+      //     chapter: false
+      //   },
+      // ]
+      this.cards = cards.bind(this)
       this.bus = bus.bind(this)
       this.busFunctions = {}
       window.bus = this.bus
 
-      this.appState = {}
+      this.appState = {
+        mascot: 'wolf',
+        simForm: ''
+      }
       this.setAppStateValue = this.setAppStateValue.bind(this)
       this.getAppState = this.getAppState.bind(this)
       this.updateCurrentCardInstanceId = this.updateCurrentCardInstanceId.bind(this)
@@ -67,8 +122,8 @@ export default class App {
         },
         ...options
       }
-      console.log('cardData', cardData)
-      console.log('CARDHISTORY OPTIONS', options)
+      // console.log('cardData', cardData)
+      // console.log('CARDHISTORY OPTIONS', options)
       this.cardHistory.push(cardData)
       this.updateCurrentCardInstanceId(this.parseCardInstance(cardInstanceId))
       const beforeHist = document.querySelector('.full-card').scrollTop
@@ -85,7 +140,7 @@ export default class App {
     }
     
     addDefaultToElements (cardInstance) {
-      console.log('addDefaultToElements')
+      // console.log('addDefaultToElements')
       return cardInstance
     }
 
@@ -102,15 +157,15 @@ export default class App {
     }
         
     render () {
-      console.log(this.cards())
-      console.log(this)
+      // console.log(this.cards())
+      // console.log(this)
 
       if (this.elem) this.elem.innerHTML = `<section data-component="app">${this.templates.appContainer()}</section>`
     }
 }
 
 function bus (elId) {
-  console.log(this.busFunctions[elId])
+  // console.log(this.busFunctions[elId])
   this.busFunctions[elId].bind(this)(elId)
 }
 
@@ -151,7 +206,7 @@ function element (el = {}) {
         // console.log('OOOOOOOOOOOOOOOOOOO', this)
         // this.addClassesToDOMNode(`#${generatedId}`, ['opacity-out-0','animation-duration-1'])
         this.addClassesToDOMNode(`.card-option.${el.cardInstance}`, ['opacity-out-0','animation-duration-1'])
-        console.log(el)
+        // console.log(el)
         setTimeout(() => {
           el.callback && el.callback.bind(this)(el, {generatedId})
           el.goTo && this.addCardToCardHistory(el.goTo, {generatedId})  
@@ -196,8 +251,8 @@ function backgroundElements (els = []) {
     }))
   })[0]
 
-  console.log('backgroundElements', els)
-  return `<div class="layer--background-elements fixed h-full w-full">${allCardElements.map(el => {console.log(el); return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
+  // console.log('backgroundElements', els)
+  return `<div class="layer--background-elements fixed h-full w-full">${allCardElements.map(el => {return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
 
 
   // return `<div class="layer--background-elements fixed h-full w-full">${els.map(el => this.templates.element(el)).join('')}</div>`
@@ -206,10 +261,10 @@ function backgroundElements (els = []) {
 function cardElements (els = [], options) {
   // cardHistory ids as an array
   let historyCardInstanceIds = this.cardHistory.map(histCardId => histCardId.cardInstance)
-
+  console.log('historyCardInstanceIds', historyCardInstanceIds)
   // get all cards and transform strings into objects {text:'text'} with templates
   let allCards = this.cardHistory.map((ch, chi) => {
-    console.log('ch', ch)
+    // console.log('ch', ch)
     return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).cardElements.map((ce => {
       if(typeof ce === 'string') {
         return { 
@@ -232,41 +287,52 @@ function cardElements (els = [], options) {
   let allCardElements = [].concat(...allCards)
 
   let firstCurrentCardElementIndex = allCardElements.map(ace => this.parseCardInstance(ace.cardInstance)).indexOf(this.parseCardInstance(this.currentCardInstanceId)) // === this.currentCardInstanceId && console.log()})
-  console.log('firstCurrentCardElement', firstCurrentCardElementIndex)
+  // console.log('firstCurrentCardElement', firstCurrentCardElementIndex)
 
   const animationTop = {
     html: `<div class="current-card-transition-in w-full animation-duration-1"></div>`,
     cardInstance: this.currentCardInstanceId
   }
-  console.log(allCardElements)
   allCardElements.splice(firstCurrentCardElementIndex, 0, animationTop)
-  // 
-  console.log(allCardElements)
-  // 
+
   // all options
   let filteredOptions = allCardElements.filter(ac => ac.goTo ).filter(op => op.goTo) 
 
   // chosen history option
   let filteredHistoryOptions = filteredOptions.filter(ho => historyCardInstanceIds.indexOf(ho.goTo) > -1).map(mho => mho.goTo)
-  // filteredHistoryOptions = filteredHistoryOptions.map(fho => {return {...fho, cardElementClasses: 'opacity-in-0 animation-duration-1'}})
+  let unchosenFilteredHistoryOptions = filteredOptions.filter(ho => historyCardInstanceIds.indexOf(ho.goTo) < 0).map(mho => mho.goTo)
+  let parsedUnchosenFilteredHistoryOptions = unchosenFilteredHistoryOptions.map(phc => this.parseCardInstance(phc))
+  let currentCardInstanceIdOptions = this.getCardInstanceById(this.currentCardInstanceId).cardElements.filter(ccii => ccii.goTo).map(ce => ce.goTo)
+
+  console.log('currentCardInstanceId', this.currentCardInstanceId)
 
   // unchosen history options
-  let staleFilteredHistoryOptions = filteredOptions.filter(sho => historyCardInstanceIds.indexOf(sho.goTo) < 0 && historyCardInstanceIds.map(phc => this.parseCardInstance(phc)).indexOf(this.parseCardInstance(sho.goTo)) > -1).map(show => show.goTo)
+  // let staleFilteredHistoryOptions = filteredOptions.filter(sho => historyCardInstanceIds.indexOf(sho.goTo) < 0 && historyCardInstanceIds.map(phc => this.parseCardInstance(phc)).indexOf(this.parseCardInstance(sho.goTo)) > -1).map(show => show.goTo)
+  let staleFilteredHistoryOptions = unchosenFilteredHistoryOptions.filter(op => currentCardInstanceIdOptions.indexOf(op) < 0)
 
-  console.log('allCardElements', allCardElements)
   console.log('filteredOptions', filteredOptions)
   console.log('filteredHistoryOptions', filteredHistoryOptions)
+  console.log('unchosenFilteredHistoryOptions', unchosenFilteredHistoryOptions)
+  console.log('parsedUnchosenFilteredHistoryOptions', parsedUnchosenFilteredHistoryOptions)
+  console.log('currentCardInstanceIdOptions', currentCardInstanceIdOptions)
+
   console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
-  filteredHistoryOptions.length > 0 && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>> FILTERED AN EXISTING OPTION', filteredHistoryOptions)
+
+  // console.log('allCardElements', allCardElements)
+  // console.log('filteredOptions', filteredOptions)
+  // console.log('filteredHistoryOptions', filteredHistoryOptions)
+  // console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
+  // filteredHistoryOptions.length > 0 && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>> FILTERED AN EXISTING OPTION', filteredHistoryOptions)
 
   let filteredAllCardElements = allCardElements.filter(ace => (ace.goTo === undefined || staleFilteredHistoryOptions.indexOf(ace.goTo) < 0)).map(face => {
-    if(face.cardInstance === undefined) {
-      console.log('!!!!!!!!!!!!!!!!!! FACE', face)
-    }
+    // if(face.cardInstance === undefined) {
+    //   console.log('!!!!!!!!!!!!!!!!!! FACE', face)
+    // }
     if(filteredHistoryOptions.indexOf(face.goTo) < 0) {
+      // console.log(face)
       return face
     } else {
-      console.log(face.cardInstance)
+      // console.log(face.cardInstance)
       if(face.text) {
         return {
           ...face,
@@ -281,13 +347,15 @@ function cardElements (els = [], options) {
       }
     }
   }).filter(ce => ce !== undefined)
+  // console.log('filteredAllCardElements', filteredAllCardElements)
+
   //.filter(ce => ce.template !== 'Empty' || ce.cardInstance === undefined)
-  console.log('filteredAllCardElements', filteredAllCardElements)
-  return `<div class="layer--main-elements max-w-3xl p-16 block z-index-1 w-full">${filteredAllCardElements.map(el => {console.log(el); return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
+  // console.log('filteredAllCardElements', filteredAllCardElements)
+  return `<div class="layer--main-elements max-w-3xl p-16 block z-index-1 w-full">${filteredAllCardElements.map(el => {return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
 }
 
 function foregroundElements (els = []) {
-  console.log(els)
+  // console.log(els)
   return els
 }
 
