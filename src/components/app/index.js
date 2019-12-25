@@ -5,6 +5,12 @@ import moment from 'moment'
 
 let testCardHistory = [
   {
+    "cardInstance": "chapter-title-0",
+    "time": 1576892605515,
+    "formatTime": "20 Dec 2019 07:43 pm",
+    "chapter": true
+  },
+  {
     "cardInstance": "card-instance-0-0",
     "time": 1576892605515,
     "formatTime": "20 Dec 2019 07:43 pm",
@@ -69,7 +75,8 @@ export default class App {
         Option9: Option9.bind(this),
         OptionDotDotDot: OptionDotDotDot.bind(this),
         OptionDownArrow: OptionDownArrow.bind(this),
-        Empty: Empty.bind(this)
+        Empty: Empty.bind(this),
+        Chapter1: Chapter1.bind(this)
       }
       this.currentCardInstanceId = 'card-instance-0-4'
       this.currentCardOptionsActive = true
@@ -171,22 +178,6 @@ function bus (elId) {
 
 function element (el = {}) {
 
-  // if(el.isHistory && el.goTo) {
-    // user has been to this element's card before
-    // element is an option from the card history
-    // meaning user should see the selected option as text and not the option
-
-    // let historyElementInterior = ''
-    // if(el.text && ([...this.cardHistory.map(h => h.cardInstance), this.currentCardInstanceId ].indexOf(el.goTo) > -1)) {
-    //   if(defaults && el.defaults.text && el.defaults.text.template) {
-    //     historyElementInterior = `<span id="${this.returnRandomId()}" class="card-element--text opacity-in-0 animation-duration-1 history-option">${el.template(el.text)}</span>`
-    //   } else {
-    //     historyElementInterior = `<span id="${this.returnRandomId()}" class="card-element--text opacity-in-0 animation-duration-1 history-option">${el.text}</span>`              
-    //   }
-    // }
-    // return `<div class="card-element--container ${el.cardElementClasses} history">${historyElementInterior}</div>`
-  // } else {
-    // user has NOT been to this element's card before
     if(el.anchor) {
       return `<div class="card-element--anchor" id="${this.returnRandomId()}"></div>`
     }    
@@ -197,26 +188,17 @@ function element (el = {}) {
       let templateInterior = ''
       if(el.html) { templateInterior = `<span class="card-element--html">${el.html}</span>` }
       if(el.text) { templateInterior = `<span class="card-element--text">${el.text}</span>` }
-      cardElementInterior = `<div class="card-element--template">${this.templates[el.template](templateInterior)}</div>`        
+      cardElementInterior = `<div class="card-element--template template-${el.template}">${this.templates[el.template](templateInterior)}</div>`        
     }
     let generatedId = this.returnRandomId()
-
-    // if(el.goTo) {
       this.busFunctions[generatedId] = function () {
-        // console.log('OOOOOOOOOOOOOOOOOOO', this)
-        // this.addClassesToDOMNode(`#${generatedId}`, ['opacity-out-0','animation-duration-1'])
         this.addClassesToDOMNode(`.card-option.${el.cardInstance}`, ['opacity-out-0','animation-duration-1'])
-        // console.log(el)
         setTimeout(() => {
           el.callback && el.callback.bind(this)(el, {generatedId})
           el.goTo && this.addCardToCardHistory(el.goTo, {generatedId})  
         }, 1000)
       }
-    // } else {
-    //   this.busFunctions[generatedId] = el.callback
-    // }
     return `<div class="card-element--container ${el.goTo ? 'card-option' : ''} ${el.cardInstance} ${el.cardElementClasses ? el.cardElementClasses : ''} object"  id="${generatedId}" onClick="bus('${generatedId}')">${cardElementInterior}</div>`
-  // }
 }
 
 function addClassesToDOMNode (node, classes) {
@@ -261,7 +243,7 @@ function backgroundElements (els = []) {
 function cardElements (els = [], options) {
   // cardHistory ids as an array
   let historyCardInstanceIds = this.cardHistory.map(histCardId => histCardId.cardInstance)
-  console.log('historyCardInstanceIds', historyCardInstanceIds)
+  // console.log('historyCardInstanceIds', historyCardInstanceIds)
   // get all cards and transform strings into objects {text:'text'} with templates
   let allCards = this.cardHistory.map((ch, chi) => {
     // console.log('ch', ch)
@@ -303,6 +285,7 @@ function cardElements (els = [], options) {
   let unchosenFilteredHistoryOptions = filteredOptions.filter(ho => historyCardInstanceIds.indexOf(ho.goTo) < 0).map(mho => mho.goTo)
   let parsedUnchosenFilteredHistoryOptions = unchosenFilteredHistoryOptions.map(phc => this.parseCardInstance(phc))
   let currentCardInstanceIdOptions = this.getCardInstanceById(this.currentCardInstanceId).cardElements.filter(ccii => ccii.goTo).map(ce => ce.goTo)
+  let continueOptions = filteredHistoryOptions.filter(co => co.text === undefined)
 
   console.log('currentCardInstanceId', this.currentCardInstanceId)
 
@@ -315,16 +298,19 @@ function cardElements (els = [], options) {
   console.log('unchosenFilteredHistoryOptions', unchosenFilteredHistoryOptions)
   console.log('parsedUnchosenFilteredHistoryOptions', parsedUnchosenFilteredHistoryOptions)
   console.log('currentCardInstanceIdOptions', currentCardInstanceIdOptions)
+  console.log('continueOptions', continueOptions)
 
   console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
 
-  // console.log('allCardElements', allCardElements)
-  // console.log('filteredOptions', filteredOptions)
-  // console.log('filteredHistoryOptions', filteredHistoryOptions)
-  // console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
+  console.log('allCardElements', allCardElements)
+  console.log('filteredOptions', filteredOptions)
+  console.log('filteredHistoryOptions', filteredHistoryOptions)
+  console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
   // filteredHistoryOptions.length > 0 && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>> FILTERED AN EXISTING OPTION', filteredHistoryOptions)
 
-  let filteredAllCardElements = allCardElements.filter(ace => (ace.goTo === undefined || staleFilteredHistoryOptions.indexOf(ace.goTo) < 0)).map(face => {
+  let allFilteredCardElements = allCardElements.filter(ace => (ace.goTo === undefined || staleFilteredHistoryOptions.indexOf(ace.goTo) < 0))//.filter(c => continueOptions.indexOf(c.goTo) < 0)
+// debugger
+  let filteredAllCardElements = allFilteredCardElements.map(face => {
     // if(face.cardInstance === undefined) {
     //   console.log('!!!!!!!!!!!!!!!!!! FACE', face)
     // }
@@ -347,11 +333,14 @@ function cardElements (els = [], options) {
       }
     }
   }).filter(ce => ce !== undefined)
-  // console.log('filteredAllCardElements', filteredAllCardElements)
+
+   let filterChapterCardElements = filteredAllCardElements.filter(falce => falce.chapter !== true)
+  console.log('filterChapterCardElements', filterChapterCardElements)
+   // console.log('filteredAllCardElements', filteredAllCardElements)
 
   //.filter(ce => ce.template !== 'Empty' || ce.cardInstance === undefined)
   // console.log('filteredAllCardElements', filteredAllCardElements)
-  return `<div class="layer--main-elements max-w-3xl p-16 block z-index-1 w-full">${filteredAllCardElements.map(el => {return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
+  return `<div class="layer--main-elements max-w-3xl p-16 block z-index-1 w-full">${filterChapterCardElements.map(el => {return this.templates.element(el)}).join('')}</div>`
 }
 
 function foregroundElements (els = []) {
@@ -410,4 +399,60 @@ function Text0 (interior) {
 
 function Empty () {  
   return ``
+}
+
+function Chapter1 () {
+  return `<div class="flex justify-center content-center">
+  <div class="css-preview text-white block font-size-flux-0 animation-duration-8">
+    <span class="letter font-weight-flux-0 animation-duration-12">
+        <span class="color-rad-0 animation-duration-14">
+            <span class="letter font-flux-rad-0 animation-duration-9">
+                <span class="top-flux-0 animation-duration-7">C</span>
+            </span>
+        </span>
+
+        <span class="color-rad-0 animation-duration-5">
+            <span class="letter font-flux-rad-0 animation-duration-8">H</span>
+        </span>
+
+        <span class="color-rad-0 animation-duration-12">
+            <span class="letter font-flux-rad-0 animation-duration-13">
+                <span class="top-flux-0 animation-duration-12">A</span>
+            </span>
+        </span>
+
+        <span class="color-rad-0 animation-duration-8">
+            <span class="letter font-flux-rad-0 animation-duration-12">
+                <span class="top-flux-0 animation-duration-16">P</span>
+            </span>
+        </span>
+
+        <span class="color-rad-0 animation-duration-4">
+            <span class="letter font-flux-rad-0 animation-duration-8">
+                <span class="top-flux-0 animation-duration-12">T</span>
+            </span>
+        </span>
+
+        <span class="color-rad-0 animation-duration-9">
+            <span class="letter font-flux-rad-0 animation-duration-16">E</span>
+        </span>
+
+        <span class="color-rad-0 animation-duration-15">
+            <span class="letter font-flux-rad-0 animation-duration-11">
+                <span class="top-flux-0 animation-duration-9">R</span>
+            </span>
+        </span>
+
+        <span class="color-rad-0 animation-duration-7 w-8">
+            <span class="letter font-flux-rad-0 animation-duration-2">
+                <span class="top-flux-0 animation-duration-6"></span>
+            </span>
+        </span>
+
+        <span class="letter font-flux-rad-0 animation-duration-9">
+            <span class="color-rad-0 animation-duration-15">1</span>
+        </span>
+    </span>
+  </div>
+</div>`
 }

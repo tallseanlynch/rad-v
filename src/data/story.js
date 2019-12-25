@@ -126,10 +126,11 @@ function cards() {
                 cardElements: [
                     {
                         cardElementClasses: `flex justify-center`,
-                        template: 'Chapter1' 
+                        template: 'Chapter1',
+                        chapter: true 
                     },
                 ],
-                cardClick: () => { console.log('cardClicked') }   
+                callback: function () { console.log('cardClicked') }   
             },
 
             {
@@ -563,7 +564,7 @@ function cards() {
                                         `After some sweeping interventions, I quickly discovered that I was only making the problem worse.`,
                                         `I reset the simulation to a previous state where the results were still fruitful.`,
                                         {
-                                            goTo: 'card-instance-0-0',
+                                            goTo: 'card-instance-0-5',
                                             template: 'OptionDownArrow' 
                                         }
                                     ]        
@@ -1198,9 +1199,6 @@ function cards() {
                     },
                 ]        
             },
-// **********************************************************************************************
-// **********************************************************************************************
-// **********************************************************************************************
                 {
                     id: 'card-instance-0-14-0',
                     ...cardProps,
@@ -1292,7 +1290,17 @@ function cards() {
                                 {
                                     goTo: 'card-instance-0-0',
                                     template: 'Option9',
-                                    text: ``
+                                    text: `JUAN SIX -- An previous colleague.`
+                                },
+                                {
+                                    goTo: 'card-instance-0-0',
+                                    template: 'Option9',
+                                    text: `Dr. Bertra Segu -- Previous assistant.`
+                                },
+                                {
+                                    goTo: 'card-instance-0-0',
+                                    template: 'Option9',
+                                    text: `Dr. Bertra Segu -- Previous assistant.`
                                 },
                             ]        
                         },
@@ -1307,9 +1315,8 @@ function cards() {
                                 `I knew that it was okay endanger MYSELF like this,
                                 But I didn't want to endanger ANYONE else...`,
                                 {
-                                    goTo: 'card-instance-0-0',
-                                    template: 'Option9',
-                                    text: `card-instance-0-15`
+                                    goTo: 'card-instance-0-15',
+                                    template: 'OptionDotDotDot',
                                 },
                             ]        
                         },    
