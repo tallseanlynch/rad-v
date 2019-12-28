@@ -4,12 +4,12 @@ import { cards } from '../../data/story.js'
 import moment from 'moment'
 
 let testCardHistory = [
-  {
-    "cardInstance": "chapter-title-0",
-    "time": 1576892605515,
-    "formatTime": "20 Dec 2019 07:43 pm",
-    "chapter": true
-  },
+  // {
+  //   "cardInstance": "chapter-title-0",
+  //   "time": 1576892605515,
+  //   "formatTime": "20 Dec 2019 07:43 pm",
+  //   "chapter": true
+  // },
   {
     "cardInstance": "card-instance-0-0",
     "time": 1576892605515,
@@ -71,12 +71,15 @@ export default class App {
         backgroundElements: backgroundElements.bind(this),
         cardElements: cardElements.bind(this),
         foregroundElements: foregroundElements.bind(this),
+        chapterElements: chapterElements.bind(this),
+        mainMenuElements: mainMenuElements.bind(this),
         Text0: Text0.bind(this),
         Option9: Option9.bind(this),
         OptionDotDotDot: OptionDotDotDot.bind(this),
         OptionDownArrow: OptionDownArrow.bind(this),
         Empty: Empty.bind(this),
-        Chapter1: Chapter1.bind(this)
+        Chapter1: Chapter1.bind(this),
+        MainMenu: MainMenu.bind(this)
       }
       this.currentCardInstanceId = 'card-instance-0-4'
       this.currentCardOptionsActive = true
@@ -96,7 +99,10 @@ export default class App {
 
       this.appState = {
         mascot: 'wolf',
-        simForm: ''
+        simForm: '',
+        chapterMenu: false,
+        mainMenu: true,
+        storyMenu: false
       }
       this.setAppStateValue = this.setAppStateValue.bind(this)
       this.getAppState = this.getAppState.bind(this)
@@ -240,6 +246,14 @@ function backgroundElements (els = []) {
   // return `<div class="layer--background-elements fixed h-full w-full">${els.map(el => this.templates.element(el)).join('')}</div>`
 }
 
+function chapterElements (els = [], options) {
+  return this.templates.Chapter1()
+}
+
+function mainMenuElements (els = [], options) {
+  return this.templates.MainMenu()
+}
+
 function cardElements (els = [], options) {
   // cardHistory ids as an array
   let historyCardInstanceIds = this.cardHistory.map(histCardId => histCardId.cardInstance)
@@ -334,7 +348,7 @@ function cardElements (els = [], options) {
     }
   }).filter(ce => ce !== undefined)
 
-   let filterChapterCardElements = filteredAllCardElements.filter(falce => falce.chapter !== true)
+   let filterChapterCardElements = filteredAllCardElements//.filter(falce => falce.chapter !== true)
   console.log('filterChapterCardElements', filterChapterCardElements)
    // console.log('filteredAllCardElements', filteredAllCardElements)
 
@@ -354,10 +368,12 @@ function appContainer (config = {}) {
     class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0"
     ref="card"
   >
-    ${this.templates.backgroundElements()}
-    ${this.templates.cardElements()}
-    ${this.templates.foregroundElements()}
-  </div>
+    ${this.appState.storyMenu && this.templates.backgroundElements()}
+    ${this.appState.storyMenu && this.templates.cardElements()}
+    ${this.appState.storyMenu && this.templates.foregroundElements()}
+    ${this.appState.chapterMenu && this.templates.chapterElements()}
+    ${this.appState.mainMenu && this.templates.mainMenuElements()}
+    </div>
 `
 }
 
@@ -402,57 +418,432 @@ function Empty () {
 }
 
 function Chapter1 () {
-  return `<div class="flex justify-center content-center">
-  <div class="css-preview text-white block font-size-flux-0 animation-duration-8">
-    <span class="letter font-weight-flux-0 animation-duration-12">
-        <span class="color-rad-0 animation-duration-14">
+  return `<!--Chapter section -->
+<div class="chapter layer--main-elements max-w-3xl block w-full h-full absolute z-index-2 bg-black">
+  <!--Background elements section -->
+  <div class="flex justify-center content-center items-center h-full w-full absolute">
+    <div class="chapter layer--background-elements fixed h-full w-full">
+      <div class="card-element--container">
+        <img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-5" src="./assets/gifs/seq-3-p.gif">
+      </div>
+      <div class="card-element--container">
+        <img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-10" src="./assets/gifs/seq-2-p.gif">
+      </div>
+      <div class="card-element--container">
+        <div class="screen-bar-1 animation-duration-20"></div>
+        <div class="screen-bar-2 animation-duration-12"></div>
+        <div class="screen-bar-3 animation-duration-16"></div>
+        <div class="screen-bar-1 animation-duration-8"></div>
+      </div>
+    </div>  
+    <!--Foreground elements section -->
+    <div class="flex justify-center content-center items-center h-full w-full absolute">
+      <div class="css-preview text-white block font-size-flux-0 animation-duration-8">
+        <span class="letter font-weight-flux-0 animation-duration-12">
+            <span class="color-rad-0 animation-duration-14">
+                <span class="letter font-flux-rad-0 animation-duration-9">
+                    <span class="top-flux-0 animation-duration-7">C</span>
+                </span>
+            </span>
+
+            <span class="color-rad-0 animation-duration-5">
+                <span class="letter font-flux-rad-0 animation-duration-8">H</span>
+            </span>
+
+            <span class="color-rad-0 animation-duration-12">
+                <span class="letter font-flux-rad-0 animation-duration-13">
+                    <span class="top-flux-0 animation-duration-12">A</span>
+                </span>
+            </span>
+
+            <span class="color-rad-0 animation-duration-8">
+                <span class="letter font-flux-rad-0 animation-duration-12">
+                    <span class="top-flux-0 animation-duration-16">P</span>
+                </span>
+            </span>
+
+            <span class="color-rad-0 animation-duration-4">
+                <span class="letter font-flux-rad-0 animation-duration-8">
+                    <span class="top-flux-0 animation-duration-12">T</span>
+                </span>
+            </span>
+
+            <span class="color-rad-0 animation-duration-9">
+                <span class="letter font-flux-rad-0 animation-duration-16">E</span>
+            </span>
+
+            <span class="color-rad-0 animation-duration-15">
+                <span class="letter font-flux-rad-0 animation-duration-11">
+                    <span class="top-flux-0 animation-duration-9">R</span>
+                </span>
+            </span>
+
+            <span class="color-rad-0 animation-duration-7 w-8">
+                <span class="letter font-flux-rad-0 animation-duration-2">
+                    <span class="top-flux-0 animation-duration-6"></span>
+                </span>
+            </span>
+
             <span class="letter font-flux-rad-0 animation-duration-9">
-                <span class="top-flux-0 animation-duration-7">C</span>
+                <span class="color-rad-0 animation-duration-15">1</span>
             </span>
         </span>
-
-        <span class="color-rad-0 animation-duration-5">
-            <span class="letter font-flux-rad-0 animation-duration-8">H</span>
-        </span>
-
-        <span class="color-rad-0 animation-duration-12">
-            <span class="letter font-flux-rad-0 animation-duration-13">
-                <span class="top-flux-0 animation-duration-12">A</span>
-            </span>
-        </span>
-
-        <span class="color-rad-0 animation-duration-8">
-            <span class="letter font-flux-rad-0 animation-duration-12">
-                <span class="top-flux-0 animation-duration-16">P</span>
-            </span>
-        </span>
-
-        <span class="color-rad-0 animation-duration-4">
-            <span class="letter font-flux-rad-0 animation-duration-8">
-                <span class="top-flux-0 animation-duration-12">T</span>
-            </span>
-        </span>
-
-        <span class="color-rad-0 animation-duration-9">
-            <span class="letter font-flux-rad-0 animation-duration-16">E</span>
-        </span>
-
-        <span class="color-rad-0 animation-duration-15">
-            <span class="letter font-flux-rad-0 animation-duration-11">
-                <span class="top-flux-0 animation-duration-9">R</span>
-            </span>
-        </span>
-
-        <span class="color-rad-0 animation-duration-7 w-8">
-            <span class="letter font-flux-rad-0 animation-duration-2">
-                <span class="top-flux-0 animation-duration-6"></span>
-            </span>
-        </span>
-
-        <span class="letter font-flux-rad-0 animation-duration-9">
-            <span class="color-rad-0 animation-duration-15">1</span>
-        </span>
-    </span>
+      </div>
+    </div>
   </div>
 </div>`
 }
+
+function MainMenu () {
+  return `<!--Main menu section -->
+  <style>
+    .movement-vertical-0--0 {
+        animation: keyframes-movement-vertical infinite ease-in-out 0.5s;
+        position: relative;
+    }
+
+    .movement-vertical-0--1 {
+      animation: keyframes-movement-vertical infinite ease-in-out 1s;
+      position: relative;
+    }
+
+    .movement-vertical-0--2 {
+      animation: keyframes-movement-vertical infinite ease-in-out 2s;
+      position: relative;
+
+    }
+    .movement-vertical-0--3 {
+      animation: keyframes-movement-vertical infinite ease-in-out 3s;
+      position: relative;
+
+    }
+    .movement-vertical-0--4 {
+      animation: keyframes-movement-vertical infinite ease-in-out 4s;
+      position: relative;
+
+    }
+
+    .movement-vertical-0--5 {
+      animation: keyframes-movement-vertical infinite ease-in-out 5s;
+      position: relative;
+    }
+
+    .movement-vertical-0--6 {
+      animation: keyframes-movement-vertical infinite ease-in-out 6s;
+      position: relative;
+    }
+
+    .movement-vertical-0--7 {
+      animation: keyframes-movement-vertical infinite ease-in-out 7s;
+      position: relative;
+    }    
+
+    .movement-vertical-0--8 {
+      animation: keyframes-movement-vertical infinite ease-in-out 8s;
+      position: relative;
+    }
+
+    .movement-vertical-0--9 {
+      animation: keyframes-movement-vertical infinite ease-in-out 9s;
+      position: relative;
+    }
+
+    .movement-vertical-0--10 {
+      animation: keyframes-movement-vertical infinite ease-in-out 10s;
+      position: relative;
+  }
+
+    @keyframes keyframes-movement-vertical {
+      0% {
+          left: 0%;
+          top: -15%;
+          font-size: 1em;
+      }
+  
+      25% {
+          left: 50%;
+      }
+  
+      50% {
+          left: 0%;
+          font-size: 3em;
+      }
+  
+      75% {
+          left: 100%;
+      }
+  
+      100% {
+          left: 0%;
+          top: 105%;
+          font-size: 1em;
+      }
+    }
+
+    .game-font {
+      font-family: slkscrb;
+      font-size: 2em;
+    }
+
+    .game-font-main-menu {
+      font-family: slkscrb;
+      font-size: 4em;
+    }
+
+  </style>
+<div class="main-menu layer--main-elements flex justify-center w-full h-full absolute z-index-3 bg-black overflow-hidden">
+  <!--Foreground elements section -->
+
+  <div class="flex justify-center content-center h-full w-full absolute text-white game-font-main-menu z-index-4">
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-7">R</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-6">A</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-10">D</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-9">I</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-8">A</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-15">T</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-16">I</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-5">O</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <span class="color-flux-0 animation-duration-7">N</span>
+    </div>
+  </div>
+
+  <div class="flex justify-center content-center h-full w-full absolute text-white game-font">
+    <div class="flex-1 background-color-rad-0 animation-duration-11">
+      <span class="animation-duration-10 movement-vertical-0--10">
+        <span class="color-rad-0 animation-duration-10">R</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--8">
+        <span class="color-rad-0 animation-duration-12">A</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--6">
+        <span class="color-rad-0 animation-duration-4">D</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--4">
+        <span class="color-rad-0 animation-duration-6">I</span>
+      </span>
+    </div>
+    <div class="flex-1 background-color-rad-0 animation-duration-4">
+      <span class="animation-duration-10 movement-vertical-0--5">
+        <span class="color-rad-0 animation-duration-10">A</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--7">
+        <span class="color-rad-0 animation-duration-10">T</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--9">
+        <span class="color-rad-0 animation-duration-10">I</span>
+      </span>
+    </div>
+    <div class="flex-1 background-color-rad-0 animation-duration-9 flex items-center justify-center">
+      <span class="animation-duration-10 movement-vertical-0--4">
+        <span class="color-rad-0 animation-duration-10">N</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--3">
+        <span class="color-rad-0 animation-duration-10">R</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--6">
+        <span class="color-rad-0 animation-duration-10">A</span>
+      </span>
+    </div>
+    <div class="flex-1 background-color-rad-0 animation-duration-3 flex items-center justify-center">
+      <span class="animation-duration-10 movement-vertical-0--4">
+        <span class="color-rad-0 animation-duration-10">I</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--3">
+        <span class="color-rad-0 animation-duration-10">A</span>
+      </span>
+      <span class="animation-duration-10 movement-vertical-0--8">
+        <span class="color-rad-0 animation-duration-10">T</span>
+      </span>
+    </div>
+    <div class="flex-1 background-color-rad-0 animation-duration-8 flex items-center justify-center">
+      <span class="color-rad-0 animation-duration-12">A</span>
+    </div>
+    <div class="flex-1 background-color-rad-0 animation-duration-15 flex items-center justify-center">
+      <span class="color-rad-0 animation-duration-5">T</span>
+    </div>
+    <div class="flex-1 background-color-rad-0 animation-duration-12 flex items-center justify-center">
+      <span class="color-rad-0 animation-duration-8">I</span>
+    </div>
+    <div class="flex-1 background-color-rad-0 animation-duration-7 flex items-center justify-center">
+      <span class="color-rad-0 animation-duration-13">O</span>
+    </div>
+    <div class="flex-1 background-color-rad-0 animation-duration-10 flex items-center justify-center">
+      <span class="color-rad-0 animation-duration-10">N</span>
+    </div>
+  </div>
+</div>`
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// old
+
+// function MainMenu () {
+//   return `<!--Main menu section -->
+//   <style>
+//     .movement-vertical-0--0 {
+//         animation: keyframes-movement-vertical infinite ease-in-out 0.5s;
+//         position: relative;
+//     }
+
+//     .movement-vertical-0--1 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 1s;
+//       position: relative;
+//     }
+
+//     .movement-vertical-0--2 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 2s;
+//       position: relative;
+
+//     }
+//     .movement-vertical-0--3 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 3s;
+//       position: relative;
+
+//     }
+//     .movement-vertical-0--4 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 4s;
+//       position: relative;
+
+//     }
+
+//     .movement-vertical-0--5 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 5s;
+//       position: relative;
+//     }
+
+//     .movement-vertical-0--6 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 6s;
+//       position: relative;
+//     }
+
+//     .movement-vertical-0--7 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 7s;
+//       position: relative;
+//     }    
+
+//     .movement-vertical-0--8 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 8s;
+//       position: relative;
+//     }
+
+//     .movement-vertical-0--9 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 9s;
+//       position: relative;
+//     }
+
+//     .movement-vertical-0--10 {
+//       animation: keyframes-movement-vertical infinite ease-in-out 10s;
+//       position: relative;
+//   }
+
+//     @keyframes keyframes-movement-vertical {
+//       0% {
+//           left: 0%;
+//           top: -15%;
+//           font-size: 1em;
+//       }
+  
+//       25% {
+//           left: 50%;
+//       }
+  
+//       50% {
+//           left: 0%;
+//           font-size: 5em;
+//       }
+  
+//       75% {
+//           left: 100%;
+//       }
+  
+//       100% {
+//           left: 0%;
+//           top: 105%;
+//           font-size: 1em;
+//       }
+//     }
+
+//   </style>
+// <div class="main-menu layer--main-elements flex justify-center w-full h-full absolute z-index-3 bg-black overflow-hidden">
+//   <!--Foreground elements section -->
+//   <div class="flex justify-center content-center h-full w-full absolute text-white text-group">
+//     <div class="flex-1 background-color-rad-0 animation-duration-11">
+//       <span class="color-flux-0 animation-duration-6 self-center">R</span>
+//       <span class="animation-duration-10 movement-vertical-0--10 animation-direction-reverse">
+//         <span class="color-flux-0 animation-duration-10">R</span>
+//       </span>
+//       <span class="animation-duration-10 movement-vertical-0--8">
+//         <span class="color-flux-0 animation-duration-12">R</span>
+//       </span>
+//       <span class="animation-duration-10 movement-vertical-0--6">
+//         <span class="color-flux-0 animation-duration-4">R</span>
+//       </span>
+//       <span class="animation-duration-10 movement-vertical-0--4">
+//         <span class="color-flux-0 animation-duration-6">R</span>
+//       </span>
+//     </div>
+//     <div class="flex-1 background-color-rad-0 animation-duration-4">
+//       <span class="animation-duration-10 movement-vertical-0--5">
+//         <span class="color-flux-0 animation-duration-10">A</span>
+//       </span>
+//     </div>
+//     <div class="flex-1 background-color-rad-0 animation-duration-9 flex items-center justify-center">
+//       <span class="color-flux-0 animation-duration-11">D</span>
+//     </div>
+//     <div class="flex-1 background-color-rad-0 animation-duration-3 flex items-center justify-center">
+//       <span class="color-flux-0 animation-duration-17">I</span>
+//     </div>
+//     <div class="flex-1 background-color-rad-0 animation-duration-8 flex items-center justify-center">
+//       <span class="color-flux-0 animation-duration-12">A</span>
+//     </div>
+//     <div class="flex-1 background-color-rad-0 animation-duration-15 flex items-center justify-center">
+//       <span class="color-flux-0 animation-duration-5">T</span>
+//     </div>
+//     <div class="flex-1 background-color-rad-0 animation-duration-12 flex items-center justify-center">
+//       <span class="color-flux-0 animation-duration-8">I</span>
+//     </div>
+//     <div class="flex-1 background-color-rad-0 animation-duration-7 flex items-center justify-center">
+//       <span class="color-flux-0 animation-duration-13">O</span>
+//     </div>
+//     <div class="flex-1 background-color-rad-0 animation-duration-10 flex items-center justify-center">
+//       <span class="color-flux-0 animation-duration-10">N</span>
+//     </div>
+//   </div>
+// </div>`
+// }

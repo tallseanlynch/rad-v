@@ -120,18 +120,18 @@ function cards() {
 // ##################################################################################################################################
 // ##################################################################################################################################
 
-            {
-                id: 'chapter-title-0',
-                ...chapterCardProps,
-                cardElements: [
-                    {
-                        cardElementClasses: `flex justify-center`,
-                        template: 'Chapter1',
-                        chapter: true 
-                    },
-                ],
-                callback: function () { console.log('cardClicked') }   
-            },
+            // {
+            //     id: 'chapter-title-0',
+            //     ...chapterCardProps,
+            //     cardElements: [
+            //         {
+            //             cardElementClasses: `flex justify-center`,
+            //             template: 'Chapter1',
+            //             chapter: true 
+            //         },
+            //     ],
+            //     callback: function () { console.log('cardClicked') }   
+            // },
 
             {
                 id: 'card-instance-0-0',
