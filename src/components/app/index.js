@@ -587,7 +587,7 @@ function MainMenu () {
 
     .game-font-main-menu {
       font-family: slkscrb;
-      font-size: 4em;
+      font-size: 5em;
     }
 
   </style>
