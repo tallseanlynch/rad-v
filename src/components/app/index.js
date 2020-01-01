@@ -16,48 +16,48 @@ let testCardHistory = [
     "formatTime": "20 Dec 2019 07:43 pm",
     "chapter": false
   },
-  {
-    "cardInstance": "card-instance-0-1_B",
-    "time": 1576892867086,
-    "formatTime": "20 Dec 2019 07:47 pm",
-    "chapter": false,
-    "generatedId": "id_345288608"
-  },
-  {
-    "cardInstance": "card-instance-0-1---0",
-    "time": 1576893772296,
-    "formatTime": "20 Dec 2019 08:02 pm",
-    "chapter": false,
-    "generatedId": "id_188415536"
-  },
-  {
-    "cardInstance": "card-instance-0-1---1",
-    "time": 1576893777711,
-    "formatTime": "20 Dec 2019 08:02 pm",
-    "chapter": false,
-    "generatedId": "id_172301382"
-  },
-  {
-    "cardInstance": "card-instance-0-2",
-    "time": 1576893781743,
-    "formatTime": "20 Dec 2019 08:03 pm",
-    "chapter": false,
-    "generatedId": "id_735737441"
-  },
-  {
-    "cardInstance": "card-instance-0-3",
-    "time": 1576893785615,
-    "formatTime": "20 Dec 2019 08:03 pm",
-    "chapter": false,
-    "generatedId": "id_909091624"
-  },
-  {
-    "cardInstance": "card-instance-0-4",
-    "time": 1576893789793,
-    "formatTime": "20 Dec 2019 08:03 pm",
-    "chapter": false,
-    "generatedId": "id_17673057"
-  }
+  // {
+  //   "cardInstance": "card-instance-0-1_B",
+  //   "time": 1576892867086,
+  //   "formatTime": "20 Dec 2019 07:47 pm",
+  //   "chapter": false,
+  //   "generatedId": "id_345288608"
+  // },
+  // {
+  //   "cardInstance": "card-instance-0-1---0",
+  //   "time": 1576893772296,
+  //   "formatTime": "20 Dec 2019 08:02 pm",
+  //   "chapter": false,
+  //   "generatedId": "id_188415536"
+  // },
+  // {
+  //   "cardInstance": "card-instance-0-1---1",
+  //   "time": 1576893777711,
+  //   "formatTime": "20 Dec 2019 08:02 pm",
+  //   "chapter": false,
+  //   "generatedId": "id_172301382"
+  // },
+  // {
+  //   "cardInstance": "card-instance-0-2",
+  //   "time": 1576893781743,
+  //   "formatTime": "20 Dec 2019 08:03 pm",
+  //   "chapter": false,
+  //   "generatedId": "id_735737441"
+  // },
+  // {
+  //   "cardInstance": "card-instance-0-3",
+  //   "time": 1576893785615,
+  //   "formatTime": "20 Dec 2019 08:03 pm",
+  //   "chapter": false,
+  //   "generatedId": "id_909091624"
+  // },
+  // {
+  //   "cardInstance": "card-instance-0-4",
+  //   "time": 1576893789793,
+  //   "formatTime": "20 Dec 2019 08:03 pm",
+  //   "chapter": false,
+  //   "generatedId": "id_17673057"
+  // }
 ]
 
 export default class App {
@@ -81,7 +81,7 @@ export default class App {
         Chapter1: Chapter1.bind(this),
         MainMenu: MainMenu.bind(this)
       }
-      this.currentCardInstanceId = 'card-instance-0-4'
+      this.currentCardInstanceId = 'card-instance-0-0'
       this.currentCardOptionsActive = true
       this.cardHistory = testCardHistory
       // this.cardHistory = [
@@ -94,7 +94,21 @@ export default class App {
       // ]
       this.cards = cards.bind(this)
       this.bus = bus.bind(this)
-      this.busFunctions = {}
+      this.busFunctions = {
+        main: function () {
+          if(this.appState.mainMenu === true) {
+            this.appState.chapterMenu = true
+            this.appState.mainMenu = false
+            this.render()
+          } else {
+            if(this.appState.chapterMenu === true) {
+              this.appState.chapterMenu = false
+              this.appState.storyMenu = true
+              this.render()
+            }
+          }
+        }
+      }
       window.bus = this.bus
 
       this.appState = {
@@ -364,15 +378,12 @@ function foregroundElements (els = []) {
 
 function appContainer (config = {}) {
   return `
-  <div
-    class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0"
-    ref="card"
-  >
-    ${this.appState.storyMenu && this.templates.backgroundElements()}
-    ${this.appState.storyMenu && this.templates.cardElements()}
-    ${this.appState.storyMenu && this.templates.foregroundElements()}
-    ${this.appState.chapterMenu && this.templates.chapterElements()}
-    ${this.appState.mainMenu && this.templates.mainMenuElements()}
+  <div class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0" onClick="bus('main')">
+    ${this.appState.storyMenu ? this.templates.backgroundElements() : ''}
+    ${this.appState.storyMenu ? this.templates.cardElements() : ''}
+    ${this.appState.storyMenu ? this.templates.foregroundElements() : ''}
+    ${this.appState.chapterMenu ? this.templates.chapterElements() : ''}
+    ${this.appState.mainMenu ? this.templates.mainMenuElements() : ''}
     </div>
 `
 }
@@ -419,7 +430,7 @@ function Empty () {
 
 function Chapter1 () {
   return `<!--Chapter section -->
-<div class="chapter layer--main-elements max-w-3xl block w-full h-full absolute z-index-2 bg-black">
+<div class="chapter layer--main-elements block w-full h-full absolute z-index-2 bg-black">
   <!--Background elements section -->
   <div class="flex justify-center content-center items-center h-full w-full absolute">
     <div class="chapter layer--background-elements fixed h-full w-full">
