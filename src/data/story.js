@@ -118,13 +118,13 @@ function cards() {
                     //     html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-5" src="./assets/gifs/seq-3-p.gif"></img>`
                     // },
                     {
-                        html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-10" src="./assets/gifs/seq-2-p.gif"></img>`
+                        html: `<img class="absolute h-full w-full pixel-image" src="./assets/gifs/seq-2-p.gif"></img>`
                     },
                     {
                         html: `
                         <div class='screen-bar-2 animation-duration-12'></div>
-                        <div class='screen-bar-2 animation-duration-8'></div>
-                        <div class='screen-bar-2 animation-duration-4'></div>
+                        <div class='screen-bar-2 animation-duration-13'></div>
+                        <div class='screen-bar-2 animation-duration-14'></div>
                         <div class='screen-bar-2 animation-duration-16'></div>
                             `
                     },                    
@@ -136,7 +136,7 @@ function cards() {
                     },            
                     {
                         html: `
-                        <div class="opacity-out-0 animation-duration-16">
+                        <div class="opacity-out-0 animation-duration-4">
                             <div class='screen-bar-1 animation-duration-1'></div>
                             <div class='screen-bar-1 animation-duration-2'></div>
                             <div class='screen-bar-1 animation-duration-3'></div>
@@ -149,9 +149,9 @@ function cards() {
                     {
                         html: `
                         <div class="opacity-in-0 animation-duration-10">
-                            <div class='screen-bar-1 animation-duration-4'></div>
-                            <div class='screen-bar-1 animation-duration-6'></div>
-                            <div class='screen-bar-1 animation-duration-8'></div>
+                            <div class='screen-bar-1 animation-duration-12'></div>
+                            <div class='screen-bar-1 animation-duration-14'></div>
+                            <div class='screen-bar-1 animation-duration-15'></div>
                         </div>
                             `
                     },                    
@@ -225,6 +225,10 @@ function cards() {
                         }
                     },
                     {
+                        observer: {
+                            character: 'Observer 1',
+                            text: 'Please keep in mind that this is merely a recovered recording from a data dump... I would call it a hack, however that would imply an action opposed to a discovery.'
+                        },
                         html: `
                             <div class='observer-button-0 observer-button'>
                                 <div class='observer-middle-flash-0 observer-middle background-color-rainbow-0 animation-duration-12 z-index-2'>
@@ -236,17 +240,12 @@ function cards() {
                                 </div>
                             </div>`,
                         callback: function (el, options) {
-                            // console.log('SPECIAL CLICK')
-                            // console.log(el)
-                            // this.addClassesToDOMNode(`.observer-interior-0`, ['border-24'])
-                            // this.addClassesToDOMNode(`.observer-button-0`, ['opacity-out-0', 'animation-duration-8'])
                             this.addClassesToDOMNode(`.observer-middle-0`, ['observer-transition-out-0'])
                             this.addClassesToDOMNode(`.observer-middle-flash-0`, ['observer-transition-out-1'])
                             this.addClassesToDOMNode(`.observer-middle-flash-1`, ['observer-transition-out-2'])
                             setTimeout(() => {
-                                document.querySelector('.observer-button-0').remove()
+                                document.querySelector('.observer-button-0') && document.querySelector('.observer-button-0').remove()
                             }, 1500)
-                            // debugger
                         }
                     }            
                 ]        
