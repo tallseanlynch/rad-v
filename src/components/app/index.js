@@ -112,8 +112,8 @@ export default class App {
       window.bus = this.bus
 
       this.appState = {
-        mascot: 'wolf',
-        simForm: '',
+        // mascot: 'wolf',
+        // simForm: '',
         chapterMenu: false,
         mainMenu: true,
         storyMenu: false
@@ -376,8 +376,17 @@ function foregroundElements (els = []) {
   return els
 }
 
+const globalStyles = `<style>
+  .bg-blue {
+    background-color: blue;
+    opacity: .75;
+  }
+</style>
+`
+
 function appContainer (config = {}) {
   return `
+  ${globalStyles}
   <div class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0" onClick="bus('main')">
     ${this.appState.storyMenu ? this.templates.backgroundElements() : ''}
     ${this.appState.storyMenu ? this.templates.cardElements() : ''}
@@ -441,12 +450,27 @@ function Chapter1 () {
         <img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-10" src="./assets/gifs/seq-2-p.gif">
       </div>
       <div class="card-element--container">
-        <div class="screen-bar-1 animation-duration-20"></div>
-        <div class="screen-bar-2 animation-duration-12"></div>
-        <div class="screen-bar-3 animation-duration-16"></div>
+        <div class="screen-bar-1 animation-duration-0"></div>
+        <div class="screen-bar-1 animation-duration-1"></div>
+        <div class="screen-bar-1 animation-duration-2"></div>
+        <div class="screen-bar-1 animation-duration-3"></div>
+        <div class="screen-bar-1 animation-duration-4"></div>
+        <div class="screen-bar-1 animation-duration-5"></div>
+        <div class="screen-bar-1 animation-duration-6"></div>
+        <div class="screen-bar-1 animation-duration-7"></div>
         <div class="screen-bar-1 animation-duration-8"></div>
       </div>
     </div>  
+
+
+
+    <div class="curtain fixed w-full h-full bg-black opacity-flux-1 animation-duration-19"></div>
+      <div class="curtain fixed w-full h-full bg-black opacity-flux-0 animation-duration-3"></div>
+    <div class="curtain fixed w-full h-full bg-black opacity-flux-0 animation-duration-0"></div>
+
+
+
+
     <!--Foreground elements section -->
     <div class="flex justify-center content-center items-center h-full w-full absolute">
       <div class="css-preview text-white block font-size-flux-0 animation-duration-8">
@@ -601,39 +625,53 @@ function MainMenu () {
       font-size: 5em;
     }
 
+    .game-font-main-menu-sub {
+      font-family: slkscrb;
+      font-size: 3.5em;
+    }
+
   </style>
 <div class="main-menu layer--main-elements flex justify-center w-full h-full absolute z-index-3 bg-black overflow-hidden">
   <!--Foreground elements section -->
 
-  <div class="flex justify-center content-center h-full w-full absolute text-white game-font-main-menu z-index-4">
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-7">R</span>
+    <div class="flex justify-center content-center h-full w-full absolute text-white game-font-main-menu z-index-4">
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-7">R</span>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-6">A</span>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-10">D</span>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-9">I</span>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-8">A</span>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-15">T</span>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-16">I</span>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-5">O</span>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-7">N</span>
+      </div>
     </div>
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-6">A</span>
+
+    <div class="flex flex-col justify-end content-center h-full w-full absolute text-white game-font-main-menu-sub z-index-5 items-end pb-24 pr-24">
+      <div class="flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-7">START</span>
+      </div>
+      <div class="flex items-center justify-center">
+        <span class="color-flux-0 animation-duration-7">CONTINUE</span>
+      </div>
     </div>
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-10">D</span>
-    </div>
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-9">I</span>
-    </div>
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-8">A</span>
-    </div>
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-15">T</span>
-    </div>
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-16">I</span>
-    </div>
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-5">O</span>
-    </div>
-    <div class="flex-1 flex items-center justify-center">
-      <span class="color-flux-0 animation-duration-7">N</span>
-    </div>
-  </div>
 
   <div class="flex justify-center content-center h-full w-full absolute text-white game-font">
     <div class="flex-1 background-color-rad-0 animation-duration-11">
@@ -684,19 +722,29 @@ function MainMenu () {
       </span>
     </div>
     <div class="flex-1 background-color-rad-0 animation-duration-8 flex items-center justify-center">
-      <span class="color-rad-0 animation-duration-12">A</span>
+      <span class="font-size-flux-0 animation-duration-5">
+        <span class="color-rad-0 animation-duration-12">A</span>
+      </span>
     </div>
     <div class="flex-1 background-color-rad-0 animation-duration-15 flex items-center justify-center">
-      <span class="color-rad-0 animation-duration-5">T</span>
+      <span class="font-size-flux-0 animation-duration-5">
+        <span class="color-rad-0 animation-duration-5">T</span>
+      </span>
     </div>
     <div class="flex-1 background-color-rad-0 animation-duration-12 flex items-center justify-center">
-      <span class="color-rad-0 animation-duration-8">I</span>
+      <span class="font-size-flux-0 animation-duration-5">
+        <span class="color-rad-0 animation-duration-8">I</span>
+      </span>
     </div>
     <div class="flex-1 background-color-rad-0 animation-duration-7 flex items-center justify-center">
-      <span class="color-rad-0 animation-duration-13">O</span>
+      <span class="font-size-flux-0 animation-duration-5">
+        <span class="color-rad-0 animation-duration-13">O</span>
+      </span>
     </div>
     <div class="flex-1 background-color-rad-0 animation-duration-10 flex items-center justify-center">
-      <span class="color-rad-0 animation-duration-10">N</span>
+      <span class="font-size-flux-0 animation-duration-5">
+        <span class="color-rad-0 animation-duration-10">N</span>
+      </span>
     </div>
   </div>
 </div>`

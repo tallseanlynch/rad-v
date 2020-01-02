@@ -68,35 +68,13 @@ const cardProps = {
                 <div class='screen-bar-3 animation-duration-16'></div>
                 <div class='screen-bar-1 animation-duration-8'></div>
                 `
-                //get all of the HTML for background elements as an entire string
         },
-        // {
-        //     html: '',
-        //     mounted: () => {
-        //         console.log(store.getValue('history'))
-        //     }
-        // }
     ],
     foregroundElements: [
         {
             html: `<div class="curtain fixed w-full h-full bg-black opacity-out-0 animation-duration-5"></div>
             `
         },            
-        // {
-        //     html: `
-        //         <div class='background-color-rainbow-0 animation-duration-12 z-index-2'></div>
-        //         `,
-        //     callback: () => console.log('SPECIAL CLICK')
-        // },
-        // {
-        //     goTo: 'card-instance-0-0',
-        //     html: `<span class='hightlight-class'>ABCDE</span>`, // uses the innerHTML setting
-        //     template: 'Option9' 
-        // },
-        // '------------Sean',
-        // {
-        //     template: 'Option9' 
-        // }
     ],
     defaults: {
         text: {
@@ -104,9 +82,6 @@ const cardProps = {
         }
     }
 }
-
-// props will be important later to parameterize the story 
-// const cards = (props) => {
 
 function cards() {
     return {
@@ -135,7 +110,61 @@ function cards() {
 
             {
                 id: 'card-instance-0-0',
-                ...cardProps,
+                // ...cardProps,
+                backgroundElements: [
+                    // {
+                    //     html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-5" src="./assets/gifs/seq-3-p.gif"></img>`
+                    // },
+                    {
+                        html: `<img class="absolute h-full w-full pixel-image opacity-flux-1 animation-duration-10" src="./assets/gifs/seq-2-p.gif"></img>`
+                    },
+                    {
+                        html: `
+                        <div class='screen-bar-2 animation-duration-12'></div>
+                        <div class='screen-bar-2 animation-duration-8'></div>
+                        <div class='screen-bar-2 animation-duration-4'></div>
+                        <div class='screen-bar-2 animation-duration-16'></div>
+                            `
+                    },                    
+                    // {
+                    //     html: `<div class="curtain fixed w-full h-full bg-blue opacity-flux-0 animation-duration-5"></div>`
+                    // },            
+                    {
+                        html: `<div class="curtain fixed w-full h-full bg-white opacity-flux-0 animation-duration-10 "></div>`
+                    },            
+                    {
+                        html: `
+                        <div class="opacity-out-0 animation-duration-16">
+                            <div class='screen-bar-1 animation-duration-1'></div>
+                            <div class='screen-bar-1 animation-duration-2'></div>
+                            <div class='screen-bar-1 animation-duration-3'></div>
+                            <div class='screen-bar-1 animation-duration-4'></div>
+                            <div class='screen-bar-1 animation-duration-6'></div>
+                            <div class='screen-bar-1 animation-duration-8'></div>
+                        </div>
+                            `
+                    },                    
+                    {
+                        html: `
+                        <div class="opacity-in-0 animation-duration-10">
+                            <div class='screen-bar-1 animation-duration-4'></div>
+                            <div class='screen-bar-1 animation-duration-6'></div>
+                            <div class='screen-bar-1 animation-duration-8'></div>
+                        </div>
+                            `
+                    },                    
+                ],
+                foregroundElements: [
+                    // {
+                    //     html: `<div class="curtain fixed w-full h-full bg-black opacity-out-0 animation-duration-5"></div>
+                    //     `
+                    // },            
+                ],
+                defaults: {
+                    text: {
+                        template: 'Text0'
+                    }
+                },            
                 cardElements: [
                     `There was a time, before I was able to record my own observations...`,
                     `I think it was hard for my creators and my colleagues.`,
