@@ -1,5 +1,7 @@
 import { store } from '../data/store.js'
 
+// all [REDACTED] elements describe the ai's decent into becomming a monster
+
 const procedureLocations = {
     'outside': 'card-instance-0-16-0',
     'space': 'card-instance-0-16-1',
@@ -224,8 +226,28 @@ function cards() {
                     },
                     {
                         html: `
-                            <div class='background-color-rainbow-0 animation-duration-12 z-index-2'></div>`,
-                        callback: function (el, options) {console.log('SPECIAL CLICK')}
+                            <div class='observer-button-0 observer-button'>
+                                <div class='observer-middle-flash-0 observer-middle background-color-rainbow-0 animation-duration-12 z-index-2'>
+                                </div>
+                                <div class='observer-middle-flash-1 observer-middle background-color-rainbow-0 animation-duration-12 z-index-2'>
+                                </div>
+                                <div class='observer-middle-0 observer-middle background-color-rainbow-0 animation-duration-12 z-index-3'>
+                                    <div class='observer-interior-0 observer-interior'></div>
+                                </div>
+                            </div>`,
+                        callback: function (el, options) {
+                            // console.log('SPECIAL CLICK')
+                            // console.log(el)
+                            // this.addClassesToDOMNode(`.observer-interior-0`, ['border-24'])
+                            // this.addClassesToDOMNode(`.observer-button-0`, ['opacity-out-0', 'animation-duration-8'])
+                            this.addClassesToDOMNode(`.observer-middle-0`, ['observer-transition-out-0'])
+                            this.addClassesToDOMNode(`.observer-middle-flash-0`, ['observer-transition-out-1'])
+                            this.addClassesToDOMNode(`.observer-middle-flash-1`, ['observer-transition-out-2'])
+                            setTimeout(() => {
+                                document.querySelector('.observer-button-0').remove()
+                            }, 1500)
+                            // debugger
+                        }
                     }            
                 ]        
             },

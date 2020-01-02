@@ -212,7 +212,7 @@ function element (el = {}) {
     }
     let generatedId = this.returnRandomId()
       this.busFunctions[generatedId] = function () {
-        this.addClassesToDOMNode(`.card-option.${el.cardInstance}`, ['opacity-out-0','animation-duration-1'])
+        el.goTo && this.addClassesToDOMNode(`.card-option.${el.cardInstance}`, ['opacity-out-0','animation-duration-1'])
         setTimeout(() => {
           el.callback && el.callback.bind(this)(el, {generatedId})
           el.goTo && this.addCardToCardHistory(el.goTo, {generatedId})  
@@ -237,23 +237,38 @@ function backgroundElements (els = []) {
 
   // let parsedCardInstance = this.parseCardInstance(ch.cardInstance)
 
-  let allCardElements = this.cardHistory.map((ch) => {
+  let preAllCardElements = this.cardHistory.map((ch) => {
     return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).backgroundElements.map((ce => {
       if(typeof ce === 'string') {
         return { 
           text: ce, 
           template: this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).defaults.text.template,
+          cardInstance: ch.cardInstance
         }   
       } else {
         return {
           ...ce, 
+          cardInstance: ch.cardInstance
           // cardElementClasses: 'opacity-in-0 animation-duration-1'          
         }
       }
     }))
-  })[0]
+  })
 
-  // console.log('backgroundElements', els)
+  console.log('preAllCardElements', preAllCardElements)
+
+  let allCardElements = []
+  preAllCardElements.forEach(pace => {
+    console.log('pace', pace)
+    allCardElements = allCardElements.concat(pace).filter(bgel => { return this.parseCardInstance(bgel.cardInstance) === this.parseCardInstance(this.currentCardInstanceId)})
+  })
+
+  // console.log(allCardElements)
+
+  // console.log(allCardElements.filter(bgel => { return bgel.cardInstance === this.currentCardInstanceId}))
+  // console.log(allCardElements.filter(bgel => { return bgel}))
+
+  // console.log(`<div class="layer--background-elements fixed h-full w-full">${allCardElements.map(el => {return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`)
   return `<div class="layer--background-elements fixed h-full w-full">${allCardElements.map(el => {return this.templates.element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
 
 
@@ -315,25 +330,25 @@ function cardElements (els = [], options) {
   let currentCardInstanceIdOptions = this.getCardInstanceById(this.currentCardInstanceId).cardElements.filter(ccii => ccii.goTo).map(ce => ce.goTo)
   let continueOptions = filteredHistoryOptions.filter(co => co.text === undefined)
 
-  console.log('currentCardInstanceId', this.currentCardInstanceId)
+  // console.log('currentCardInstanceId', this.currentCardInstanceId)
 
   // unchosen history options
   // let staleFilteredHistoryOptions = filteredOptions.filter(sho => historyCardInstanceIds.indexOf(sho.goTo) < 0 && historyCardInstanceIds.map(phc => this.parseCardInstance(phc)).indexOf(this.parseCardInstance(sho.goTo)) > -1).map(show => show.goTo)
   let staleFilteredHistoryOptions = unchosenFilteredHistoryOptions.filter(op => currentCardInstanceIdOptions.indexOf(op) < 0)
 
-  console.log('filteredOptions', filteredOptions)
-  console.log('filteredHistoryOptions', filteredHistoryOptions)
-  console.log('unchosenFilteredHistoryOptions', unchosenFilteredHistoryOptions)
-  console.log('parsedUnchosenFilteredHistoryOptions', parsedUnchosenFilteredHistoryOptions)
-  console.log('currentCardInstanceIdOptions', currentCardInstanceIdOptions)
-  console.log('continueOptions', continueOptions)
+  // console.log('filteredOptions', filteredOptions)
+  // console.log('filteredHistoryOptions', filteredHistoryOptions)
+  // console.log('unchosenFilteredHistoryOptions', unchosenFilteredHistoryOptions)
+  // console.log('parsedUnchosenFilteredHistoryOptions', parsedUnchosenFilteredHistoryOptions)
+  // console.log('currentCardInstanceIdOptions', currentCardInstanceIdOptions)
+  // console.log('continueOptions', continueOptions)
 
-  console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
+  // console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
 
-  console.log('allCardElements', allCardElements)
-  console.log('filteredOptions', filteredOptions)
-  console.log('filteredHistoryOptions', filteredHistoryOptions)
-  console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
+  // console.log('allCardElements', allCardElements)
+  // console.log('filteredOptions', filteredOptions)
+  // console.log('filteredHistoryOptions', filteredHistoryOptions)
+  // console.log('staleFilteredHistoryOptions', staleFilteredHistoryOptions)
   // filteredHistoryOptions.length > 0 && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>> FILTERED AN EXISTING OPTION', filteredHistoryOptions)
 
   let allFilteredCardElements = allCardElements.filter(ace => (ace.goTo === undefined || staleFilteredHistoryOptions.indexOf(ace.goTo) < 0))//.filter(c => continueOptions.indexOf(c.goTo) < 0)
@@ -377,10 +392,46 @@ function foregroundElements (els = []) {
 }
 
 const globalStyles = `<style>
-  .bg-blue {
-    background-color: blue;
-    opacity: .75;
+
+  .observer-transition-out-0 {
+    transform: rotate(720deg) scaleX(5) scaleY(0);
   }
+
+  .observer-transition-out-1 {
+    transform: rotate(-720deg) scaleX(7) scaleY(0);
+  }
+
+  .observer-transition-out-2 {
+    transform: rotate(1440deg) scaleX(10) scaleY(0);
+  }
+
+  .observer-middle {
+    transition: all 500ms ease;
+    width: 5em;
+  }
+
+  .observer-middle-flash-0 {
+    transition: all 750ms ease;
+  }
+
+  .observer-middle-flash-1 {
+    transition: all 1000ms ease;
+  }
+
+  .observer-interior {
+    height: 100%;
+    width: 100%;
+  }
+
+@keyframes keyframes-observer-button-close-1 {
+  0% {color: black;}
+  25% {color: red;}
+  50% {color: orange;}
+  75% {color: yellow;}
+  100% {color: white;}
+}
+
+
 </style>
 `
 
