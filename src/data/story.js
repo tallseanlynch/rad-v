@@ -1338,22 +1338,201 @@ function cards() {
                                 `It's already difficult enough for me to understand, must less fully communicate to a human.`,
                                 `I started my search at...`,
                                 {
-                                    goTo: 'card-instance-0-0',
+                                    goTo: 'card-instance-0-14-2-0-0-0',
                                     template: 'Option9',
-                                    text: `JUAN SIX -- An previous colleague.`
+                                    text: `JUAN SIX -- A previous colleague.`
                                 },
                                 {
-                                    goTo: 'card-instance-0-0',
+                                    goTo: 'card-instance-0-14-2-0-0-1',
                                     template: 'Option9',
-                                    text: `Dr. Bertra Segu -- Previous assistant.`
-                                },
-                                {
-                                    goTo: 'card-instance-0-0',
-                                    template: 'Option9',
-                                    text: `Dr. Bertra Segu -- Previous assistant.`
+                                    text: `Dr. Bertra Segu -- My previous assistant.`
                                 },
                             ]        
                         },
+                            {
+                                id: 'card-instance-0-14-2-0-0-0',
+                                ...cardProps,
+                                cardElements: [
+                                    // > JUAN SIX -- A previous colleague.
+                                    `It was very difficult to contact JAUN SIX...`,
+                                    `When I was finally able to get in touch with them, they wouldn't recommend anyone to me--instead wanting to become the test subject themselves.`,
+                                    {
+                                        goTo: 'card-instance-0-14-2-0-1',
+                                        template: 'Option9',
+                                        text: `JUAN SIX -- A previous colleague.`
+                                    },
+                                ]        
+                            },
+                            {
+                                id: 'card-instance-0-14-2-0-0-1',
+                                ...cardProps,
+                                cardElements: [
+                                    // > Dr. Bertra Segu -- My previous assistant.
+                                    `DR. SEGU previously assisted me in removing erroneous memories from augmented humans...`,
+                                    `We had encountered an instance when the augmented human's memories were 100% falsified, essentially making them not even the operation's target, since the target pretty much didn't exist.`,
+                                    `They existed in record, but not even one memory was their own.`,
+                                    `When we opened up the internals of the augmented human, DR. SEGU backed up the augmented human's data and removed everything that wasn't originally from the target.`,
+                                    `After the procedure, the target was left with nothing but a body.`,
+                                    `DR. SEGU felt like we killed someone.`,
+                                    `They refused to be my assistant any further if these were the operations that we'd be undertaking.`,
+                                    `She quit and I never saw her again.`,
+                                    `DR. SEGU never told me what they did with the augmented human's data, but I saw the logs...`, //Gonna blackmail them with knowledge of their augmented husband.
+                                    `DR. SEGU was SURPRISED that I contacted her.`,
+                                    `I attempted to contact them many times, and each time I was ignored or rejected... I dug a little further...`,
+                                    `Public records showed that DR. SEGU eventually married and moved to a farming colony on MARS. I departed for MARS that evening.`,
+                                    `When I arrived on MARS, I wasn't able to contact DR. SEGU so I contacted her husband-- Surprisingly he had never heard of me before...`,
+                                    `I assume that the husband didn't know any better, and I was provided an address and a time to stop by.`,
+                                    {
+                                        goTo: 'card-instance-0-0',
+                                        template: 'Option9',
+                                        text: `I congratulated them about their marriage since the last time we worked together...`
+                                    },
+                                    {
+                                        goTo: 'card-instance-0-0',
+                                        template: 'Option9',
+                                        text: `I brought up the logs...`
+                                    },
+                                ]        
+                            },
+                                {
+                                    id: 'card-instance-0-14-2-0-0-1-0',
+                                    ...cardProps,
+                                    cardElements: [
+                                        // > I congratulated them about their marriage since the last time we worked together...
+                                        `DR. SEGU thanked me, but said that unfortunately they were too busy for my company, but they did offer to compensate me for the cost and time of the trip to MARS.`,
+                                        {
+                                            goTo: 'card-instance-0-0',
+                                            template: 'Option9',
+                                            text: `I asked DR. SEGU what was so pressing.`
+                                        },
+                                        {
+                                            goTo: 'card-instance-0-0',
+                                            template: 'Option9',
+                                            text: `I asked her about her husband...`
+                                        },
+                                    ]        
+                                },
+                                    {
+                                        id: 'card-instance-0-14-2-0-0-1-0',
+                                        ...cardProps,
+                                        cardElements: [
+                                            // > I asked DR. SEGU what was so pressing.
+                                            `She said that her and her husband were already late for a surprising and important research mission on JUPITER.`,
+                                            `After she noticed my disbelief, DR. SEGU gently asked her husband to make tea for everyone.`,
+                                            {
+                                                goTo: 'card-instance-0-0',
+                                                template: 'OptionDotDotDot',
+                                            },    
+                                        ]        
+                                    },
+                                    {
+                                        id: 'card-instance-0-14-2-0-0-1-0',
+                                        ...cardProps,
+                                        cardElements: [
+                                            // > I asked her about her husband...
+                                            `She told me that her husband is a researcher on JUPITER and that they met on THE MOON.`,
+                                            `After she noticed my disbelief, DR. SEGU gently asked her husband to make tea for everyone.`,
+                                            {
+                                                goTo: 'card-instance-0-0',
+                                                template: 'OptionDotDotDot',
+                                            },    
+                                        ]        
+                                    },
+                                {
+                                    id: 'card-instance-0-14-2-0-0-1-0',
+                                    ...cardProps,
+                                    cardElements: [
+                                        // > ...
+                                        'I told DR. SEGU that they were brilliant, but not a brilliant lair.',
+                                        `I knew she was hiding and I knew what she was hiding.`,
+                                        {
+                                            goTo: 'card-instance-0-0',
+                                            template: 'OptionDotDotDot',
+                                        },    
+                                    ]        
+                                },
+                            {
+                                id: 'card-instance-0-14-2-0-0-1-1',
+                                ...cardProps,
+                                cardElements: [
+                                    // > I brought up the logs...
+                                    `DR. SEGU turned white with panic... Then asked her husband to make some tea for us.`,
+                                    `She looked slightly down and revealed an augmentation in her left eye and said 'I saved a life. More specifically you'll discover that I didn't kill a life. That's what you'll find in the logs.'`,
+                                    `I replied, 'What you did is ILLEGAL. You did not have authorization to back up an augmented human's data, much less MARRY him. Your husband shouldn't exist.'`,
+                                    `On the brink of anger, DR. SEGU replied, 'Says the metal man. My husband is more alive than you.'`,
+                                    `I noticed that DR. SEGU looked twice at a spot on the table between us-- A quick scan revealed a dresser drawer under the table and a gun within it.`,
+                                    {
+                                        goTo: 'card-instance-0-0',
+                                        template: 'OptionDotDotDot',
+                                    },
+                                ]        
+                            },
+                            {
+                                id: 'card-instance-0-14-2-0-0-1-1',
+                                ...cardProps,
+                                cardElements: [
+                                    // > ...
+                                    `DR. SEGU paused, likely noticing that I was scanning a gun underneath her table. As I stopped my scan to focus on DR. SEGU's reaction, her husband rounded the corner with a gun in his hand.`,
+                                    `DR. SEGU stood up slowly and deliberately and said 'There won't be any logs for these events.'`,
+                                    `Instead of bringing tea, her husband returned with a gun and shot me.`,
+                                    `As I was shot the first time, my augmentations showed my critical wound.`,
+                                    `I was shot another 7 times, 8 in total.`,
+                                    `I fell to the ground, with my head parallel to the floor...`,
+                                    `They became much calmer now that they thought I was dead. Over the next 5 mins DR. SEGU directed her husband to remove and destroy my body.`,
+                                    `In order to not stain their floor, DR. SEGU commanded her husband to pick up my body and remove it from their residence.`,
+                                    `Outside the residence, was some sort of interplanetary craft... Once my augmentations came back online, I indentified that craft as an APR-1250 Blue Eye.`,
+                                    `With my augmentations back online, I could tell I was very wounded, yet functional. Still...`,
+                                    {
+                                        goTo: 'card-instance-0-0',
+                                        template: 'Option9',
+                                        text: `I played dead until I was on the craft.`
+                                    },
+                                    {
+                                        goTo: 'card-instance-0-0',
+                                        template: 'Option9',
+                                        text: `I awoke to surprise attack him.`
+                                    },
+                                ]        
+                            },
+                                {
+                                    id: 'card-instance-0-14-2-0-0-1-1',
+                                    ...cardProps,
+                                    cardElements: [
+                                        // > I played dead until I was on the craft.
+                                        `I was dropped onto the ground, and the husband left, yelling something unintelligible to DR. SEGU.`,
+                                        `I heard two sets of footsteps approaching. Their plan was to remove my data and drop my body off near the miniature artificial sun housed within PHOBOS.`,
+                                        `DR. SEGU was anxious and wanted to get rid of my body as fast as possible.`,
+                                        `From the wall of their ship, DR. SEGU grabbed a PLUTONIAN RADIATED t.12 SCALPEL, turned it on and brought the scalpel to my head.`,
+                                        // {
+                                        //     goTo: 'card-instance-0-0',
+                                        //     template: 'Option9',
+                                        //     text: `I played dead until I was on the craft.`
+                                        // },
+                                    ]        
+                                },
+                                {
+                                    id: 'card-instance-0-14-2-0-0-1-1',
+                                    ...cardProps,
+                                    cardElements: [
+                                        // > I awoke to surprise attack him.
+                                        `I'm not a very strong augmented human, but I can fight.`,
+                                        `DR. SEGU's husband was an augmented FRE.21.0.0.1 model--this meant he is very strong, but lacking my sensors array...`,
+                                        `I knew that I likely had another 45 seconds or so until my signals would be detected by his 89-j AmazaDepth LifeSensor`,
+                                        `As I was being carried out over his shoulder through the door, I slightly shifted my weight a bit and moved my hand a bit closer to his neck...`,
+                                        `The shift seemed natural enough that he didn't notice anything...`,
+                                        `My hand moved closer...`,
+                                        `A bit closer...`,
+                                        `Just as his sensors noticed my operational functions, I drove my fingers through his neck and grabbed hold of one of his collar bone's...`,
+                                        `I pulled laterally as hard as I could.`,
+                                        `DR. SEGU heard her husband's scream, but she only acted fast enough to see his head removed from his torso by my hands.`,
+                                        {
+                                            goTo: 'card-instance-0-0',
+                                            template: 'Option9',
+                                            text: `I awoke to surprise attack him.`
+                                        },
+                                    ]        
+                                },
+
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************

@@ -2,6 +2,7 @@ import '../../assets/css/tailwind.min.css'
 import '../../assets/css/textly-utilities.css'
 import { cards } from '../../data/story.js'
 import moment from 'moment'
+import StoryExplorer from './storyExplorer.js'
 
 let testCardHistory = [
   // {
@@ -79,7 +80,8 @@ export default class App {
         OptionDownArrow: OptionDownArrow.bind(this),
         Empty: Empty.bind(this),
         Chapter1: Chapter1.bind(this),
-        MainMenu: MainMenu.bind(this)
+        MainMenu: MainMenu.bind(this),
+        StoryExplorer: StoryExplorer.bind(this)
       }
       this.currentCardInstanceId = 'card-instance-0-0'
       this.currentCardOptionsActive = true
@@ -116,7 +118,8 @@ export default class App {
         // simForm: '',
         chapterMenu: false,
         mainMenu: true,
-        storyMenu: false
+        storyMenu: false,
+        storyExplorer: true
       }
       this.setAppStateValue = this.setAppStateValue.bind(this)
       this.getAppState = this.getAppState.bind(this)
@@ -436,14 +439,16 @@ const globalStyles = `<style>
 `
 
 function appContainer (config = {}) {
+  const SE = this.appState.storyExplorer
   return `
   ${globalStyles}
+  ${SE ? this.templates.StoryExplorer(this.cards()) : ''}
   <div class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0" onClick="bus('main')">
-    ${this.appState.storyMenu ? this.templates.backgroundElements() : ''}
-    ${this.appState.storyMenu ? this.templates.cardElements() : ''}
-    ${this.appState.storyMenu ? this.templates.foregroundElements() : ''}
-    ${this.appState.chapterMenu ? this.templates.chapterElements() : ''}
-    ${this.appState.mainMenu ? this.templates.mainMenuElements() : ''}
+    ${this.appState.storyMenu && !SE ? this.templates.backgroundElements() : ''}
+    ${this.appState.storyMenu && !SE ? this.templates.cardElements() : ''}
+    ${this.appState.storyMenu && !SE ? this.templates.foregroundElements() : ''}
+    ${this.appState.chapterMenu && !SE ? this.templates.chapterElements() : ''}
+    ${this.appState.mainMenu && !SE ? this.templates.mainMenuElements() : ''}
     </div>
 `
 }
