@@ -3,6 +3,16 @@ import '../../assets/css/textly-utilities.css'
 import { cards } from '../../data/story.js'
 import moment from 'moment'
 import StoryExplorer from './storyExplorer.js'
+import lazyCSSComp from './lazyCSSComp.js'
+
+const lazyCSSCompOptions = {
+  transitionTime: '3000ms',
+  baseUnit: .5,
+  numberOfUnits: 16
+}
+
+const additionalCSS = lazyCSSComp(lazyCSSCompOptions)
+console.log(additionalCSS)
 
 let testCardHistory = [
   // {
@@ -396,6 +406,7 @@ function foregroundElements (els = []) {
 
 const globalStyles = `<style>
 
+
   .observer-transition-out-0 {
     transform: rotate(720deg) scaleX(5) scaleY(0);
   }
@@ -442,6 +453,7 @@ function appContainer (config = {}) {
   const SE = this.appState.storyExplorer
   return `
   ${globalStyles}
+  ${additionalCSS}
   ${SE ? this.templates.StoryExplorer(this.cards()) : ''}
   <div class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0" onClick="bus('main')">
     ${this.appState.storyMenu && !SE ? this.templates.backgroundElements() : ''}
