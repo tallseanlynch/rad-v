@@ -1,0 +1,32 @@
+story notes
+
+Story cards will use the media object method to show branching
+
+When all options within a card go to the same card, it will not use the media object method, but will instead
+extend vertically downward from the next one. This shows that the story is just being read. When ever there
+is one card inside of another it is because of a parent choice.
+
+This will create a JSON like structure for the user to explore and edit within the UI.
+
+The UI will also affect the input MARKDOWN file.
+
+The UI will have three sections:
+    Left section has the markdown file, second section is the story in the JSON like structure.
+    Third section is the rendered card
+
+Each card instance will have an ID, a simple icon like RED with ORANGE square 
+made with CSS to give the user a simple visual ID.
+
+Card will need to be able to link one into another, using mobile friendly methods.
+
+Use D3 to make vertical and horizontal diagram of the game structure and minimap structure.
+    User can choose where they wanna go here
+
+Workflow
+
+markdown json like structure =>
+interactive json like structure =>
+d3 map and minimap for game strucutre =>
+full game card rendering with full features
+
+At any time, the user can edit the data and it will react accordingly in the others.
