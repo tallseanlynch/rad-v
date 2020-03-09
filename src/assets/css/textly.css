@@ -154,6 +154,29 @@
 }
 
 
+
+
+
+
+@keyframes keyframes-left-slide-in-0 {
+    0% { left: -100%; }
+    100% { left: 0%; }
+}
+
+.left-slide-in-0 {
+    animation: keyframes-left-slide-in-0 forwards;
+    position: fixed;
+}
+
+.left-slide-out-0 {
+    animation: keyframes-left-slide-in-0 backwards;
+    position: fixed;
+}
+
+
+
+
+
 .width-flux-0 {
     animation: keyframes-width-flux-0 infinite ease-in-out;
     display: inline-block !important;

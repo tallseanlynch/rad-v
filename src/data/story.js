@@ -85,6 +85,10 @@ const cardProps = {
     }
 }
 
+
+
+// need to extract away functions in order to make cards a JSON object
+
 function cards() {
     return {
         cardInstances: [
