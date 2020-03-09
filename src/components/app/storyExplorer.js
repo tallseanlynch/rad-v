@@ -62,10 +62,20 @@ function StoryCardIcon (sci) {
 `
 }
 
-function StoryExplorer (cards) {
-    console.log(this)
+function StoryExplorer (cards) {    
+    this.busFunctions.storyExplorerOpenClose = function () {
+        console.log('STORY EXPLORER BUS!')
+        console.log(this.appState.storyExplorer)
+        this.appState.storyExplorer = !this.appState.storyExplorer
+        const addStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
+        const removeStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-out-0' : 'left-slide-in-0'
+        this.removeClassesFromDOMNode('.story-card-explorer', [removeStoryExplorerOpenCloseClass])
+        this.addClassesToDOMNode('.story-card-explorer', [addStoryExplorerOpenCloseClass])
+    }
+
+    const inlineClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
     return `
-  <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto left-slide-in-0 animation-duration-10">
+  <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto ${inlineClass} animation-duration-10">
     <div class="story-explorer-container text-3xl">
       <h1 class="font-bold text-5xl mb-16 border-b-2 pb-4">Story Explorer<h1>
         <p><span class="font-bold">Number of Cards:</span> ${cards.cardInstances.length}</p>

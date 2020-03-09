@@ -8,9 +8,13 @@ import lazyCSSComp from './lazyCSSComp.js'
 import MainMenu from '../../components/MainMenu'
 import Chapter1 from '../../components/Chapter1.js'
 import Element from '../../components/Element.js'
+import Options from '../../components/Options.js'
+import Texts from '../../components/Texts.js'
+const { Option9, OptionDotDotDot, OptionDownArrow } = Options
+const { Text0 } = Texts
 
 const lazyCSSCompOptions = {
-  transitionTime: '3000ms',
+  // transitionTime: '3000ms',
   baseUnit: .5,
   numberOfUnits: 16
 }
@@ -23,7 +27,6 @@ export default class App {
       this.elem = elem
       this.templates = {
         AppContainer: AppContainer.bind(this),
-        CardContainer: CardContainer.bind(this),
         Element: Element.bind(this),
         BackgroundElements: BackgroundElements.bind(this),
         CardElements: CardElements.bind(this),
@@ -57,7 +60,17 @@ export default class App {
               this.render()
             }
           }
-        }
+        },
+        storyExplorerOpenClose: function () {
+          console.log('STORY EXPLORER BUS!')
+          console.log(this.appState.storyExplorer)
+          this.appState.storyExplorer = !this.appState.storyExplorer
+          const addStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
+          const removeStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-out-0' : 'left-slide-in-0'
+          this.removeClassesFromDOMNode('.story-card-explorer', [removeStoryExplorerOpenCloseClass])
+          this.addClassesToDOMNode('.story-card-explorer', [addStoryExplorerOpenCloseClass])
+      }
+  
       }
       window.bus = this.bus
 
@@ -105,8 +118,11 @@ export default class App {
       this.cardHistory.push(cardData)
       this.updateCurrentCardInstanceId(this.parseCardInstance(cardInstanceId))
       const beforeHist = document.querySelector('.full-card').scrollTop
-      this.render()
+      console.log({beforeHist})
+      this.renderAppContainer()
       document.querySelector('.full-card').scrollTop = beforeHist
+      const afterHist = document.querySelector('.full-card').scrollTop
+      console.log({afterHist})
     }
     
     updateCurrentCardInstanceId (id) {
@@ -132,9 +148,18 @@ export default class App {
     returnRandomId () {
       return 'id_' + String(Math.round(Math.random()*1234567890))
     }
-        
+
+    renderAppContainer () {
+      document.querySelector('.app-container-wrapper').innerHTML = this.templates.AppContainer()
+    }
+
     render () {
-      if (this.elem) this.elem.innerHTML = `<section data-component="app">${this.templates.AppContainer()}</section>`
+      if (this.elem) this.elem.innerHTML = `
+      ${additionalCSS}
+      <section data-component="app">
+      ${this.templates.StoryExplorer(this.cards())}
+      ${this.templates.AppContainer()}
+      </section>`
     }
 }
 
@@ -262,52 +287,21 @@ function ForegroundElements (els = []) {
 function AppContainer (config = {}) {
   const SE = this.appState.storyExplorer
   return `
-  ${additionalCSS}
-  ${SE ? this.templates.StoryExplorer(this.cards()) : ''}
-  <div class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0" onClick="bus('main')">
-    ${this.appState.storyMenu ? this.templates.BackgroundElements() : ''}
-    ${this.appState.storyMenu ? this.templates.CardElements() : ''}
-    ${this.appState.storyMenu ? this.templates.ForegroundElements() : ''}
-    ${this.appState.chapterMenu ? this.templates.ChapterElements() : ''}
-    ${this.appState.mainMenu ? this.templates.mainMenuElements() : ''}
+  <div class="app-container-wrapper">
+    <div class="app-nav w-full absolute text-white text-5xl p-3">
+      <h1 class="absolute toggle-story-explorer z-index-2 text-5xl font-bold absolute mr-6 right-0">
+        <span class="text-gray-300 hover:text-black cursor-pointer transition-all" onClick="bus('storyExplorerOpenClose')">+</span>
+      </h1>
     </div>
+    <div class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0" onClick="bus('main')">
+      ${this.appState.storyMenu ? this.templates.BackgroundElements() : ''}
+      ${this.appState.storyMenu ? this.templates.CardElements() : ''}
+      ${this.appState.storyMenu ? this.templates.ForegroundElements() : ''}
+      ${this.appState.chapterMenu ? this.templates.ChapterElements() : ''}
+      ${this.appState.mainMenu ? this.templates.mainMenuElements() : ''}
+    </div>
+  </div>
 `
-}
-
-function CardContainer (config = {}) {
-  return ``
-}
-
-function OptionDotDotDot () {
-  return `<div class="option mt-8 relative p-8 bg-white text-black border-b-1">
-    <span class="opacity-flux-0 animation-duration-2 inline-block relative px-2">.</span>
-    <span class="opacity-flux-0 animation-duration-1 inline-block relative px-2">.</span>
-    <span class="opacity-flux-0 animation-duration-0 inline-block relative px-2">.</span>
-  </div>`
-}
-
-function OptionDownArrow () {
-  return `<div class="option mt-8 relative p-8 bg-white text-black border-b-1">
-    <span class="opacity-flux-0 animation-duration-2 inline-block relative px-2">.</span>
-    <span class="opacity-flux-0 animation-duration-1 inline-block relative px-2">.</span>
-    <span class="opacity-flux-0 animation-duration-0 inline-block relative px-2">.</span>
-  </div>`
-}
-
-function Option9 (interior) {
-  return `
-    <div class="option mt-8 relative p-8 bg-white text-black text-left border-b-1">
-      <span class="opacity-flux-0 animation-duration-2 animation-direction-reverse">
-          <span class="left-flux-0 animation-duration-2 inline-block relative">></span>
-      </span>
-      <span class="ml-10">
-        ${interior }
-      </span>
-    </div>`
-}
-
-function Text0 (interior) {
-  return `<div class="text text-group text-white my-8 bg-black p-8 text0">${interior}</div>`
 }
 
 function Empty () {  

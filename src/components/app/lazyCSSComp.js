@@ -17,6 +17,15 @@ const lazyCSSComp = (options) => {
 
     return `
 <style>
+
+    .left-side-off {
+        left: -100%;
+    }
+
+    .transition-all {
+        transition: all 1000ms;
+    }
+
     .story-card-instance {
         transition: all 3000ms;
     }
@@ -49,14 +58,19 @@ const lazyCSSComp = (options) => {
         0% { left: -100%; }
         100% { left: 5%; }
     }
-    
+
+    @keyframes keyframes-left-slide-out-0 {
+        100% { left: -100%; }
+        0% { left: 5%; }
+    }
+
     .left-slide-in-0 {
         animation: keyframes-left-slide-in-0 1000ms forwards;
         position: fixed;
     }
     
     .left-slide-out-0 {
-        animation: keyframes-left-slide-in-0 1000ms backwards;
+        animation: keyframes-left-slide-out-0 1000ms forwards;
         position: fixed;
     }
     
@@ -105,6 +119,11 @@ const lazyCSSComp = (options) => {
       width: 100%;
     }
   
+    .app-nav {
+        height: 50px;
+        z-index: 1000;
+    }
+
   @keyframes keyframes-observer-button-close-1 {
     0% {color: black;}
     25% {color: red;}
