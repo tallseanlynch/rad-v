@@ -4,19 +4,23 @@ const lazyCSSComp = (options) => {
 
     const CSStemplates = [
         (x) => `
-    .hover\\\:pl-${x}:hover {padding-left: ${baseUnit * x}em;transition:all ${transitionTime} ease-out; }`,
+    .hover\\\:pl-${x}:hover {padding-left: ${baseUnit * x}em;transition:padding-left ${transitionTime} ease-out; }`,
         (x) => `
-    .hover\\\:pr-${x}:hover {padding-right: ${baseUnit * x}em;transition:all ${transitionTime} ease-out; }`,
+    .hover\\\:pr-${x}:hover {padding-right: ${baseUnit * x}em;transition:padding-right ${transitionTime} ease-out; }`,
         (x) => `
-    .hover\\\:pt-${x}:hover {padding-top: ${baseUnit * x}em;transition:all ${transitionTime} ease-out; }`,
+    .hover\\\:pt-${x}:hover {padding-top: ${baseUnit * x}em;transition:padding-top ${transitionTime} ease-out; }`,
         (x) => `
-    .hover\\\:pb-${x}:hover {padding-bottom: ${baseUnit * x}em;transition:all ${transitionTime} ease-out; }`,
+    .hover\\\:pb-${x}:hover {padding-bottom: ${baseUnit * x}em;transition:padding-bottom ${transitionTime} ease-out; }`,
     (x) => `
-    .hover\\\:p-${x}:hover {padding: ${baseUnit * x}em;transition:all ${transitionTime} ease-out; }`,
+    .hover\\\:p-${x}:hover {padding: ${baseUnit * x}em;transition:padding ${transitionTime} ease-out; }`,
     ]    
 
     return `
 <style>
+
+    .layer--main-elements {
+        padding-bottom: 50%;
+    }
 
     .left-side-off {
         left: -100%;
@@ -103,7 +107,8 @@ const lazyCSSComp = (options) => {
   
     .observer-middle {
       transition: all 500ms ease;
-      width: 5em;
+      width: 10em;
+      height: 10em;
     }
   
     .observer-middle-flash-0 {

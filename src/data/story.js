@@ -235,11 +235,11 @@ function cards() {
                         },
                         html: `
                             <div class='observer-button-0 observer-button'>
-                                <div class='observer-middle-flash-0 observer-middle background-color-rainbow-0 animation-duration-12 z-index-2'>
+                                <div class='observer-middle-flash-0 observer-middle background-color-rainbow-0 animation-duration-19 z-index-2'>
                                 </div>
-                                <div class='observer-middle-flash-1 observer-middle background-color-rainbow-0 animation-duration-12 z-index-2'>
+                                <div class='observer-middle-flash-1 observer-middle background-color-rainbow-0 animation-duration-19 z-index-2'>
                                 </div>
-                                <div class='observer-middle-0 observer-middle background-color-rainbow-0 animation-duration-12 z-index-3'>
+                                <div class='observer-middle-0 observer-middle background-color-rainbow-0 animation-duration-19 z-index-3'>
                                     <div class='observer-interior-0 observer-interior'></div>
                                 </div>
                             </div>`,

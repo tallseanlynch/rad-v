@@ -10,6 +10,10 @@ import Chapter1 from '../../components/Chapter1.js'
 import Element from '../../components/Element.js'
 import Options from '../../components/Options.js'
 import Texts from '../../components/Texts.js'
+import BackgroundElements from '../BackgroundElements.js'
+import ForegroundElements from '../ForegroundElements.js'
+import CardElements from '../CardElements.js'
+
 const { Option9, OptionDotDotDot, OptionDownArrow } = Options
 const { Text0 } = Texts
 
@@ -62,8 +66,6 @@ export default class App {
           }
         },
         storyExplorerOpenClose: function () {
-          console.log('STORY EXPLORER BUS!')
-          console.log(this.appState.storyExplorer)
           this.appState.storyExplorer = !this.appState.storyExplorer
           const addStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
           const removeStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-out-0' : 'left-slide-in-0'
@@ -80,7 +82,7 @@ export default class App {
         chapterMenu: false,
         mainMenu: false,
         storyMenu: true,
-        storyExplorer: true,
+        storyExplorer: false,
         storyExploreSelect: '',
         storyExplorerFilter: ''
       }
@@ -118,11 +120,9 @@ export default class App {
       this.cardHistory.push(cardData)
       this.updateCurrentCardInstanceId(this.parseCardInstance(cardInstanceId))
       const beforeHist = document.querySelector('.full-card').scrollTop
-      console.log({beforeHist})
       this.renderAppContainer()
       document.querySelector('.full-card').scrollTop = beforeHist
       const afterHist = document.querySelector('.full-card').scrollTop
-      console.log({afterHist})
     }
     
     updateCurrentCardInstanceId (id) {
@@ -179,109 +179,12 @@ function removeClassesFromDOMNode (node, classes) {
   })
 }
 
-function BackgroundElements (els = []) {
-  let preAllCardElements = this.cardHistory.map((ch) => {
-    return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).backgroundElements.map((ce => {
-      if(typeof ce === 'string') {
-        return { 
-          text: ce, 
-          template: this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).defaults.text.template,
-          cardInstance: ch.cardInstance
-        }   
-      } else {
-        return {
-          ...ce, 
-          cardInstance: ch.cardInstance
-        }
-      }
-    }))
-  })
-
-  let allCardElements = []
-  preAllCardElements.forEach(pace => {
-    allCardElements = allCardElements.concat(pace).filter(bgel => { return this.parseCardInstance(bgel.cardInstance) === this.parseCardInstance(this.currentCardInstanceId)})
-  })
-  return `<div class="layer--background-elements fixed h-full w-full">${allCardElements.map(el => {return this.templates.Element(el)}).filter(cin => cin.chapter !== true).join('')}</div>`
-}
-
 function ChapterElements (els = [], options) {
   return this.templates.Chapter1()
 }
 
 function MainMenuElements (els = [], options) {
   return this.templates.MainMenu()
-}
-
-function CardElements (els = [], options) {
-  let historyCardInstanceIds = this.cardHistory.map(histCardId => histCardId.cardInstance)
-  let allCards = this.cardHistory.map((ch, chi) => {
-    return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).cardElements.map((ce => {
-      if(typeof ce === 'string') {
-        return { 
-          text: ce, 
-          template: this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).defaults.text.template,
-          cardInstance: ch.cardInstance,
-        }   
-      } else {
-        return {
-          ...ce,
-          cardInstance: ch.cardInstance,
-        }
-      }
-    }))
-  })
-
-  // all card elements
-  let allCardElements = [].concat(...allCards)
-
-  let firstCurrentCardElementIndex = allCardElements.map(ace => this.parseCardInstance(ace.cardInstance)).indexOf(this.parseCardInstance(this.currentCardInstanceId)) // === this.currentCardInstanceId && console.log()})
-
-  const animationTop = {
-    html: `<div class="current-card-transition-in w-full animation-duration-1"></div>`,
-    cardInstance: this.currentCardInstanceId
-  }
-  allCardElements.splice(firstCurrentCardElementIndex, 0, animationTop)
-
-  // all options
-  let filteredOptions = allCardElements.filter(ac => ac.goTo ).filter(op => op.goTo) 
-
-  // chosen history option
-  let filteredHistoryOptions = filteredOptions.filter(ho => historyCardInstanceIds.indexOf(ho.goTo) > -1).map(mho => mho.goTo)
-  let unchosenFilteredHistoryOptions = filteredOptions.filter(ho => historyCardInstanceIds.indexOf(ho.goTo) < 0).map(mho => mho.goTo)
-  let parsedUnchosenFilteredHistoryOptions = unchosenFilteredHistoryOptions.map(phc => this.parseCardInstance(phc))
-  let currentCardInstanceIdOptions = this.getCardInstanceById(this.currentCardInstanceId).cardElements.filter(ccii => ccii.goTo).map(ce => ce.goTo)
-  let continueOptions = filteredHistoryOptions.filter(co => co.text === undefined)
-
-
-  // unchosen history options
-  let staleFilteredHistoryOptions = unchosenFilteredHistoryOptions.filter(op => currentCardInstanceIdOptions.indexOf(op) < 0)
-
-  let allFilteredCardElements = allCardElements.filter(ace => (ace.goTo === undefined || staleFilteredHistoryOptions.indexOf(ace.goTo) < 0))//.filter(c => continueOptions.indexOf(c.goTo) < 0)
-  let filteredAllCardElements = allFilteredCardElements.map(face => {
-    if(filteredHistoryOptions.indexOf(face.goTo) < 0) {
-      return face
-    } else {
-      if(face.text) {
-        return {
-          ...face,
-          goTo: undefined,
-          template: this.getCardInstanceById(this.parseCardInstance(face.cardInstance)).defaults.text.template,
-          cardElementClasses: 'opacity-in-0 animation-duration-1'
-        }  
-      } else {
-        return {
-          template: 'Empty'
-        }
-      }
-    }
-  }).filter(ce => ce !== undefined)
-
-   let filterChapterCardElements = filteredAllCardElements
-  return `<div class="layer--main-elements max-w-3xl p-16 block z-index-1 w-full">${filterChapterCardElements.map(el => {return this.templates.Element(el)}).join('')}</div>`
-}
-
-function ForegroundElements (els = []) {
-  return els
 }
 
 function AppContainer (config = {}) {

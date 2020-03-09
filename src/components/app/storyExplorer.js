@@ -76,10 +76,16 @@ function StoryExplorer (cards) {
     const inlineClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
     return `
   <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto ${inlineClass} animation-duration-10">
-    <div class="story-explorer-container text-3xl">
+    <div class="story-explorer-container text-2xl">
       <h1 class="font-bold text-5xl mb-16 border-b-2 pb-4">Story Explorer<h1>
         <p><span class="font-bold">Number of Cards:</span> ${cards.cardInstances.length}</p>
-        <form>
+        <form class="mb-16">
+            <p class="pt-2">
+                <span class="font-bold">Load History:</span>
+                <select class="border border-black">
+                    <option>card-history-0</option>         
+                </select>
+            </p>
             <p class="pt-2">
                 <span class="font-bold">Select Card:</span>
                 <select class="border border-black">
@@ -92,9 +98,7 @@ function StoryExplorer (cards) {
                 <span class="font-bold">Filter Card:</span>
                 <input type="text" class="pl-2 border border-black" placeholder="card id, element text"></input>
             </p>
-
-            </form>
-        ${renderedImproperGoTos(improperGoTos)}
+        </form>
         <div class="my-8">
             ${cards.cardInstances.map(card => {
                 return StoryCardInstance(card)
@@ -103,6 +107,7 @@ function StoryExplorer (cards) {
       </div>
   </div>`
   }
+//  ${renderedImproperGoTos(improperGoTos)}
 
 const sanitizeCardElementText = (cardElement) => {
     if(typeof cardElement === 'string') {
