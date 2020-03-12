@@ -62,6 +62,46 @@ function StoryCardIcon (sci) {
 `
 }
 
+// function findParent(cards, card) {
+//     cards.map(card => {
+//         card.cardElements.go
+//     })
+// }
+
+
+// function createCardsOptionsIndex (cards) {
+//     cards.cardInstances.map(card => {
+
+//     })
+//     return `${cards.cardInstances[0].id}`
+// }
+
+const cardParents = (card, cards) => {
+    const cardOptionMatches = []
+    cards.cardInstances.forEach(eachCard => {
+        eachCard.cardElements.forEach(cardElement => {
+            if(cardElement.goTo && cardElement.goTo === card.id) {
+                cardOptionMatches.push(eachCard.id)
+            }
+        })
+    })
+    return cardOptionMatches
+}
+
+function returnCardPath (card, cards) {
+    const startingCard = ' card-instance-0-0'
+    const cardPathArray = [card.id, ...cardParents(card, cards)]
+
+    console.log(cardPathArray.reverse().join(' > '))
+    debugger
+
+    if(card.id === startingCard){
+        return 'Starting card.'
+    }
+
+    return `${cardPathArray.join(', ')}`
+}
+
 function StoryExplorer (cards) {    
     this.busFunctions.storyExplorerOpenClose = function () {
         console.log('STORY EXPLORER BUS!')
@@ -80,6 +120,9 @@ function StoryExplorer (cards) {
       <h1 class="font-bold text-5xl mb-16 border-b-2 pb-4">Story Explorer<h1>
         <p><span class="font-bold">Number of Cards:</span> ${cards.cardInstances.length}</p>
         <form class="mb-16">
+            <p>
+                ${returnCardPath(cards.cardInstances[5], cards)}
+            </p>
             <p class="pt-2">
                 <span class="font-bold">Load History:</span>
                 <select class="border border-black">

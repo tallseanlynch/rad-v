@@ -82,7 +82,7 @@ export default class App {
         chapterMenu: false,
         mainMenu: false,
         storyMenu: true,
-        storyExplorer: false,
+        storyExplorer: true,
         storyExploreSelect: '',
         storyExplorerFilter: ''
       }
