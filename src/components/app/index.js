@@ -3,7 +3,7 @@ import '../../assets/css/textly-utilities.css'
 import { cards } from '../../data/story.js'
 import testCardHistory from '../../data/testCardHistory.js'
 import moment from 'moment'
-import StoryExplorer from './storyExplorer.js'
+import { StoryExplorer, createStoryExplorerTimeline, assignDepthsToCardOptions } from './storyExplorer.js'
 import lazyCSSComp from './lazyCSSComp.js'
 import MainMenu from '../../components/MainMenu'
 import Chapter1 from '../../components/Chapter1.js'
@@ -46,6 +46,7 @@ export default class App {
         MainMenu: MainMenu.bind(this),
         StoryExplorer: StoryExplorer.bind(this)
       }
+      this.storyExplorerTimeline = {}
       this.currentCardInstanceId = 'card-instance-0-0'
       this.currentCardOptionsActive = true
       this.cardHistory = testCardHistory
@@ -97,6 +98,8 @@ export default class App {
       this.addCardToCardHistory = this.addCardToCardHistory.bind(this)
       this.addClassesToDOMNode = addClassesToDOMNode.bind(this)
       this.removeClassesFromDOMNode = removeClassesFromDOMNode.bind(this)
+      this.createStoryExplorerTimeline = createStoryExplorerTimeline.bind(this)
+      this.assignDepthsToCardOptions = assignDepthsToCardOptions.bind(this)
     }
 
     setAppStateValue (key, value) {

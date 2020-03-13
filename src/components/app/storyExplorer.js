@@ -19,7 +19,7 @@ const renderImproperGoTos = () => {
     }
 }
 
-console.log(colors)
+// console.log(colors)
 
 const createStoryCardIcon = () => {
 
@@ -39,7 +39,7 @@ const createStoryCardIcon = () => {
     ]
 }
 
-console.log(createStoryCardIcon())
+// console.log(createStoryCardIcon())
 
 function StoryCardIcon (sci) {
     return `<div class="inline-flex flex-col story-card-icon">
@@ -76,24 +76,93 @@ function StoryCardIcon (sci) {
 //     return `${cards.cardInstances[0].id}`
 // }
 
-const cardParents = (card, cards) => {
-    const cardOptionMatches = []
-    cards.cardInstances.forEach(eachCard => {
-        eachCard.cardElements.forEach(cardElement => {
-            if(cardElement.goTo && cardElement.goTo === card.id) {
-                cardOptionMatches.push(eachCard.id)
-            }
+// TODO: cardChildren
+
+
+function sanitizeCardOptions (cardOptionsArray) {
+    const sanitizedCardOptions = []
+    cardOptionsArray.forEach(cco => {
+        sanitizedCardOptions.push({
+            ...cco,
+            goTo: cco.goTo.split('_')[0]
         })
     })
-    return cardOptionMatches
+    return sanitizedCardOptions
 }
+
+function returnCardById (id, cards) {
+    return cards.filter(c => c.id === id)[0]
+}
+
+export function assignDepthsToCardOptions (entryPoint, depth) {
+    console.log('assignDepthsToCardOptions',{depth})
+    const cardDepths = this.storyExplorerTimeline
+    if(returnCardById(entryPoint, this.cards().cardInstances) === undefined) {
+        return
+    }
+    const currentCardOptions = returnCardById(entryPoint, this.cards().cardInstances).cardElements.filter(ce => !!ce.goTo)
+    const sanitizedCurrentCardOptions = sanitizeCardOptions(currentCardOptions)
+
+    sanitizedCurrentCardOptions.forEach(saneCard => {
+        if(saneCard.goTo === 'card-instance-0-0' || !saneCard.goTo) {
+            return
+        }
+        cardDepths[saneCard.goTo] = Number(depth)
+        if(depth < 9) {
+            let newDepth = depth + 1
+            this.assignDepthsToCardOptions(saneCard.goTo, newDepth)
+        }
+    })
+
+    console.log({sanitizedCurrentCardOptions, currentCardOptions, cardDepths})
+
+    // return cardDepths
+
+}
+
+export function createStoryExplorerTimeline () {
+    console.log(this.storyExplorerTimeline)
+    const entryPoint = 'card-instance-0-0'
+
+    let depth = 0
+    console.log({depth})
+    this.storyExplorerTimeline[entryPoint] = depth
+    depth++
+    console.log({depth})
+    this.assignDepthsToCardOptions(entryPoint, depth)
+    // console.log({newCardDepths})
+    console.log(this.storyExplorerTimeline)
+    return `YO`
+}
+
+// const cardParents = (card, cards, depth = 0) => {
+//     const d = depth
+//     const cardOptionMatches = []
+//     cards.cardInstances.forEach(eachCard => {
+//         eachCard.cardElements.forEach(cardElement => {
+//             if(cardElement.goTo && cardElement.goTo === card.id) {
+//                 cardOptionMatches.push(eachCard.id)
+//             }
+//         })
+//     })
+
+//     if(cardOptionMatches.lenth === 0 || card.id === 'card-instance-0-0') {
+//         return cardOptionMatches
+//     } 
+    
+//     if(cardOptionMatches.lenth > 0 || card.id !== 'card-instance-0-0') {
+//         return cardOptionMatches
+//     } 
+
+// }
 
 function returnCardPath (card, cards) {
     const startingCard = ' card-instance-0-0'
-    const cardPathArray = [card.id, ...cardParents(card, cards)]
+    const cardParentsArray = cardParents(card, cards)
+    const cardPathArray = [card.id, ...cardParentsArray]
 
-    console.log(cardPathArray.reverse().join(' > '))
-    debugger
+    // console.log(cardPathArray.reverse().join(' > '))
+    // debugger
 
     if(card.id === startingCard){
         return 'Starting card.'
@@ -102,10 +171,10 @@ function returnCardPath (card, cards) {
     return `${cardPathArray.join(', ')}`
 }
 
-function StoryExplorer (cards) {    
+export function StoryExplorer (cards) {    
     this.busFunctions.storyExplorerOpenClose = function () {
-        console.log('STORY EXPLORER BUS!')
-        console.log(this.appState.storyExplorer)
+        // console.log('STORY EXPLORER BUS!')
+        // console.log(this.appState.storyExplorer)
         this.appState.storyExplorer = !this.appState.storyExplorer
         const addStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
         const removeStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-out-0' : 'left-slide-in-0'
@@ -121,7 +190,7 @@ function StoryExplorer (cards) {
         <p><span class="font-bold">Number of Cards:</span> ${cards.cardInstances.length}</p>
         <form class="mb-16">
             <p>
-                ${returnCardPath(cards.cardInstances[5], cards)}
+                ${this.createStoryExplorerTimeline()}
             </p>
             <p class="pt-2">
                 <span class="font-bold">Load History:</span>
@@ -192,6 +261,3 @@ function StoryCardInstance (cardInstance) {
         ${cardInstanceOptions}
     </div>`
 }
-
-export default StoryExplorer
-  
