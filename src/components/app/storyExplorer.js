@@ -182,8 +182,8 @@ function createDepthYAxis (depthsObject) {
     return dY
 }
 
-function renderStoryExplorerTimeline (timeline) {
-    let t = timeline
+export function renderStoryExplorerTimeline () {
+    let t = this.storyExplorerTimeline
     const cards = Object.keys(t).filter(c => c !== '__debug')
 
     let largestDepth = 0
@@ -197,7 +197,41 @@ function renderStoryExplorerTimeline (timeline) {
     console.log(multipleDepthsY)
 
     const allTimelineNodes = cards.map(c => {
-        return `<div class="timeline-node absolute z-index-5 pt-2 text-center" style="top:${t[c] * depthUnit}%;left:${(multipleDepthsY[t[c]].indexOf(c) + 1) * 100/(multipleDepthsY[t[c]].length + 1)}%;background-color:${colors[t[c]%15][0]}">${t[c]}</div>`
+        const xAdjustment = 2
+        const nodeTop = t[c] * depthUnit
+        const nodeLeft = (multipleDepthsY[t[c]].indexOf(c) + 1) * 100/(multipleDepthsY[t[c]].length + 1)
+        const backgroundColor = colors[t[c]%15][0]
+        const currentCard = returnCardById(c, this.cards().cardInstances)
+        const currentCardOptions = currentCard && currentCard.cardElements && currentCard.cardElements.filter(ce => ce.goTo !== undefined)
+        let renderedCurrentCardOptionLines = ''
+        if(currentCardOptions === undefined) {
+            // debugger
+            console.log('!!! UNDEFINED CARD')
+        } else {
+            currentCardOptions.forEach(cco => {
+                const saneId = cco.goTo.split('_')[0]
+                if(multipleDepthsY[t[saneId]] === undefined){
+                    console.log(`No multipleDepth found for timeline node ${cco.goTo}`)
+                } else {
+                    const lineLeft = (multipleDepthsY[t[saneId]].indexOf(saneId) + 1) * 100/(multipleDepthsY[t[saneId]].length + 1) + xAdjustment
+                    const lineTop = t[saneId] * depthUnit
+                    console.log('options', {
+                        saneId, lineLeft, lineTop
+                    })
+                    renderedCurrentCardOptionLines += `
+                    <line class="cursor-pointer" x1="${nodeLeft + xAdjustment}%" y1="${nodeTop}%" x2="${lineLeft}%" y2="${lineTop}%" style="stroke:rgb(255,0,0);stroke-width:2" />
+                    `    
+                }
+            })
+        }
+        const renderedOptions = `
+        ${currentCardOptions && renderedCurrentCardOptionLines}
+        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}">
+            ${t[c]}
+        </div>
+        `
+        // console.log(renderedOptions)
+        return renderedOptions
     }).join('')
 
 
@@ -208,11 +242,15 @@ function renderStoryExplorerTimeline (timeline) {
     console.log({largestDepth, depthUnit})
 
     const Timeline = () => {
-        return `
+        const renderedTimeline = `
         <div class="timeline-container h-full w-full relative">
-            ${allTimelineNodes}
+            <svg class="w-full h-full">
+                ${allTimelineNodes}
+            </svg>
         </div>
         `
+        console.log(renderedTimeline)
+        return renderedTimeline 
     }
 
     return Timeline()
@@ -232,7 +270,7 @@ export function createStoryExplorerTimeline () {
     console.log(`endTime: ${endTime}`)
     console.log(`loadingTime in seconds: ${loadingTime/1000}`)
     this.findDuplicateCardIds()
-    return renderStoryExplorerTimeline(this.storyExplorerTimeline)
+    return this.renderStoryExplorerTimeline()
 }
 
 export function StoryExplorer (cards) {    
