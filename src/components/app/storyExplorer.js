@@ -197,7 +197,7 @@ function renderStoryExplorerTimeline (timeline) {
     console.log(multipleDepthsY)
 
     const allTimelineNodes = cards.map(c => {
-        return `<div class="timeline-node absolute z-index-5 pt-2 text-center" style="top:${t[c] * depthUnit}%;left:${(multipleDepthsY[t[c]].indexOf(c) + 1) * 100/(multipleDepthsY[t[c]].length + 1)}%;background-color:${colors[t[c]%8][0]}">${t[c]}</div>`
+        return `<div class="timeline-node absolute z-index-5 pt-2 text-center" style="top:${t[c] * depthUnit}%;left:${(multipleDepthsY[t[c]].indexOf(c) + 1) * 100/(multipleDepthsY[t[c]].length + 1)}%;background-color:${colors[t[c]%15][0]}">${t[c]}</div>`
     }).join('')
 
 

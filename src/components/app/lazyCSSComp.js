@@ -23,7 +23,7 @@ const lazyCSSComp = (options) => {
     }
 
     .timeline-node {
-        border-radius:100%;
+        border-radius: 100%;
         width: 25px;
         height: 25px;
     }
