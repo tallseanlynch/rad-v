@@ -1,5 +1,11 @@
 export default function BackgroundElements (els = []) {
-    let preAllCardElements = this.cardHistory.map((ch) => {
+  let storyExplorerCardInstanceIds = this.storyStoryExplorerCardHistory
+  let cardHistorySelector = this.cardHistory
+  if(!!this.appState.storyExplorer){
+    cardHistorySelector = storyExplorerCardInstanceIds
+  } 
+
+    let preAllCardElements = cardHistorySelector.map((ch) => {
       return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).backgroundElements.map((ce => {
         if(typeof ce === 'string') {
           return { 

@@ -49,6 +49,7 @@ export default class App {
       this.currentCardInstanceId = 'card-instance-0-0'
       this.currentCardOptionsActive = true
       this.cardHistory = testCardHistory
+      this.storyStoryExplorerCardHistory = []
       this.cards = cards.bind(this)
       this.bus = bus.bind(this)
       this.busFunctions = {
@@ -210,4 +211,3 @@ function AppContainer (config = {}) {
 function Empty () {  
   return ``
 }
-

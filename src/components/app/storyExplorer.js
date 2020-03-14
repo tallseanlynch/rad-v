@@ -145,6 +145,7 @@ function StoryCardInstance (cardInstance) {
         // ${StoryCardIcon(createStoryCardIcon())}
     
     return `<div id="id-${cardInstance.id}" class="story-card-instance block border-2 mb-16 p-8 hover:bg-gray-100 hover:pl-4 relative">
+        <div class="block text-right"><button class=""><span class="font-bold">Reader</span></button> - <span class="font-bold">Explorer</span></div>
         ${cardInstanceStoryMoments}
         ${cardInstanceOptions}
     </div>`

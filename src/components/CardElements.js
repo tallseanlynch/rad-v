@@ -1,6 +1,11 @@
 export default function CardElements (els = [], options) {
-    let historyCardInstanceIds = this.cardHistory.map(histCardId => histCardId.cardInstance)
-    let allCards = this.cardHistory.map((ch, chi) => {
+    let storyExplorerCardInstanceIds = this.storyStoryExplorerCardHistory
+    let cardHistorySelector = this.cardHistory
+    if(!!this.appState.storyExplorer){
+      cardHistorySelector = storyExplorerCardInstanceIds
+    } 
+    let historyCardInstanceIds = cardHistorySelector.map(histCardId => histCardId.cardInstance)
+    let allCards = cardHistorySelector.map((ch, chi) => {
       return this.getCardInstanceById(this.parseCardInstance(ch.cardInstance)).cardElements.map((ce => {
         if(typeof ce === 'string') {
           return { 
