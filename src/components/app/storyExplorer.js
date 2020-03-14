@@ -168,10 +168,23 @@ export function findDuplicateCardIds () {
     console.log({uniqueIds, duplicateIds, unusedIds, improperGoTos})
 }
 
-function renderStoryExplorerTimeline (timeline) {
-    const t = timeline
-    const cards = Object.keys(t)
+function createDepthYAxis (depthsObject) {
+    const dY = {}
+    Object.keys(depthsObject).forEach(cardId => {
+        if(!dY[depthsObject[cardId]]){
+            dY[depthsObject[cardId]] = [cardId]
+            return
+        }
+        if(dY[depthsObject[cardId]]){
+            dY[depthsObject[cardId]].push(cardId)
+        }
+    })
+    return dY
+}
 
+function renderStoryExplorerTimeline (timeline) {
+    let t = timeline
+    const cards = Object.keys(t).filter(c => c !== '__debug')
 
     let largestDepth = 0
     cards.forEach(c => {
@@ -179,11 +192,18 @@ function renderStoryExplorerTimeline (timeline) {
             largestDepth = t[c]
         }
     })
-    const depthUnit = 100 / largestDepth
+    const depthUnit = 95 / largestDepth
+    const multipleDepthsY = createDepthYAxis(t)
+    console.log(multipleDepthsY)
 
     const allTimelineNodes = cards.map(c => {
-        return `<div class="absolute z-index-5" style="top:${t[c] * depthUnit}%">X</div>`
+        return `<div class="timeline-node absolute z-index-5 pt-2 text-center" style="top:${t[c] * depthUnit}%;left:${(multipleDepthsY[t[c]].indexOf(c) + 1) * 100/(multipleDepthsY[t[c]].length + 1)}%;background-color:${colors[t[c]%8][0]}">${t[c]}</div>`
     }).join('')
+
+
+    // const allTimelineNodes = cards.map(c => {
+    //     return `<div class="absolute z-index-5" style="top:${t[c] * depthUnit}%">X</div>`
+    // }).join('')
 
     console.log({largestDepth, depthUnit})
 
