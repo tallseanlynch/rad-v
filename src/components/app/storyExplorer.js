@@ -80,12 +80,16 @@ function StoryCardIcon (sci) {
 
 
 function sanitizeCardOptions (cardOptionsArray) {
+    const uniqueSanitizedCardOptions = {}
     const sanitizedCardOptions = []
     cardOptionsArray.forEach(cco => {
-        sanitizedCardOptions.push({
-            ...cco,
-            goTo: cco.goTo.split('_')[0]
-        })
+        if(uniqueSanitizedCardOptions[cco.goTo.split('_')[0]] === undefined){
+            uniqueSanitizedCardOptions[cco.goTo.split('_')[0]] = true
+            sanitizedCardOptions.push({
+                ...cco,
+                goTo: cco.goTo.split('_')[0]
+            })    
+        }
     })
     return sanitizedCardOptions
 }
@@ -95,44 +99,95 @@ function returnCardById (id, cards) {
 }
 
 export function assignDepthsToCardOptions (entryPoint, depth) {
-    console.log('assignDepthsToCardOptions',{depth})
-    const cardDepths = this.storyExplorerTimeline
-    if(returnCardById(entryPoint, this.cards().cardInstances) === undefined) {
+    // console.log('assignDepthsToCardOptions',{depth})
+    const thisCard = returnCardById(entryPoint, this.cards().cardInstances)
+
+    if(this.storyExplorerTimeline.__debug[entryPoint] && this.storyExplorerTimeline.__debug[entryPoint].placements > 10) {
         return
     }
-    const currentCardOptions = returnCardById(entryPoint, this.cards().cardInstances).cardElements.filter(ce => !!ce.goTo)
-    const sanitizedCurrentCardOptions = sanitizeCardOptions(currentCardOptions)
 
-    sanitizedCurrentCardOptions.forEach(saneCard => {
-        if(saneCard.goTo === 'card-instance-0-0' || !saneCard.goTo) {
-            return
-        }
-        cardDepths[saneCard.goTo] = Number(depth)
-        if(depth < 9) {
+    if(thisCard === undefined) {
+        this.storyExplorerTimeline.__debug['error'] = {errors: 0, placements: 0}
+        this.storyExplorerTimeline.__debug['error'].errors = this.storyExplorerTimeline.__debug['error'].errors + 1
+        return
+    }
+    const currentCardOptions = thisCard.cardElements.filter(ce => !!ce.goTo)
+    
+    const sanitizedCurrentCardOptions = currentCardOptions && currentCardOptions.length > 0 && sanitizeCardOptions(currentCardOptions)
+
+    sanitizedCurrentCardOptions && sanitizedCurrentCardOptions.length > 0 && sanitizedCurrentCardOptions.forEach(saneCard => {
+        if(saneCard && saneCard.goTo !== 'card-instance-0-0') {
+            if(this.storyExplorerTimeline.__debug[saneCard.goTo] === undefined) {
+                this.storyExplorerTimeline.__debug[saneCard.goTo] = {errors: 0, placements: 0}
+            }
+            if(this.storyExplorerTimeline.__debug[saneCard.goTo] && this.storyExplorerTimeline.__debug[saneCard.goTo].placements > 5) {
+                return
+            }        
+            this.storyExplorerTimeline.__debug[saneCard.goTo].placements = this.storyExplorerTimeline.__debug[saneCard.goTo].placements + 1
+            this.storyExplorerTimeline[saneCard.goTo] = Number(depth)
             let newDepth = depth + 1
             this.assignDepthsToCardOptions(saneCard.goTo, newDepth)
         }
     })
 
-    console.log({sanitizedCurrentCardOptions, currentCardOptions, cardDepths})
+    // console.log({sanitizedCurrentCardOptions, currentCardOptions, cardDepths})
 
     // return cardDepths
 
 }
 
-export function createStoryExplorerTimeline () {
-    console.log(this.storyExplorerTimeline)
-    const entryPoint = 'card-instance-0-0'
+export function findDuplicateCardIds () {
+    const uniqueIds = {}
+    this.cards().cardInstances.forEach(card => {
+        if(uniqueIds[card.id]){
+            uniqueIds[card.id].push(card)
+        } else {
+            uniqueIds[card.id] = [card]
+        }
+        
+    })
+    
+    const duplicateIds = {}
+    Object.keys(uniqueIds).forEach(uniqueId => {
+        if(uniqueIds[uniqueId].length > 1) {
+            duplicateIds[uniqueId] = uniqueIds[uniqueId]
+        }
+    })
 
+    const unusedIds = {}
+    const SEIds = Object.keys(this.storyExplorerTimeline)
+    this.cards().cardInstances.forEach(card => {
+        if(SEIds.indexOf(card.id) < 0) {
+            unusedIds[card.id] = card
+        }
+    })
+
+    const improperGoTos = {}
+    this.cards().cardInstances.forEach(card => {
+        const filteredOptions = card.cardElements.filter(cardElement => cardElement.goTo === 'card-instance-0-0')
+        if(filteredOptions.length > 0) {
+            improperGoTos[card.id] = card
+        }
+    })
+
+    console.log({uniqueIds, duplicateIds, unusedIds, improperGoTos})
+}
+
+export function createStoryExplorerTimeline () {
+    const entryPoint = 'card-instance-0-0'
     let depth = 0
-    console.log({depth})
     this.storyExplorerTimeline[entryPoint] = depth
     depth++
-    console.log({depth})
+    const startTime = new Date()
+    console.log(`startTime: ${startTime}`)
     this.assignDepthsToCardOptions(entryPoint, depth)
-    // console.log({newCardDepths})
-    console.log(this.storyExplorerTimeline)
-    return `YO`
+    console.log({storyExplorerTimeline: this.storyExplorerTimeline})
+    const endTime = new Date()
+    const loadingTime = endTime - startTime
+    console.log(`endTime: ${endTime}`)
+    console.log(`loadingTime in seconds: ${loadingTime/1000}`)
+    this.findDuplicateCardIds()
+    return `createStoryExplorerTimeline created`
 }
 
 // const cardParents = (card, cards, depth = 0) => {

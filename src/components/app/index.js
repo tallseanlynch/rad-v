@@ -3,7 +3,7 @@ import '../../assets/css/textly-utilities.css'
 import { cards } from '../../data/story.js'
 import testCardHistory from '../../data/testCardHistory.js'
 import moment from 'moment'
-import { StoryExplorer, createStoryExplorerTimeline, assignDepthsToCardOptions } from './storyExplorer.js'
+import { StoryExplorer, createStoryExplorerTimeline, assignDepthsToCardOptions, findDuplicateCardIds } from './storyExplorer.js'
 import lazyCSSComp from './lazyCSSComp.js'
 import MainMenu from '../../components/MainMenu'
 import Chapter1 from '../../components/Chapter1.js'
@@ -46,7 +46,9 @@ export default class App {
         MainMenu: MainMenu.bind(this),
         StoryExplorer: StoryExplorer.bind(this)
       }
-      this.storyExplorerTimeline = {}
+      this.storyExplorerTimeline = {
+        __debug: {}
+      }
       this.currentCardInstanceId = 'card-instance-0-0'
       this.currentCardOptionsActive = true
       this.cardHistory = testCardHistory
@@ -100,6 +102,7 @@ export default class App {
       this.removeClassesFromDOMNode = removeClassesFromDOMNode.bind(this)
       this.createStoryExplorerTimeline = createStoryExplorerTimeline.bind(this)
       this.assignDepthsToCardOptions = assignDepthsToCardOptions.bind(this)
+      this.findDuplicateCardIds = findDuplicateCardIds.bind(this)
     }
 
     setAppStateValue (key, value) {
@@ -125,7 +128,7 @@ export default class App {
       const beforeHist = document.querySelector('.full-card').scrollTop
       this.renderAppContainer()
       document.querySelector('.full-card').scrollTop = beforeHist
-      const afterHist = document.querySelector('.full-card').scrollTop
+      // const afterHist = document.querySelector('.full-card').scrollTop
     }
     
     updateCurrentCardInstanceId (id) {
