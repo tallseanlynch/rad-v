@@ -18,6 +18,10 @@ const lazyCSSComp = (options) => {
     return `
 <style>
 
+    .timeline-container {
+        min-height: 300px;        
+    }
+
     .layer--main-elements {
         padding-bottom: 50%;
     }

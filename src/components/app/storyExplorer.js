@@ -99,7 +99,6 @@ function returnCardById (id, cards) {
 }
 
 export function assignDepthsToCardOptions (entryPoint, depth) {
-    // console.log('assignDepthsToCardOptions',{depth})
     const thisCard = returnCardById(entryPoint, this.cards().cardInstances)
 
     if(this.storyExplorerTimeline.__debug[entryPoint] && this.storyExplorerTimeline.__debug[entryPoint].placements > 10) {
@@ -129,10 +128,6 @@ export function assignDepthsToCardOptions (entryPoint, depth) {
             this.assignDepthsToCardOptions(saneCard.goTo, newDepth)
         }
     })
-
-    // console.log({sanitizedCurrentCardOptions, currentCardOptions, cardDepths})
-
-    // return cardDepths
 
 }
 
@@ -173,6 +168,36 @@ export function findDuplicateCardIds () {
     console.log({uniqueIds, duplicateIds, unusedIds, improperGoTos})
 }
 
+function renderStoryExplorerTimeline (timeline) {
+    const t = timeline
+    const cards = Object.keys(t)
+
+
+    let largestDepth = 0
+    cards.forEach(c => {
+        if(t[c] > largestDepth) {
+            largestDepth = t[c]
+        }
+    })
+    const depthUnit = 100 / largestDepth
+
+    const allTimelineNodes = cards.map(c => {
+        return `<div class="absolute z-index-5" style="top:${t[c] * depthUnit}%">X</div>`
+    }).join('')
+
+    console.log({largestDepth, depthUnit})
+
+    const Timeline = () => {
+        return `
+        <div class="timeline-container h-full w-full relative">
+            ${allTimelineNodes}
+        </div>
+        `
+    }
+
+    return Timeline()
+}
+
 export function createStoryExplorerTimeline () {
     const entryPoint = 'card-instance-0-0'
     let depth = 0
@@ -187,49 +212,11 @@ export function createStoryExplorerTimeline () {
     console.log(`endTime: ${endTime}`)
     console.log(`loadingTime in seconds: ${loadingTime/1000}`)
     this.findDuplicateCardIds()
-    return `createStoryExplorerTimeline created`
-}
-
-// const cardParents = (card, cards, depth = 0) => {
-//     const d = depth
-//     const cardOptionMatches = []
-//     cards.cardInstances.forEach(eachCard => {
-//         eachCard.cardElements.forEach(cardElement => {
-//             if(cardElement.goTo && cardElement.goTo === card.id) {
-//                 cardOptionMatches.push(eachCard.id)
-//             }
-//         })
-//     })
-
-//     if(cardOptionMatches.lenth === 0 || card.id === 'card-instance-0-0') {
-//         return cardOptionMatches
-//     } 
-    
-//     if(cardOptionMatches.lenth > 0 || card.id !== 'card-instance-0-0') {
-//         return cardOptionMatches
-//     } 
-
-// }
-
-function returnCardPath (card, cards) {
-    const startingCard = ' card-instance-0-0'
-    const cardParentsArray = cardParents(card, cards)
-    const cardPathArray = [card.id, ...cardParentsArray]
-
-    // console.log(cardPathArray.reverse().join(' > '))
-    // debugger
-
-    if(card.id === startingCard){
-        return 'Starting card.'
-    }
-
-    return `${cardPathArray.join(', ')}`
+    return renderStoryExplorerTimeline(this.storyExplorerTimeline)
 }
 
 export function StoryExplorer (cards) {    
     this.busFunctions.storyExplorerOpenClose = function () {
-        // console.log('STORY EXPLORER BUS!')
-        // console.log(this.appState.storyExplorer)
         this.appState.storyExplorer = !this.appState.storyExplorer
         const addStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
         const removeStoryExplorerOpenCloseClass = this.appState.storyExplorer ? 'left-slide-out-0' : 'left-slide-in-0'
@@ -244,9 +231,6 @@ export function StoryExplorer (cards) {
       <h1 class="font-bold text-5xl mb-16 border-b-2 pb-4">Story Explorer<h1>
         <p><span class="font-bold">Number of Cards:</span> ${cards.cardInstances.length}</p>
         <form class="mb-16">
-            <p>
-                ${this.createStoryExplorerTimeline()}
-            </p>
             <p class="pt-2">
                 <span class="font-bold">Load History:</span>
                 <select class="border border-black">
@@ -266,6 +250,7 @@ export function StoryExplorer (cards) {
                 <input type="text" class="pl-2 border border-black" placeholder="card id, element text"></input>
             </p>
         </form>
+        ${this.createStoryExplorerTimeline()}
         <div class="my-8">
             ${cards.cardInstances.map(card => {
                 return StoryCardInstance(card)
