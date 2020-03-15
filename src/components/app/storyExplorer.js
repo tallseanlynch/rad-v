@@ -198,14 +198,14 @@ export function renderStoryExplorerTimeline () {
 
     const allTimelineNodes = cards.map(c => {
         const xAdjustment = 2
+        const yAdjustment = 1
         const nodeTop = t[c] * depthUnit
         const nodeLeft = (multipleDepthsY[t[c]].indexOf(c) + 1) * 100/(multipleDepthsY[t[c]].length + 1)
         const backgroundColor = colors[t[c]%15][0]
         const currentCard = returnCardById(c, this.cards().cardInstances)
-        const currentCardOptions = currentCard && currentCard.cardElements && currentCard.cardElements.filter(ce => ce.goTo !== undefined)
-        let renderedCurrentCardOptionLines = ''
+        const currentCardOptions = currentCard && currentCard.cardElements && currentCard.cardElements.filter(ce => ce.goTo !== undefined && ce.goTo !== 'card-instance-0-0')
+        let renderedCurrentCardOptionLines = []
         if(currentCardOptions === undefined) {
-            // debugger
             console.log('!!! UNDEFINED CARD')
         } else {
             currentCardOptions.forEach(cco => {
@@ -214,24 +214,22 @@ export function renderStoryExplorerTimeline () {
                     console.log(`No multipleDepth found for timeline node ${cco.goTo}`)
                 } else {
                     const lineLeft = (multipleDepthsY[t[saneId]].indexOf(saneId) + 1) * 100/(multipleDepthsY[t[saneId]].length + 1) + xAdjustment
-                    const lineTop = t[saneId] * depthUnit
-                    console.log('options', {
-                        saneId, lineLeft, lineTop
-                    })
-                    renderedCurrentCardOptionLines += `
-                    <line class="cursor-pointer" x1="${nodeLeft + xAdjustment}%" y1="${nodeTop}%" x2="${lineLeft}%" y2="${lineTop}%" style="stroke:rgb(255,0,0);stroke-width:2"> </line>
-                    `    
+                    const lineTop = (t[saneId] * depthUnit) + yAdjustment
+                    // console.log('options', {
+                    //     saneId, lineLeft, lineTop
+                    // })
+                    renderedCurrentCardOptionLines.push(`<line class="cursor-pointer" x1="${nodeLeft + xAdjustment}%" y1="${nodeTop + yAdjustment}%" x2="${lineLeft}%" y2="${lineTop}%" style="stroke:rgb(255,0,0);stroke-width:2"> </line>`)    
                 }
             })
         }
         // ${currentCardOptions && renderedCurrentCardOptionLines}
 
+        setTimeout(()=>{
+            if(currentCardOptions) {document.querySelectorAll('.lines')[0].innerHTML += renderedCurrentCardOptionLines.join('')}
+        }, 100)
+
         const renderedOptions = `
-        ${currentCardOptions && renderedCurrentCardOptionLines}
-        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}">
-            ${t[c]}
-        </div>
-        `
+        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}">${t[c]}</div>`
         // console.log(renderedOptions)
         return renderedOptions
     }).join('')
@@ -246,13 +244,7 @@ export function renderStoryExplorerTimeline () {
     // const Timeline = () => {
     //     console.log({allTimelineNodes})
         // const renderedTimeline = `
-        return `
-        <div class="timeline-container h-full w-full relative">
-            <svg class="w-full h-full">
-                ${allTimelineNodes}
-            </svg>
-        </div>
-        `
+        return allTimelineNodes
         // console.log(renderedTimeline)
         // return renderedTimeline 
     // }
@@ -313,7 +305,11 @@ export function StoryExplorer (cards) {
                 <input type="text" class="pl-2 border border-black" placeholder="card id, element text"></input>
             </p>
         </form>
-        ${this.createStoryExplorerTimeline()}
+        <div class="timeline-container h-full w-full relative">
+            ${this.createStoryExplorerTimeline()}
+            <svg class="w-full h-full lines">
+            </svg>
+        </div>
         <div class="my-8">
             ${cards.cardInstances.map(card => {
                 return StoryCardInstance(card)
