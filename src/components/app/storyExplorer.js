@@ -219,11 +219,13 @@ export function renderStoryExplorerTimeline () {
                         saneId, lineLeft, lineTop
                     })
                     renderedCurrentCardOptionLines += `
-                    <line class="cursor-pointer" x1="${nodeLeft + xAdjustment}%" y1="${nodeTop}%" x2="${lineLeft}%" y2="${lineTop}%" style="stroke:rgb(255,0,0);stroke-width:2" />
+                    <line class="cursor-pointer" x1="${nodeLeft + xAdjustment}%" y1="${nodeTop}%" x2="${lineLeft}%" y2="${lineTop}%" style="stroke:rgb(255,0,0);stroke-width:2"> </line>
                     `    
                 }
             })
         }
+        // ${currentCardOptions && renderedCurrentCardOptionLines}
+
         const renderedOptions = `
         ${currentCardOptions && renderedCurrentCardOptionLines}
         <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}">
@@ -241,19 +243,22 @@ export function renderStoryExplorerTimeline () {
 
     console.log({largestDepth, depthUnit})
 
-    const Timeline = () => {
-        const renderedTimeline = `
+    // const Timeline = () => {
+    //     console.log({allTimelineNodes})
+        // const renderedTimeline = `
+        return `
         <div class="timeline-container h-full w-full relative">
             <svg class="w-full h-full">
                 ${allTimelineNodes}
             </svg>
         </div>
         `
-        console.log(renderedTimeline)
-        return renderedTimeline 
-    }
+        // console.log(renderedTimeline)
+        // return renderedTimeline 
+    // }
 
-    return Timeline()
+    // return Timeline()
+
 }
 
 export function createStoryExplorerTimeline () {
