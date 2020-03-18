@@ -119,9 +119,9 @@ export function assignDepthsToCardOptions (entryPoint, depth) {
             if(this.storyExplorerTimeline.__debug[saneCard.goTo] === undefined) {
                 this.storyExplorerTimeline.__debug[saneCard.goTo] = {errors: 0, placements: 0}
             }
-            if(this.storyExplorerTimeline.__debug[saneCard.goTo] && this.storyExplorerTimeline.__debug[saneCard.goTo].placements > 5) {
-                return
-            }        
+            // if(this.storyExplorerTimeline.__debug[saneCard.goTo] && this.storyExplorerTimeline.__debug[saneCard.goTo].placements > 5) {
+            //     return
+            // }        
             this.storyExplorerTimeline.__debug[saneCard.goTo].placements = this.storyExplorerTimeline.__debug[saneCard.goTo].placements + 1
             this.storyExplorerTimeline[saneCard.goTo] = Number(depth)
             let newDepth = depth + 1
@@ -229,7 +229,7 @@ export function renderStoryExplorerTimeline () {
         }, 100)
 
         const renderedOptions = `
-        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}">${t[c]}</div>`
+        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}"><span class="font-bold">${t[c]}</span> : ${c.replace('card-instance-','')}</div>`
         // console.log(renderedOptions)
         return renderedOptions
     }).join('')
@@ -279,41 +279,53 @@ export function StoryExplorer (cards) {
         this.addClassesToDOMNode('.story-card-explorer', [addStoryExplorerOpenCloseClass])
     }
 
+    const filters = `
+    <p><span class="font-bold">Number of Cards:</span> ${cards.cardInstances.length}</p>
+    <form class="mb-16">
+        <p class="pt-2">
+            <span class="font-bold">Load History:</span>
+            <select class="border border-black">
+                <option>card-history-0</option>         
+            </select>
+        </p>
+        <p class="pt-2">
+            <span class="font-bold">Select Card:</span>
+            <select class="border border-black">
+                ${cards.cardInstances.map(card => {
+                    return `<option>${card.id}</option>`
+                }).join('')}            
+            </select>
+        </p>
+        <p class="pt-2">
+            <span class="font-bold">Filter Card:</span>
+            <input type="text" class="pl-2 border border-black" placeholder="card id, element text"></input>
+        </p>
+    </form>
+
+    `
+
     const inlineClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
     return `
-  <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto ${inlineClass} animation-duration-10">
-    <div class="story-explorer-container text-2xl">
-      <h1 class="font-bold text-5xl mb-16 border-b-2 pb-4">Story Explorer<h1>
-        <p><span class="font-bold">Number of Cards:</span> ${cards.cardInstances.length}</p>
-        <form class="mb-16">
-            <p class="pt-2">
-                <span class="font-bold">Load History:</span>
-                <select class="border border-black">
-                    <option>card-history-0</option>         
-                </select>
-            </p>
-            <p class="pt-2">
-                <span class="font-bold">Select Card:</span>
-                <select class="border border-black">
+  <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto ${inlineClass}">
+    <div class="story-explorer-container text-3xl md:text-base">
+      <h1 class="font-bold text-5xl mb-8 border-b-2 pb-4">Story Explorer</h1>
+        <div class="flex flex-row">
+            <div class="flex flex-1">
+                <div>
                     ${cards.cardInstances.map(card => {
-                        return `<option>${card.id}</option>`
+                        return StoryCardInstance(card)
                     }).join('')}            
-                </select>
-            </p>
-            <p class="pt-2">
-                <span class="font-bold">Filter Card:</span>
-                <input type="text" class="pl-2 border border-black" placeholder="card id, element text"></input>
-            </p>
-        </form>
-        <div class="timeline-container h-full w-full relative">
-            ${this.createStoryExplorerTimeline()}
-            <svg class="w-full h-full lines">
-            </svg>
-        </div>
-        <div class="my-8">
-            ${cards.cardInstances.map(card => {
-                return StoryCardInstance(card)
-            }).join('')}            
+                </div>
+            </div>
+            <div class="flex flex-1">
+                <div class="timeline-container h-full w-full relative overflow-hidden">
+                <div class="translate-wrapper h-full w-full absolute">
+                    ${this.createStoryExplorerTimeline()}
+                    <svg class="w-full h-full lines">
+                    </svg>
+                </div>
+            </div>
+            </div>
         </div>
       </div>
   </div>`
@@ -355,7 +367,7 @@ function StoryCardInstance (cardInstance) {
         .join('')
         // ${StoryCardIcon(createStoryCardIcon())}
     
-    return `<div id="id-${cardInstance.id}" class="story-card-instance block border-2 mb-16 p-8 hover:bg-gray-100 hover:pl-4 relative">
+    return `<div id="id-${cardInstance.id}" class="story-card-instance block border-2 mb-8 p-8 hover:bg-gray-100 hover:pl-4 relative">
         ${cardInstanceStoryMoments}
         ${cardInstanceOptions}
     </div>`

@@ -19,7 +19,7 @@ const lazyCSSComp = (options) => {
 <style>
 
     .timeline-container {
-        height: 1500px;        
+        height: 3000px;        
     }
 
     .timeline-node {
@@ -67,12 +67,12 @@ const lazyCSSComp = (options) => {
 
     @keyframes keyframes-left-slide-in-0 {
         0% { left: -100%; }
-        100% { left: 5%; }
+        100% { left: 0%; }
     }
 
     @keyframes keyframes-left-slide-out-0 {
         100% { left: -100%; }
-        0% { left: 5%; }
+        0% { left: 0%; }
     }
 
     .left-slide-in-0 {
@@ -86,9 +86,8 @@ const lazyCSSComp = (options) => {
     }
     
     .story-card-explorer {
-        top: 5%;
-        width: 90%;
-        height: 90%;
+        width: 100%;
+        height: 100%;
     }
 
     ::-webkit-scrollbar
