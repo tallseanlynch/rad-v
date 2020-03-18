@@ -101,9 +101,9 @@ function returnCardById (id, cards) {
 export function assignDepthsToCardOptions (entryPoint, depth) {
     const thisCard = returnCardById(entryPoint, this.cards().cardInstances)
 
-    if(this.storyExplorerTimeline.__debug[entryPoint] && this.storyExplorerTimeline.__debug[entryPoint].placements > 10) {
-        return
-    }
+    // if(this.storyExplorerTimeline.__debug[entryPoint] && this.storyExplorerTimeline.__debug[entryPoint].placements > 10) {
+    //     return
+    // }
 
     if(thisCard === undefined) {
         this.storyExplorerTimeline.__debug['error'] = {errors: 0, placements: 0}
@@ -122,9 +122,14 @@ export function assignDepthsToCardOptions (entryPoint, depth) {
             // if(this.storyExplorerTimeline.__debug[saneCard.goTo] && this.storyExplorerTimeline.__debug[saneCard.goTo].placements > 5) {
             //     return
             // }        
-            this.storyExplorerTimeline.__debug[saneCard.goTo].placements = this.storyExplorerTimeline.__debug[saneCard.goTo].placements + 1
-            this.storyExplorerTimeline[saneCard.goTo] = Number(depth)
             let newDepth = depth + 1
+            this.storyExplorerTimeline.__debug[saneCard.goTo].placements = this.storyExplorerTimeline.__debug[saneCard.goTo].placements + 1
+            if(this.storyExplorerTimeline[saneCard.goTo] === undefined) {
+                this.storyExplorerTimeline[saneCard.goTo] = Number(newDepth)
+            } 
+            if(this.storyExplorerTimeline[saneCard.goTo] < Number(newDepth)){
+                this.storyExplorerTimeline[saneCard.goTo] = Number(newDepth)
+            }
             this.assignDepthsToCardOptions(saneCard.goTo, newDepth)
         }
     })
@@ -257,7 +262,7 @@ export function createStoryExplorerTimeline () {
     const entryPoint = 'card-instance-0-0'
     let depth = 0
     this.storyExplorerTimeline[entryPoint] = depth
-    depth++
+    // depth++
     const startTime = new Date()
     console.log(`startTime: ${startTime}`)
     this.assignDepthsToCardOptions(entryPoint, depth)
