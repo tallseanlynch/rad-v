@@ -101,9 +101,9 @@ function returnCardById (id, cards) {
 export function assignDepthsToCardOptions (entryPoint, depth) {
     const thisCard = returnCardById(entryPoint, this.cards().cardInstances)
 
-    // if(this.storyExplorerTimeline.__debug[entryPoint] && this.storyExplorerTimeline.__debug[entryPoint].placements > 10) {
-    //     return
-    // }
+    if(this.storyExplorerTimeline.__debug[entryPoint] && this.storyExplorerTimeline.__debug[entryPoint].placements > 1000) {
+        return
+    }
 
     if(thisCard === undefined) {
         this.storyExplorerTimeline.__debug['error'] = {errors: 0, placements: 0}
@@ -206,7 +206,7 @@ export function renderStoryExplorerTimeline () {
         const yAdjustment = 1
         const nodeTop = t[c] * depthUnit
         const nodeLeft = (multipleDepthsY[t[c]].indexOf(c) + 1) * 100/(multipleDepthsY[t[c]].length + 1)
-        const backgroundColor = colors[t[c]%15][0]
+        const backgroundColor = colors[t[c]%15][1]
         const currentCard = returnCardById(c, this.cards().cardInstances)
         const currentCardOptions = currentCard && currentCard.cardElements && currentCard.cardElements.filter(ce => ce.goTo !== undefined && ce.goTo !== 'card-instance-0-0')
         let renderedCurrentCardOptionLines = []
@@ -223,7 +223,7 @@ export function renderStoryExplorerTimeline () {
                     // console.log('options', {
                     //     saneId, lineLeft, lineTop
                     // })
-                    renderedCurrentCardOptionLines.push(`<line class="cursor-pointer" x1="${nodeLeft + xAdjustment}%" y1="${nodeTop + yAdjustment}%" x2="${lineLeft}%" y2="${lineTop}%" style="stroke:rgb(255,0,0);stroke-width:2"> </line>`)    
+                    renderedCurrentCardOptionLines.push(`<line class="cursor-pointer" x1="${nodeLeft + xAdjustment}%" y1="${nodeTop + yAdjustment}%" x2="${lineLeft}%" y2="${lineTop}%" style="stroke:${backgroundColor};stroke-width:3;"> </line>`)    
                 }
             })
         }
@@ -234,7 +234,7 @@ export function renderStoryExplorerTimeline () {
         }, 100)
 
         const renderedOptions = `
-        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}"><span class="font-bold">${t[c]}</span> : ${c.replace('card-instance-','')}</div>`
+        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}"><span class="font-bold">${t[c]}</span></div>`
         // console.log(renderedOptions)
         return renderedOptions
     }).join('')
@@ -313,23 +313,33 @@ export function StoryExplorer (cards) {
     return `
   <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto ${inlineClass}">
     <div class="story-explorer-container text-3xl md:text-base">
-      <h1 class="font-bold text-5xl mb-8 border-b-2 pb-4">Story Explorer</h1>
+        <h1 class="font-bold text-5xl mb-8 border-b-2 pb-4">Story Explorer</h1>
         <div class="flex flex-row">
-            <div class="flex flex-1">
+            <div class="flex flex-1 story-writer-container">
+                <div>
+                    All of this text
+                </div>
+            </div>
+            <div class="flex flex-1 story-cards-container">
                 <div>
                     ${cards.cardInstances.map(card => {
                         return StoryCardInstance(card)
                     }).join('')}            
                 </div>
             </div>
-            <div class="flex flex-1">
-                <div class="timeline-container h-full w-full relative overflow-hidden">
-                <div class="translate-wrapper h-full w-full absolute">
-                    ${this.createStoryExplorerTimeline()}
-                    <svg class="w-full h-full lines">
-                    </svg>
+            <div class="flex flex-1 timeline-container">
+                <div class="h-full w-full relative overflow-hidden">
+                    <div class="translate-wrapper h-full w-full absolute">
+                        ${this.createStoryExplorerTimeline()}
+                        <svg class="w-full h-full lines">
+                        </svg>
+                    </div>
                 </div>
             </div>
+            <div class="flex flex-1 story-reader-container">
+                <div>
+                    All of this text
+                </div>
             </div>
         </div>
       </div>
