@@ -49,7 +49,7 @@ export default class App {
       this.storyExplorerTimeline = {
         __debug: {}
       }
-      this.currentCardInstanceId = 'card-instance-0-0'
+      this.currentCardInstanceId = 'card-instance-0-14'
       this.currentCardOptionsActive = true
       this.cardHistory = testCardHistory
       this.cards = cards.bind(this)
@@ -80,7 +80,10 @@ export default class App {
       window.bus = this.bus
 
       this.appState = {
-        // mascot: 'wolf',
+        mascot: 'wolf',
+        hologram: 'Larry bird',
+        opalAlive: true,
+        opalHasBody: true,
         // simForm: '',
         chapterMenu: false,
         mainMenu: false,
@@ -90,6 +93,7 @@ export default class App {
         storyExplorerFilter: ''
       }
       this.setAppStateValue = this.setAppStateValue.bind(this)
+      this.setAppState = this.setAppState.bind(this)
       this.getAppState = this.getAppState.bind(this)
       this.updateCurrentCardInstanceId = this.updateCurrentCardInstanceId.bind(this)
       this.addDefaultToElements = this.addDefaultToElements.bind(this)
@@ -108,6 +112,10 @@ export default class App {
 
     setAppStateValue (key, value) {
       this.appState[key] = value
+    }
+
+    setAppState (data) {
+      this.appState = data
     }
 
     getAppState () {

@@ -189,44 +189,72 @@ function cards() {
                         // will be parsed out later when goToCard() is called
                         // game will track user history and check for this specific goTo property
                         text: 'Pheasant',
-                        template: 'Option9', 
-                        callback: function (el, options) {
-                            // debuggerdebugger
-                            console.log('CALLBACK CALLED')
-                            console.log(el)
-                            console.log(this)
-                            console.log('***********', el.goTo)
-                            this.setAppStateValue('mascot', 'pheasant')
-                            // this.addCardToCardHistory('card-instance-0-1_A')
-                            console.log('found el')
-                            console.log(this)
-                            console.log('getAppState', this.getAppState())
-                            console.log('OPTIONS +++++++++++', options)
-                        }
+                        template: 'Option9',
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    mascot: 'pheasant'
+                                }
+                            }
+                        ]
+                        // callback: function (el, options) {
+                        //     // debuggerdebugger
+                        //     console.log('CALLBACK CALLED')
+                        //     console.log(el)
+                        //     console.log(this)
+                        //     console.log('***********', el.goTo)
+                        //     this.setAppStateValue('mascot', 'pheasant')
+                        //     // this.addCardToCardHistory('card-instance-0-1_A')
+                        //     console.log('found el')
+                        //     console.log(this)
+                        //     console.log('getAppState', this.getAppState())
+                        //     console.log('OPTIONS +++++++++++', options)
+                        // }
                     },
                     {
                         goTo: 'card-instance-0-1_B',
                         text: 'Wolf',
                         template: 'Option9', 
-                        callback: function (el, options) {
-                            this.setAppStateValue('mascot', 'wolf')
-                        }
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    mascot: 'wolf'
+                                }
+                            }
+                        ]
+                        // callback: function (el, options) {
+                        //     this.setAppStateValue('mascot', 'wolf')
+                        // }
                     },
                     {
                         goTo: 'card-instance-0-1_C',
                         text: 'Cat',
                         template: 'Option9', 
-                        callback: function (el, options) {
-                            this.setAppStateValue('mascot', 'cat')
-                        }
+                        // callback: function (el, options) {
+                        //     this.setAppStateValue('mascot', 'cat')
+                        // }
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    mascot: 'cat'
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-1_D',
                         text: 'Butterfly',
                         template: 'Option9', 
-                        callback: function (el, options) {
-                            this.setAppStateValue('mascot', 'butterfly')
-                        }
+                        // callback: function (el, options) {
+                        //     this.setAppStateValue('mascot', 'butterfly')
+                        // }
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    mascot: 'butterfly'
+                                }
+                            }
+                        ]
                     },
                     {
                         observer: {
@@ -243,14 +271,13 @@ function cards() {
                                     <div class='observer-interior-0 observer-interior'></div>
                                 </div>
                             </div>`,
-                        callback: function (el, options) {
-                            this.addClassesToDOMNode(`.observer-middle-0`, ['observer-transition-out-0'])
-                            this.addClassesToDOMNode(`.observer-middle-flash-0`, ['observer-transition-out-1'])
-                            this.addClassesToDOMNode(`.observer-middle-flash-1`, ['observer-transition-out-2'])
-                            setTimeout(() => {
-                                document.querySelector('.observer-button-0') && document.querySelector('.observer-button-0').remove()
-                            }, 1500)
-                        }
+                        ops: [
+                            {
+                                closeObserverTarget: true
+                            }
+                        ]
+                        // callback: function (el, options) {
+                        // }
                     }            
                 ]        
             },
@@ -837,16 +864,28 @@ function cards() {
                     {
                         goTo: 'card-instance-0-7-0',
                         template: 'Option9' ,
-                        text: `A ${ this.getAppState().mascot } in a hologram.`,
-                        callback: function () { this.setAppStateValue('simForm', 'hologram') }//store.setValue('simForm', 'hologram')
-                        
+                        text: `A {{ mascot }} within a hologram.`,
+                        // callback: function () { this.setAppStateValue('simForm', 'hologram') }//store.setValue('simForm', 'hologram')
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    simForm: 'hologram'
+                                }
+                            }
+                        ]                        
                     },
                     {
                         goTo: 'card-instance-0-7-1',
                         template: 'Option9',
                         text: 'As I did in reality.',
-                        // callback: () => store.setValue('simForm', 'person')
-                        callback: function () {this.setAppStateValue('simForm', 'person')}
+                        // callback: function () {this.setAppStateValue('simForm', 'person')}
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    simForm: 'person'
+                                }
+                            }
+                        ]                        
                     },
                 ]        
             },
@@ -954,7 +993,15 @@ function cards() {
                             {
                                 goTo: 'card-instance-0-9',
                                 template: 'OptionDotDotDot',
-                                callback: () => store.setValue('opalAlive', true)
+                                // callback: () => store.setValue('opalAlive', true),
+                                ops: [
+                                    {
+                                        setAppStateValue: {
+                                            opalAlive: true
+                                        }
+                                    }
+                                ]
+        
                             },
                         ]        
                     },
@@ -985,25 +1032,53 @@ function cards() {
                         goTo: 'card-instance-0-9-0',
                         template: 'Option9',
                         text: `I didn't know, but--`,
-                        callback: () => store.setValue('simsSimQuestion', `I didn't know, but--`)
+                        // callback: () => store.setValue('simsSimQuestion', `I didn't know, but--`)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    simsSimQuestion: "I didn't know, but--."
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-9-1',
                         template: 'Option9',
                         text: `It's a likely possibility.`,
-                        callback: () => store.setValue('simsSimQuestion', `It's a likely possibility.`)
+                        // callback: () => store.setValue('simsSimQuestion', `It's a likely possibility.`)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    simsSimQuestion: "It's a likely possibility."
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-9-2',
                         template: 'Option9',
                         text: ` Yes.`,
-                        callback: () => store.setValue('simsSimQuestion', `Yes.`)
+                        // callback: () => store.setValue('simsSimQuestion', `Yes.`)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    simsSimQuestion: "Yes."
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-9-3',
                         template: 'Option9',
                         text: ` No.`,
-                        callback: () => store.setValue('simsSimQuestion', `No.`)
+                        // callback: () => store.setValue('simsSimQuestion', `No.`)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    simsSimQuestion: "No."
+                                }
+                            }
+                        ]
                     },
                 ]        
             },
@@ -1076,19 +1151,40 @@ function cards() {
                         goTo: 'card-instance-0-10-0',
                         template: 'Option9',
                         text: `I don't know.`,
-                        callback: () => store.setValue('isBarbaraSim', `I don't know.`)
+                        // callback: () => store.setValue('isBarbaraSim', `I don't know.`)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    isBarbaraSim: "I don't know"
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-10-1',
                         template: 'Option9',
                         text: `Yes.`,
-                        callback: () => store.setValue('isBarbaraSim', `Yes.`)
+                        // callback: () => store.setValue('isBarbaraSim', `Yes.`)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    isBarbaraSim: "Yes."
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-10-2',
                         template: 'Option9',
                         text: ` I am a REAL being with a body.`,
-                        callback: () => store.setValue('isBarbaraSim', `I am a REAL being with a body`)
+                        // callback: () => store.setValue('isBarbaraSim', `I am a REAL being with a body`)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    isBarbaraSim: "I am a REAL being with a body."
+                                }
+                            }
+                        ]
                     },
                 ]        
             },
@@ -1101,8 +1197,14 @@ function cards() {
                         `I have thoughts.`,
                         `I have feelings.`,
                         {
-                            goTo: store.getValue('opalAlive') === true ? 'card-instance-0-11' : 'card-instance-0-13',
-                            template: 'OptionDownArrow' 
+                            goTo: 'card-instance-0-11',
+                            template: 'OptionDownArrow',
+                            show: 'opalAlive'
+                        },
+                        {
+                            goTo: 'card-instance-0-13',
+                            template: 'OptionDownArrow',
+                            hide: 'opalAlive'
                         },
                     ]        
                 },
@@ -1115,10 +1217,20 @@ function cards() {
                         `I am an AI that was transferred into a body.`,
                         `My body was constructed for me.
                         I am the product of simulation upon simulation crafting itself.`,
+                        // {
+                        //     goTo: store.getValue('opalAlive') === true ? 'card-instance-0-11' : 'card-instance-0-13',
+                        //     template: 'OptionDownArrow' 
+                        // },
                         {
-                            goTo: store.getValue('opalAlive') === true ? 'card-instance-0-11' : 'card-instance-0-13',
-                            template: 'OptionDownArrow' 
+                            goTo: 'card-instance-0-11',
+                            template: 'OptionDownArrow',
+                            show: 'opalAlive'
                         },
+                        {
+                            goTo: 'card-instance-0-13',
+                            template: 'OptionDownArrow',
+                            hide: 'opalAlive'
+                        }
                     ]        
                 },
                 {
@@ -1130,9 +1242,19 @@ function cards() {
                         `The stakes seems to be the same for everyone else.`,
                         `Like memory and experience teach a person to grow,
                         I am the product of simulation upon simulation learning from memory and experience.`,
+                        // {
+                        //     goTo: store.getValue('opalAlive') === true ? 'card-instance-0-11' : 'card-instance-0-13',
+                        //     template: 'OptionDownArrow' 
+                        // },
                         {
-                            goTo: store.getValue('opalAlive') === true ? 'card-instance-0-11' : 'card-instance-0-13',
-                            template: 'OptionDownArrow' 
+                            goTo: 'card-instance-0-11',
+                            template: 'OptionDownArrow',
+                            show: 'opalAlive'
+                        },
+                        {
+                            goTo: 'card-instance-0-13',
+                            template: 'OptionDownArrow',
+                            hide: 'opalAlive'
                         },
                     ]        
                 },
@@ -1180,13 +1302,27 @@ function cards() {
                         goTo: 'card-instance-0-13_A',
                         template: 'Option9',
                         text: `No... I....`,
-                        callback: () => store.setValue('opalHasBody', false)
+                        // callback: () => store.setValue('opalHasBody', false)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    opalHasBody: false
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-13_B',
                         template: 'Option9',
                         text: `You're right...`,
-                        callback: () => store.setValue('opalHasBody', true)
+                        // callback: () => store.setValue('opalHasBody', true)
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    opalHasBody: true
+                                }
+                            }
+                        ]
                     },
                 ]        
             },
@@ -1223,7 +1359,12 @@ function cards() {
                 cardElements: [
                     `After finally returning to my reality, 
                     I knew what I had to do...`,
-                    store.getValue('opalHasBody') === true ? `I contacted a friend on JUPITER on OPAL'S behalf... Then...` : empty,
+                    // store.getValue('opalHasBody') === true ? `I contacted a friend on JUPITER on OPAL'S behalf... Then...` : empty,
+                    {
+                        text: `I contacted a friend on JUPITER on OPAL'S behalf... Then...`,
+                        show: 'opalHasBody',
+                        template: 'Text0'
+                    },
                     `I starting planning to undertake my own PLUTONIAN RADIATION operation.`,
                     `If a small concentrated beam of PLUTONIAN ELEMENTAL RADIATION,
                     was directed towards a specific part of MY brain augmentations,
