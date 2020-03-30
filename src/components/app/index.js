@@ -173,6 +173,7 @@ export default class App {
     }
 
     render () {
+      window.cardInstances = JSON.stringify(this.cards().cardInstances)
       if (this.elem) this.elem.innerHTML = `
       ${additionalCSS}
       <section data-component="app">
