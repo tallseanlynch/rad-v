@@ -234,7 +234,7 @@ export function renderStoryExplorerTimeline () {
         }, 100)
 
         const renderedOptions = `
-        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}"><span class="font-bold">${t[c]}</span></div>`
+        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}"><span class="font-bold">${t[c]} - ${c.replace('card-instance-', '')}</span></div>`
         // console.log(renderedOptions)
         return renderedOptions
     }).join('')
@@ -309,18 +309,20 @@ export function StoryExplorer (cards) {
 
     `
 
+//     <div class="flex flex-1 story-writer-container">
+//     <div>
+//         All of this text
+//     </div>
+// </div>
+
+
     const inlineClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
     return `
   <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto ${inlineClass}">
     <div class="story-explorer-container text-3xl md:text-base">
         <h1 class="font-bold text-5xl mb-8 border-b-2 pb-4">Story Explorer</h1>
         <div class="flex flex-row">
-            <div class="flex flex-1 story-writer-container">
-                <div>
-                    All of this text
-                </div>
-            </div>
-            <div class="flex flex-1 story-cards-container">
+            <div class="flex flex-1 story-cards-container hidden">
                 <div>
                     ${cards.cardInstances.map(card => {
                         return StoryCardInstance(card)
@@ -334,11 +336,6 @@ export function StoryExplorer (cards) {
                         <svg class="w-full h-full lines">
                         </svg>
                     </div>
-                </div>
-            </div>
-            <div class="flex flex-1 story-reader-container">
-                <div>
-                    All of this text
                 </div>
             </div>
         </div>

@@ -49,7 +49,7 @@ export default class App {
       this.storyExplorerTimeline = {
         __debug: {}
       }
-      this.currentCardInstanceId = 'card-instance-0-14'
+      this.currentCardInstanceId = 'card-instance-0-16'
       this.currentCardOptionsActive = true
       this.cardHistory = testCardHistory
       this.cards = cards.bind(this)
@@ -84,6 +84,7 @@ export default class App {
         hologram: 'Larry bird',
         opalAlive: true,
         opalHasBody: true,
+        procedureLocation: 'space',
         // simForm: '',
         chapterMenu: false,
         mainMenu: false,

@@ -108,7 +108,12 @@ export default function Element (el = {}) {
       console.log(this.getAppState()[el.hide])
     }
 
-    const show = el.show && this.getAppState()[el.show]
+    let show
+    if(el.showExpectedValue) {
+      show = el.show && this.getAppState()[el.show] === el.showExpectedValue
+    } else {
+      show = el.show && this.getAppState()[el.show]
+    }
     const hide = el.hide && this.getAppState()[el.hide]
 
     let showClass = (el.show && show) ? '' : 'hidden'

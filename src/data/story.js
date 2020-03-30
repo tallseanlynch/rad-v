@@ -1778,19 +1778,40 @@ function cards() {
                         goTo: 'card-instance-0-15-0',
                         template: 'Option9',
                         text: `Outside--`,
-                        callback: () =>  { store.setValue('procedureLocation', 'outside') } 
+                        // callback: () =>  { store.setValue('procedureLocation', 'outside') } 
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    procedureLocation: 'outside'
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-15-1',
                         template: 'Option9',
                         text: `In space--`,
-                        callback: () =>  { store.setValue('procedureLocation', 'space') } 
+                        // callback: () =>  { store.setValue('procedureLocation', 'space') } 
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    procedureLocation: 'space'
+                                }
+                            }
+                        ]
                     },
                     {
                         goTo: 'card-instance-0-15-1',
                         template: 'Option9',
                         text: `In secret--`,
-                        callback: () =>  { store.setValue('procedureLocation', 'secret') } 
+                        // callback: () =>  { store.setValue('procedureLocation', 'secret') } 
+                        ops: [
+                            {
+                                setAppStateValue: {
+                                    procedureLocation: 'secret'
+                                }
+                            }
+                        ]
                     },
                 ]        
             },
@@ -1846,9 +1867,27 @@ function cards() {
                     All color in my vision began to fade...`,
                     `I instructed the machines to target a specific part of my brain.`,
                     `The radiation emitter glowed with color and I remember...`,
+                    // {
+                    //     goTo: procedureLocations[store.getValue('procedureLocation')],
+                    //     template: 'OptionDotDotDot' 
+                    // },
                     {
-                        goTo: procedureLocations[store.getValue('procedureLocation')],
-                        template: 'OptionDotDotDot' 
+                        goTo: 'card-instance-0-16-0',
+                        template: 'OptionDotDotDot',
+                        show: 'procedureLocation',
+                        showExpectedValue: 'outside'
+                    },
+                    {
+                        goTo: 'card-instance-0-16-1',
+                        template: 'OptionDotDotDot',
+                        show: 'procedureLocation',
+                        showExpectedValue: 'space'
+                    },
+                    {
+                        goTo: 'card-instance-0-16-2',
+                        template: 'OptionDotDotDot',
+                        show: 'procedureLocation',
+                        showExpectedValue: 'secret'
                     },
                 ]        
             },
@@ -1907,7 +1946,7 @@ function cards() {
                 cardElements: [
                     `I was filled with a new awareness...`,
                     {
-                        goTo: 'card-instance-0-18',
+                        goTo: 'card-instance-1-0',
                         template: 'OptionDownArrow' 
                     },
                 ]        
@@ -2317,7 +2356,7 @@ function cards() {
                                     `Focus was lost in gray waves.`,
                                     `Feeling became lost and thought replaced my sensations.`,                    
                                     {
-                                        goTo: 'card-instance-1-0-1',
+                                        goTo: 'card-instance-0-0',
                                         text: '',
                                         template: 'Option9', 
                                     },
@@ -2547,123 +2586,159 @@ function cards() {
                         I wondered if I would see a ghost.
                         It seemed spooky...`,
                         {
-                            goTo: 'card-instance-2-4',
+                            goTo: 'card-instance-2-4-pheasant',
+                            template: 'OptionDownArrow',
+                            show: 'mascot',
+                            showExpectedValue: 'pheasant' 
+                        },
+                        {
+                            goTo: 'card-instance-2-4-wolf',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'wolf' 
+                        },
+                        {
+                            goTo: 'card-instance-2-4-cat',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'cat' 
+                        },
+                        {
+                            goTo: 'card-instance-2-4-butterfly',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'butterfly' 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-4-pheasant',
+                    ...cardProps,
+                    cardElements: [
+                        `It started raining...
+                        AND RAINING!`,
+                        `I had never seen it raining here so much...
+                        I didn't remember so many pigeons either.`,
+                        `When I looked, I didn't see any parents around.
+                        Just kids...`,
+                        `Then I didn't see anymore kids.
+                        Just pigeons...`,
+                        `Some of those pigeons were really cute!
+                        This one pigeon--`,
+                        `Was a PHEASANT.`,
+                        `It did not rain above the pheasant.
+                        It coooooooed at me.`,
+                        `On top of it's head, were two very tall antenna.`,
+                        `The rain kept falling.
+                        The pheasant cooed and cooed.`,
+                        `The rain was cold, nice and comforting.
+                        I remember looking out the window during the monsoons and feeling this way.`,
+                        `The pheasant cooed again.
+                        This time the cooing received a coo in reply!`,
+                        `The ground began to shake--
+                        Coconuts sprouted from the water like gravity were pulling them upwards.`,
+                        `Each coconut cracked open to reveal a pheasant inside!`,
+                        `They floated next to me in the water.`,
+                        `I realized I was standing in a river up to my knees.`,
+                        `The rain kept pouring.`,    
+                        {
+                            goTo: 'card-instance-2-5',
                             template: 'OptionDownArrow', 
                         },
                     ]        
                 },
                 {
-                    id: 'card-instance-2-4',
+                    id: 'card-instance-2-4-wolf',
                     ...cardProps,
                     cardElements: [
-                        ...((choice) => { 
-                            let variations = {
-                            wolf: [
-                                `I had never seen it snow here in the summer time...`,
-                                `I didn't remember so many dogs either.`,
-                                `When I looked, I didn't see any parents around.`,
-                                `Just kids...`,
-                                `Then I didn't see anymore kids.`,
-                                `Just dogs...`,
-                                `Some of those dogs were really cute!`,
-                                `This one dog--`,
-                                `Was a WOLF.`,
-                                `I layed down in the snow next to the wolf.`,
-                                `It growled.`,
-                                `And hissed.`,
-                                `I could see that its tongue was a snake hissing at me.`,
-                                `The snow kept falling.
-                                The wolf barked and hissed.`,
-                                `The snow felt nice and soft.
-                                Perfect snowflake snow.
-                                The kind that's easy to shovel off of your driveway.`,
-                                `The wolf howled and hissed again.
-                                This time the howl was returned by other hissing and howling.`,
-                                `Pine trees began to quickly grow from the ground.
-                                Pine combs dropped to the ground like rain as the pine trees grew through season after season.`,
-                                `Many wolves slithered on their bellies towards us through the pine combs.
-                                We were snuggled in like a litter of puppies.`,
-                                `The snow kept dropping.`
-                            ],
-                            pheasant: [
-                                `It started raining...
-                                AND RAINING!`,
-                                `I had never seen it raining here so much...
-                                I didn't remember so many pigeons either.`,
-                                `When I looked, I didn't see any parents around.
-                                Just kids...`,
-                                `Then I didn't see anymore kids.
-                                Just pigeons...`,
-                                `Some of those pigeons were really cute!
-                                This one pigeon--`,
-                                `Was a PHEASANT.`,
-                                `It did not rain above the pheasant.
-                                It coooooooed at me.`,
-                                `On top of it's head, were two very tall antenna.`,
-                                `The rain kept falling.
-                                The pheasant cooed and cooed.`,
-                                `The rain was cold, nice and comforting.
-                                I remember looking out the window during the monsoons and feeling this way.`,
-                                `The pheasant cooed again.
-                                This time the cooing received a coo in reply!`,
-                                `The ground began to shake--
-                                Coconuts sprouted from the water like gravity were pulling them upwards.`,
-                                `Each coconut cracked open to reveal a pheasant inside!`,
-                                `They floated next to me in the water.`,
-                                `I realized I was standing in a river up to my knees.`,
-                                `The rain kept pouring.`,    
-                            ],
-                            cat: [
-                                `The sun went down.
-                                Crickets started chirping.`,
-                                `In the distance...
-                                Lights turned on.`,
-                                `I didn't see anyone around.`,
-                                `Lanterns lead around the lake...`,
-                                `A CAT approached.
-                                It had two heads.`,
-                                `It came right up and demanded pets.`,
-                                `It probably felt lost and cold at night.
-                                Lost poor BUDDY.`,
-                                `It looked me directly in the eyes and meowed.`,
-                                `Behind it--
-                                As it meowed the stars grew brighter and fainter.`,
-                                `It meowed and meowed again!
-                                Stars would turn on and off and on and off!`,
-                                `Then it scratched me--
-                                So I threw it down to the ground.`,
-                                `As the wind started blowing, I noticed how cold it was.
-                                When the cat meowed again, the stars shined and it felt like SUMMER.`,
-                                `It looked me in the eyes again and meowed and purred.
-                                With a sultry attidute it meowed and purred as it walked toward me.`,
-                                `It looked so innocent and fun.
-                                I bent down to pick it up--`,
-                                `And it scratched me again.`,
-                                `The wind kept blowing and the night became colder.`,
-                                `And colder...`                                    
-                            ],
-                            butterfly: [
-                                `A low hanging cloud misted the park as it passed by.
-                                It was followed by a cloud of butterflies.`,
-                                `The cloud maneuvered in front of me...`,
-                                `I felt the presense of a million little eyes looking into my spirit...`,
-                                `Their gaze was powerful and I felt compelled to return their gaze.
-                                I couldn't see anything else...`,
-                                `They stopped flying in a pattern--
-                                My vision was PULLED in every direction.`,
-                                `The top of my head felt like it was splitting open...
-                                Then my sides...`,
-                                `I felt my skin crack open like an egg--
-                                A thick yolk leaked out...`,
-                                `As my skin molted,
-                                I could feel myself transforming...`,
-                                `My vision became fractured...`,
-                                `As if looking from a thousand directions...`,            
-                            ]
-                        }
-                        return variations[choice]
-
-                    })(store.getValue('mascot')),
+                        `I had never seen it snow here in the summer time...`,
+                        `I didn't remember so many dogs either.`,
+                        `When I looked, I didn't see any parents around.`,
+                        `Just kids...`,
+                        `Then I didn't see anymore kids.`,
+                        `Just dogs...`,
+                        `Some of those dogs were really cute!`,
+                        `This one dog--`,
+                        `Was a WOLF.`,
+                        `I layed down in the snow next to the wolf.`,
+                        `It growled.`,
+                        `And hissed.`,
+                        `I could see that its tongue was a snake hissing at me.`,
+                        `The snow kept falling.
+                        The wolf barked and hissed.`,
+                        `The snow felt nice and soft.
+                        Perfect snowflake snow.
+                        The kind that's easy to shovel off of your driveway.`,
+                        `The wolf howled and hissed again.
+                        This time the howl was returned by other hissing and howling.`,
+                        `Pine trees began to quickly grow from the ground.
+                        Pine combs dropped to the ground like rain as the pine trees grew through season after season.`,
+                        `Many wolves slithered on their bellies towards us through the pine combs.
+                        We were snuggled in like a litter of puppies.`,
+                        `The snow kept dropping.`,
+                        {
+                            goTo: 'card-instance-2-5',
+                            template: 'OptionDownArrow', 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-4-cat',
+                    ...cardProps,
+                    cardElements: [
+                        `The sun went down.
+                        Crickets started chirping.`,
+                        `In the distance...
+                        Lights turned on.`,
+                        `I didn't see anyone around.`,
+                        `Lanterns lead around the lake...`,
+                        `A CAT approached.
+                        It had two heads.`,
+                        `It came right up and demanded pets.`,
+                        `It probably felt lost and cold at night.
+                        Lost poor BUDDY.`,
+                        `It looked me directly in the eyes and meowed.`,
+                        `Behind it--
+                        As it meowed the stars grew brighter and fainter.`,
+                        `It meowed and meowed again!
+                        Stars would turn on and off and on and off!`,
+                        `Then it scratched me--
+                        So I threw it down to the ground.`,
+                        `As the wind started blowing, I noticed how cold it was.
+                        When the cat meowed again, the stars shined and it felt like SUMMER.`,
+                        `It looked me in the eyes again and meowed and purred.
+                        With a sultry attidute it meowed and purred as it walked toward me.`,
+                        `It looked so innocent and fun.
+                        I bent down to pick it up--`,
+                        `And it scratched me again.`,
+                        `The wind kept blowing and the night became colder.`,
+                        `And colder...`,                                    
+                        {
+                            goTo: 'card-instance-2-5',
+                            template: 'OptionDownArrow', 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-4-butterfly',
+                    ...cardProps,
+                    cardElements: [
+                        `A low hanging cloud misted the park as it passed by.
+                        It was followed by a cloud of butterflies.`,
+                        `The cloud maneuvered in front of me...`,
+                        `I felt the presense of a million little eyes looking into my spirit...`,
+                        `Their gaze was powerful and I felt compelled to return their gaze.
+                        I couldn't see anything else...`,
+                        `They stopped flying in a pattern--
+                        My vision was PULLED in every direction.`,
+                        `The top of my head felt like it was splitting open...
+                        Then my sides...`,
+                        `I felt my skin crack open like an egg--
+                        A thick yolk leaked out...`,
+                        `As my skin molted,
+                        I could feel myself transforming...`,
+                        `My vision became fractured...`,
+                        `As if looking from a thousand directions...`,            
                         {
                             goTo: 'card-instance-2-5',
                             template: 'OptionDownArrow', 
@@ -2689,10 +2764,34 @@ function cards() {
                     id: 'card-instance-2-6',
                     ...cardProps,
                     cardElements: [
-                        store.getValue('mascot') === 'pheasant' ? `The pheasant was pecking at a fish in the river.` : empty,
-                        store.getValue('mascot') === 'wolf' ? `One of the wolves was chewing on the carcas of a young deer.` : empty,
-                        store.getValue('mascot') === 'cat' ? `The cat was playing with a star between it's paws.` : empty,
-                        store.getValue('mascot') === 'butterfly' ? `I could see a pulsing vision of... Myself...` : empty,
+                        // store.getValue('mascot') === 'pheasant' ? `The pheasant was pecking at a fish in the river.` : empty,
+                        // store.getValue('mascot') === 'wolf' ? `One of the wolves was chewing on the carcas of a young deer.` : empty,
+                        // store.getValue('mascot') === 'cat' ? `The cat was playing with a star between it's paws.` : empty,
+                        // store.getValue('mascot') === 'butterfly' ? `I could see a pulsing vision of... Myself...` : empty,
+                        {
+                            show: 'mascot',
+                            showExpectedValue: 'pheasant',
+                            text: `The pheasant was pecking at a fish in the river.`,
+                            template: 'Text0'
+                        },
+                        {
+                            show: 'mascot',
+                            showExpectedValue: 'wolf',
+                            text: `One of the wolves was chewing on the carcas of a young deer.`,
+                            template: 'Text0'
+                        },
+                        {
+                            show: 'mascot',
+                            showExpectedValue: 'cat',
+                            text: `The cat was playing with a star between it's paws.`,
+                            template: 'Text0'
+                        },
+                        {
+                            show: 'mascot',
+                            showExpectedValue: 'butterfly',
+                            text: `I could see a pulsing vision of... Myself...`,
+                            template: 'Text0'
+                        },
                         {
                             goTo: 'card-instance-2-7',
                             template: 'OptionDownArrow', 
@@ -2715,10 +2814,34 @@ function cards() {
                     id: 'card-instance-2-8',
                     ...cardProps,
                     cardElements: [
-                        store.getValue('mascot') === 'pheasant' ? `The fish looked up at me and asked....` : empty,
-                        store.getValue('mascot') === 'wolf' ? `The young deer looked up at me and asked...` : empty,
-                        store.getValue('mascot') === 'cat' ? `The star between its paws pulsed and asked...` : empty,
-                        store.getValue('mascot') === 'butterfly' ? `My reflection seperated into a thousand reflections... They all looked at me and asked...` : empty,
+                        // store.getValue('mascot') === 'pheasant' ? `The fish looked up at me and asked....` : empty,
+                        // store.getValue('mascot') === 'wolf' ? `The young deer looked up at me and asked...` : empty,
+                        // store.getValue('mascot') === 'cat' ? `The star between its paws pulsed and asked...` : empty,
+                        // store.getValue('mascot') === 'butterfly' ? `My reflection seperated into a thousand reflections... They all looked at me and asked...` : empty,
+                        {
+                            show: 'mascot',
+                            showExpectedValue: 'pheasant',
+                            text: `The fish looked up at me and asked....`,
+                            template: 'Text0'
+                        },
+                        {
+                            show: 'mascot',
+                            showExpectedValue: 'wolf',
+                            text: `The young deer looked up at me and asked...`,
+                            template: 'Text0'
+                        },
+                        {
+                            show: 'mascot',
+                            showExpectedValue: 'cat',
+                            text: `The star between its paws pulsed and asked...`,
+                            template: 'Text0'
+                        },
+                        {
+                            show: 'mascot',
+                            showExpectedValue: 'butterfly',
+                            text: `My reflection seperated into a thousand reflections... They all looked at me and asked...`,
+                            template: 'Text0'
+                        },
                         {
                             goTo: 'card-instance-2-9',
                             template: 'OptionDownArrow', 
@@ -2786,41 +2909,78 @@ function cards() {
                         `(SMALL PULSING) step`,
                         `I was moving again. Everything was moving.`,
                         {
-                            goTo: 'card-instance-2-13',
+                            goTo: 'card-instance-2-13-pheasant',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'pheasant' 
+                        },
+                        {
+                            goTo: 'card-instance-2-13-wolf',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'wolf' 
+                        },
+                        {
+                            goTo: 'card-instance-2-13-cat',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'cat' 
+                        },
+                        {
+                            goTo: 'card-instance-2-13-butterfly',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'butterfly' 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-13-pheasant',
+                    ...cardProps,
+                    cardElements: [
+                        `The pheasant swallowed the fish and walked toward me.`,
+                        `It touched its antenna to my head...`,
+                        `In my thoughts, I heard it ask...`,                                    
+                        {
+                            goTo: 'card-instance-2-14',
                             template: 'OptionDownArrow', 
                         },
                     ]        
                 },
                 {
-                    id: 'card-instance-2-13',
+                    id: 'card-instance-2-13-wolf',
                     ...cardProps,
                     cardElements: [
-                        ...((choice) => {
-                            let variations = {
-                                pheasant: [
-                                    `The pheasant swallowed the fish and walked toward me.`,
-                                    `It touched its antenna to my head...`,
-                                    `In my thoughts, I heard it ask...`,                                    
-                                ],
-                                wolf: [
-                                    `The wolves, the pinetrees, the snow and I were all moving together.`,
-                                    `The wolf feasting on the young deer opened its mouth.`,
-                                    `The snake tongue on the inside of its mouth asked...`                                    
-                                ],
-                                cat: [
-                                    `The star between the cat's paws seperated into 2...`,
-                                    `Then 4... then 8...`,
-                                    `Then suddenly! There were too many to count...`,
-                                    `As if the universe were speaking to me...
-                                    They asked...`,                                    
-                                ],
-                                butterfly: [
-                                    `The wings of the butterfly covered my eyes.`,
-                                    `It asked...`                                    
-                                ]    
-                            }
-                            return variations[choice]
-                        })(store.getValue('mascot')),                
+                        `The wolves, the pinetrees, the snow and I were all moving together.`,
+                        `The wolf feasting on the young deer opened its mouth.`,
+                        `The snake tongue on the inside of its mouth asked...`,                                    
+                        {
+                            goTo: 'card-instance-2-14',
+                            template: 'OptionDownArrow', 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-13-cat',
+                    ...cardProps,
+                    cardElements: [
+                        `The star between the cat's paws seperated into 2...`,
+                        `Then 4... then 8...`,
+                        `Then suddenly! There were too many to count...`,
+                        `As if the universe were speaking to me...
+                        They asked...`,                                    
+                        {
+                            goTo: 'card-instance-2-14',
+                            template: 'OptionDownArrow', 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-13-pheasant',
+                    ...cardProps,
+                    cardElements: [
+                        `The wings of the butterfly covered my eyes.`,
+                        `It asked...`,                                    
                         {
                             goTo: 'card-instance-2-14',
                             template: 'OptionDownArrow', 
