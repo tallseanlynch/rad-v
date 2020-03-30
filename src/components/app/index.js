@@ -91,7 +91,10 @@ export default class App {
         storyMenu: true,
         storyExplorer: true,
         storyExploreSelect: '',
-        storyExplorerFilter: ''
+        storyExplorerFilter: '',
+        end_incredible: false,
+        end_more: false,
+        end_show: false
       }
       this.setAppStateValue = this.setAppStateValue.bind(this)
       this.setAppState = this.setAppState.bind(this)

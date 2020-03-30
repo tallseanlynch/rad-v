@@ -19,7 +19,7 @@ const lazyCSSComp = (options) => {
 <style>
 
     .timeline-container {
-        height: 3000px;        
+        height: 5000px;        
     }
 
     .timeline-node {

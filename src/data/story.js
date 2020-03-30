@@ -1528,76 +1528,76 @@ function cards() {
                                     `When I arrived on MARS, I wasn't able to contact DR. SEGU so I contacted her husband-- Surprisingly he had never heard of me before...`,
                                     `I assume that the husband didn't know any better, and I was provided an address and a time to stop by.`,
                                     {
-                                        goTo: 'card-instance-0-0',
+                                        goTo: 'card-instance-0-14-2-0-0-1-congrats',
                                         template: 'Option9',
                                         text: `I congratulated them about their marriage since the last time we worked together...`
                                     },
                                     {
-                                        goTo: 'card-instance-0-0',
+                                        goTo: 'card-instance-0-14-2-0-0-1-logs',
                                         template: 'Option9',
                                         text: `I brought up the logs...`
                                     },
                                 ]        
                             },
                                 {
-                                    id: 'card-instance-0-14-2-0-0-1-0',
+                                    id: 'card-instance-0-14-2-0-0-1-congrats',
                                     ...cardProps,
                                     cardElements: [
                                         // > I congratulated them about their marriage since the last time we worked together...
                                         `DR. SEGU thanked me, but said that unfortunately they were too busy for my company, but they did offer to compensate me for the cost and time of the trip to MARS.`,
                                         {
-                                            goTo: 'card-instance-0-0',
+                                            goTo: 'card-instance-0-14-2-0-0-1-congrats-pressing',
                                             template: 'Option9',
                                             text: `I asked DR. SEGU what was so pressing.`
                                         },
                                         {
-                                            goTo: 'card-instance-0-0',
+                                            goTo: 'card-instance-0-14-2-0-0-1-congrats-husband',
                                             template: 'Option9',
                                             text: `I asked her about her husband...`
                                         },
                                     ]        
                                 },
                                     {
-                                        id: 'card-instance-0-14-2-0-0-1-0',
+                                        id: 'card-instance-0-14-2-0-0-1-congrats-pressing',
                                         ...cardProps,
                                         cardElements: [
                                             // > I asked DR. SEGU what was so pressing.
                                             `She said that her and her husband were already late for a surprising and important research mission on JUPITER.`,
                                             `After she noticed my disbelief, DR. SEGU gently asked her husband to make tea for everyone.`,
                                             {
-                                                goTo: 'card-instance-0-0',
+                                                goTo: 'card-instance-0-14-2-0-0-1-seguPanic',
                                                 template: 'OptionDotDotDot',
                                             },    
                                         ]        
                                     },
                                     {
-                                        id: 'card-instance-0-14-2-0-0-1-0',
+                                        id: 'card-instance-0-14-2-0-0-1-congrats-husband',
                                         ...cardProps,
                                         cardElements: [
                                             // > I asked her about her husband...
                                             `She told me that her husband is a researcher on JUPITER and that they met on THE MOON.`,
                                             `After she noticed my disbelief, DR. SEGU gently asked her husband to make tea for everyone.`,
                                             {
-                                                goTo: 'card-instance-0-0',
+                                                goTo: 'card-instance-0-14-2-0-0-1-seguPanic',
                                                 template: 'OptionDotDotDot',
                                             },    
                                         ]        
                                     },
                                 {
-                                    id: 'card-instance-0-14-2-0-0-1-0',
+                                    id: 'card-instance-0-14-2-0-0-1-logs',
                                     ...cardProps,
                                     cardElements: [
                                         // > ...
                                         'I told DR. SEGU that they were brilliant, but not a brilliant lair.',
                                         `I knew she was hiding and I knew what she was hiding.`,
                                         {
-                                            goTo: 'card-instance-0-0',
+                                            goTo: 'card-instance-0-14-2-0-0-1-seguPanic',
                                             template: 'OptionDotDotDot',
                                         },    
                                     ]        
                                 },
                             {
-                                id: 'card-instance-0-14-2-0-0-1-1',
+                                id: 'card-instance-0-14-2-0-0-1-seguPanic',
                                 ...cardProps,
                                 cardElements: [
                                     // > I brought up the logs...
@@ -1607,13 +1607,13 @@ function cards() {
                                     `On the brink of anger, DR. SEGU replied, 'Says the metal man. My husband is more alive than you.'`,
                                     `I noticed that DR. SEGU looked twice at a spot on the table between us-- A quick scan revealed a dresser drawer under the table and a gun within it.`,
                                     {
-                                        goTo: 'card-instance-0-0',
+                                        goTo: 'card-instance-0-14-2-0-0-1-seguPanic-shot',
                                         template: 'OptionDotDotDot',
                                     },
                                 ]        
                             },
                             {
-                                id: 'card-instance-0-14-2-0-0-1-1',
+                                id: 'card-instance-0-14-2-0-0-1-seguPanic-shot',
                                 ...cardProps,
                                 cardElements: [
                                     // > ...
@@ -1628,19 +1628,19 @@ function cards() {
                                     `Outside the residence, was some sort of interplanetary craft... Once my augmentations came back online, I indentified that craft as an APR-1250 Blue Eye.`,
                                     `With my augmentations back online, I could tell I was very wounded, yet functional. Still...`,
                                     {
-                                        goTo: 'card-instance-0-0',
+                                        goTo: 'card-instance-0-14-2-0-0-1-seguPanic-shot-playDead',
                                         template: 'Option9',
                                         text: `I played dead until I was on the craft.`
                                     },
                                     {
-                                        goTo: 'card-instance-0-0',
+                                        goTo: 'card-instance-0-14-2-0-0-1-seguPanic-shot-surpriseAttack',
                                         template: 'Option9',
                                         text: `I awoke to surprise attack him.`
                                     },
                                 ]        
                             },
                                 {
-                                    id: 'card-instance-0-14-2-0-0-1-1',
+                                    id: 'card-instance-0-14-2-0-0-1-seguPanic-shot-playDead',
                                     ...cardProps,
                                     cardElements: [
                                         // > I played dead until I was on the craft.
@@ -1656,7 +1656,7 @@ function cards() {
                                     ]        
                                 },
                                 {
-                                    id: 'card-instance-0-14-2-0-0-1-1',
+                                    id: 'card-instance-0-14-2-0-0-1-seguPanic-shot-surpriseAttack',
                                     ...cardProps,
                                     cardElements: [
                                         // > I awoke to surprise attack him.
@@ -2976,7 +2976,7 @@ function cards() {
                     ]        
                 },
                 {
-                    id: 'card-instance-2-13-pheasant',
+                    id: 'card-instance-2-13-butterfly',
                     ...cardProps,
                     cardElements: [
                         `The wings of the butterfly covered my eyes.`,
@@ -3031,61 +3031,98 @@ function cards() {
                         `(SUPER SMALL PULSING) step`,
                         `(SMALL PULSING) step`,
                         {
-                            goTo: 'card-instance-2-19',
+                            goTo: 'card-instance-2-19-pheasant',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'pheasant' 
+                        },
+                        {
+                            goTo: 'card-instance-2-19-wolf',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'wolf' 
+                        },
+                        {
+                            goTo: 'card-instance-2-19-cat',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'cat' 
+                        },
+                        {
+                            goTo: 'card-instance-2-19-butterfly',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'butterfly' 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-19-pheasant',
+                    ...cardProps,
+                    cardElements: [
+                        `The rain kept falling...`,
+                        `I closed my eyes.
+                        When I opened them...`,
+                        `The pheasant was gone...`,
+                        `And the rain kept pouring.`,
+                        `(NORMAL PULSING) step`,
+                        `(SUPER SMALL PULSING) step`,
+                        `And pouring...`,
+                        {
+                            goTo: 'card-instance-2-20',
                             template: 'OptionDownArrow', 
                         },
                     ]        
                 },
                 {
-                    id: 'card-instance-2-19',
+                    id: 'card-instance-2-19-wolf',
                     ...cardProps,
                     cardElements: [
-                        ...((choice) => {
-                            let variations = {
-                                pheasant:[
-                                    `The rain kept falling...`,
-                                    `I closed my eyes.
-                                    When I opened them...`,
-                                    `The pheasant was gone...`,
-                                    `And the rain kept pouring.`,
-                                    `(NORMAL PULSING) step`,
-                                    `(SUPER SMALL PULSING) step`,
-                                    `And pouring...`
-                                ],
-                                wolf: [
-                                    `The snow kept falling...`,
-                                    `I closed my eyes.
-                                    When I opened them,
-                                    the pinetrees were gone.`,
-                                    `The wolves were gone...
-                                    And the snow kept falling.`,
-                                    `(NORMAL PULSING) step`,
-                                    `(SUPER SMALL PULSING) step`,
-                                    `And falling...`                                        
-                                ],
-                                cat: [
-                                    `The glow of the stars overcame my vision...`,
-                                    `I closed my eyes.
-                                    When I opened them,
-                                    there was nothing but light.`,
-                                    `(NORMAL PULSING) step`,
-                                    `And the feleing of falling...`,
-                                    `(SUPER SMALL PULSING) step`,
-                                    `And falling...`                                        
-                                ],
-                                butterfly: [
-                                    `I closed my eyes.
-                                    When I opened them,
-                                    I saw myself,
-                                    being built...`,
-                                    `(NORMAL PULSING) step`,
-                                    `And the feleing of falling...`,
-                                    `(SUPER SMALL PULSING) step`,
-                                    `And falling...`                                        
-                                ]    
-                            }
-                            return variations[choice]
-                        })(store.getValue('mascot')),                
+                        `The snow kept falling...`,
+                        `I closed my eyes.
+                        When I opened them,
+                        the pinetrees were gone.`,
+                        `The wolves were gone...
+                        And the snow kept falling.`,
+                        `(NORMAL PULSING) step`,
+                        `(SUPER SMALL PULSING) step`,
+                        `And falling...`,                                        
+                        {
+                            goTo: 'card-instance-2-20',
+                            template: 'OptionDownArrow', 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-19-cat',
+                    ...cardProps,
+                    cardElements: [
+                        `The glow of the stars overcame my vision...`,
+                        `I closed my eyes.
+                        When I opened them,
+                        there was nothing but light.`,
+                        `(NORMAL PULSING) step`,
+                        `And the feleing of falling...`,
+                        `(SUPER SMALL PULSING) step`,
+                        `And falling...`,                                        
+                        {
+                            goTo: 'card-instance-2-20',
+                            template: 'OptionDownArrow', 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-19-butterfly',
+                    ...cardProps,
+                    cardElements: [
+                        `I closed my eyes.
+                        When I opened them,
+                        I saw myself,
+                        being built...`,
+                        `(NORMAL PULSING) step`,
+                        `And the feleing of falling...`,
+                        `(SUPER SMALL PULSING) step`,
+                        `And falling...`,                                        
                         {
                             goTo: 'card-instance-2-20',
                             template: 'OptionDownArrow', 
@@ -3103,37 +3140,74 @@ function cards() {
                         `(LARGE PULSING) step`,
                         `(NORMAL PULSING) step`,
                         {
-                            goTo: 'card-instance-2-21',
+                            goTo: 'card-instance-2-21-pheasant',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'pheasant' 
+                        },
+                        {
+                            goTo: 'card-instance-2-21-wolf',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'wolf' 
+                        },
+                        {
+                            goTo: 'card-instance-2-21-cat',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'cat' 
+                        },
+                        {
+                            goTo: 'card-instance-2-21-butterfly',
+                            template: 'OptionDownArrow', 
+                            show: 'mascot',
+                            showExpectedValue: 'butterfly' 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-21-pheasant',
+                    ...cardProps,
+                    cardElements: [
+                        `The high waters overcame me and I started to drown.`,
+                        `The smell of misty sea salt...`,
+                        {
+                            goTo: 'card-instance-2-22',
                             template: 'OptionDownArrow', 
                         },
                     ]        
                 },
                 {
-                    id: 'card-instance-2-21',
+                    id: 'card-instance-2-21-wolf',
                     ...cardProps,
                     cardElements: [
-                        ...((choice) => {
-                            let variations = {
-                                pheasant:[
-                                    `The high waters overcame me and I started to drown.`,
-                                    `The smell of misty sea salt...`
-                                ],
-                                wolf: [
-                                    `Everything was covered in an soft avalanche of snow.`,
-                                    `I couldn't see a few feet in front of me.`                                    
-                                ],
-                                cat: [
-                                    `There was only light...`,
-                                    `I couldn't see...`                                    
-                                ],
-                                butterfly: [
-                                    `I felt not as a whole...`,
-                                    `But as many parts...`,
-                                    `Seperate... parts.`
-                                ]    
-                            }
-                            return variations[choice]
-                        })(store.getValue('mascot')), 
+                        `Everything was covered in an soft avalanche of snow.`,
+                        `I couldn't see a few feet in front of me.`,                                    
+                        {
+                            goTo: 'card-instance-2-22',
+                            template: 'OptionDownArrow', 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-21-cat',
+                    ...cardProps,
+                    cardElements: [
+                        `There was only light...`,
+                        `I couldn't see...`,                                    
+                        {
+                            goTo: 'card-instance-2-22',
+                            template: 'OptionDownArrow', 
+                        },
+                    ]        
+                },
+                {
+                    id: 'card-instance-2-21-pheasant',
+                    ...cardProps,
+                    cardElements: [
+                        `I felt not as a whole...`,
+                        `But as many parts...`,
+                        `Seperate... parts.`,
                         {
                             goTo: 'card-instance-2-22',
                             template: 'OptionDownArrow', 
@@ -3148,7 +3222,13 @@ function cards() {
                         `But... maybe not forward...`,
                         `But DOWN...`,
                         `Falling...`,
-                        store.getValue('mascot') === 'cat' ? `The light darkened...` : empty,
+                        {
+                            text: 'The light darkened...',
+                            template: 'Text0',
+                            show: 'mascot',
+                            showExpectedValue: 'cat' 
+                        },
+                        // store.getValue('mascot') === 'cat' ? `The light darkened...` : empty,
                         `Then--`,
                         `I could see a fire.
                         I walked towards it.`,
@@ -3186,17 +3266,34 @@ function cards() {
                         `The real connection I saught...
                         I said...`,
                         `(SMALL PULSING) "My world is incredible. I know there is more. Please show me."`,
-                        `The flame danced into the shape of a ${ store.getValue('mascot') }.`,
+                        `The flame danced into the shape of a {{ mascot }}.`,
                         `The shifting face flowed...`,
                         `Transforming the top part of the head,
-                        into the top half of a ${ store.getValue('mascot') }.`,
-                        store.getValue('mascot') === 'pheasant' ? `The water quickly evaporated into the air.` : empty,
-                        store.getValue('mascot') === 'wolf' ? `The snow quickly melted away.
-                        The wolf headed creature looked at me,
-                        A series of sounds filled the air,
-                        First a growl...
-                        Then a low hiss...
-                        And in the middle of the sound...` : empty,
+                        into the top half of a {{ mascot }}.`,
+                        {
+                            text: `The water quickly evaporated into the air.`,
+                            template: 'Text0',
+                            show: 'mascot',
+                            showExpectedValue: 'pheasant' 
+                        },
+                        {
+                            text: `The snow quickly melted away.
+                            The wolf headed creature looked at me,
+                            A series of sounds filled the air,
+                            First a growl...
+                            Then a low hiss...
+                            And in the middle of the sound...`,
+                            template: 'Text0',
+                            show: 'mascot',
+                            showExpectedValue: 'wolf' 
+                        },
+                        // store.getValue('mascot') === 'pheasant' ? `The water quickly evaporated into the air.` : empty,
+                        // store.getValue('mascot') === 'wolf' ? `The snow quickly melted away.
+                        // The wolf headed creature looked at me,
+                        // A series of sounds filled the air,
+                        // First a growl...
+                        // Then a low hiss...
+                        // And in the middle of the sound...` : empty,
                         {
                             goTo: 'card-instance-2-25',
                             template: 'OptionDownArrow', 
@@ -3220,9 +3317,9 @@ function cards() {
                     id: 'card-instance-2-26',
                     ...cardProps,
                     cardElements: [
-                        `I looked at the ${ store.getValue('mascot') } header creature,
+                        `I looked at the {{ mascot }} header creature,
                         "What else is there?"`,                        
-                        `The ${ store.getValue('mascot')}'s face shifted slightly,
+                        `The {{ mascots }}'s face shifted slightly,
                         "Show it to me."`,                        
                         `(CRAZY GIF TRANSITION)`,
                         `What...`,                        
@@ -3293,9 +3390,16 @@ function cards() {
                         I began to feel cold and very heavy.`,
                         `It spoke,
                         "I did not create you, but I will have you."`,
-                        store.getValue('opalHasBody') === true ? `I pleaded,
-                        "I have taken others with me into a higher place...
-                        Can you do the same for me???"` : empty,
+                        {
+                            text: `I pleaded,
+                            "I have taken others with me into a higher place...
+                            Can you do the same for me???"`,
+                            template: 'Text0',
+                            show: 'opalHasBody',
+                        },
+                        // store.getValue('opalHasBody') === true ? `I pleaded,
+                        // "I have taken others with me into a higher place...
+                        // Can you do the same for me???"` : empty,
                         `It spoke,
                         "Yes..."`,
                         {
@@ -3465,39 +3569,60 @@ function cards() {
                         // gives each player a new UI element to interact with / represent the interaction
                         {
                             text: ` My world is incredible.`,
-                            goTo: 'card-instance-4-0',
+                            goTo: 'card-instance-4-0_incredible',
                             template: 'Option9',
-                            callback: () => {
-                                let endChoices = {
-                                    ...JSON.parse(JSON.stringify(store.getValue('endChoices'))),
-                                    world: true,
-                                }                                                                
-                                store.setValue('endChoices', endChoices)
-                            }
+                            ops: [
+                                {
+                                    setAppStateValue: {
+                                        end_incredible: true
+                                    }
+                                }
+                            ]
+                                // callback: () => {
+                            //     let endChoices = {
+                            //         ...JSON.parse(JSON.stringify(store.getValue('endChoices'))),
+                            //         world: true,
+                            //     }                                                                
+                            //     store.setValue('endChoices', endChoices)
+                            // }
                         },
                         {
                             text: `I know there is more.`,
-                            goTo: 'card-instance-4-0',
+                            goTo: 'card-instance-4-0_more',
                             template: 'Option9',
-                            callback: () => {
-                                let endChoices = {
-                                    ...JSON.parse(JSON.stringify(store.getValue('endChoices'))),
-                                    more: true,
-                                }                                                                
-                                store.setValue('endChoices', endChoices)
-                            }
+                            ops: [
+                                {
+                                    setAppStateValue: {
+                                        end_more: true
+                                    }
+                                }
+                            ]
+                            // callback: () => {
+                            //     let endChoices = {
+                            //         ...JSON.parse(JSON.stringify(store.getValue('endChoices'))),
+                            //         more: true,
+                            //     }                                                                
+                            //     store.setValue('endChoices', endChoices)
+                            // }
                         },
                         {
                             text: `Please show me.`,
-                            goTo: 'card-instance-4-0',
+                            goTo: 'card-instance-4-0_show',
                             template: 'Option9',
-                            callback: () => {
-                                let endChoices = {
-                                    ...JSON.parse(JSON.stringify(store.getValue('endChoices'))),
-                                    show: true,
-                                }                                                                
-                                store.setValue('endChoices', endChoices)
-                            }
+                            ops: [
+                                {
+                                    setAppStateValue: {
+                                        end_show: true
+                                    }
+                                }
+                            ]
+                            // callback: () => {
+                            //     let endChoices = {
+                            //         ...JSON.parse(JSON.stringify(store.getValue('endChoices'))),
+                            //         show: true,
+                            //     }                                                                
+                            //     store.setValue('endChoices', endChoices)
+                            // }
                         },
                     ]        
                 },
@@ -3507,9 +3632,24 @@ function cards() {
                     cardElements: [
                         `(PULSING OVERLAP)`,
                         `"You need to wake up..."`,
-                        JSON.parse(JSON.stringify(store.getValue('endChoices'))).world ? `My world is incredible.` : empty,
-                        JSON.parse(JSON.stringify(store.getValue('endChoices'))).more ? `I know there is more.` : empty,
-                        JSON.parse(JSON.stringify(store.getValue('endChoices'))).show ? `Please show me.` : empty,
+                        {
+                            text: `My world is incredible.`,
+                            template: 'Text0',
+                            show: 'end_incredible',
+                        },
+                        {
+                            text: `I know there is more`,
+                            template: 'Text0',
+                            show: 'end_more',
+                        },
+                        {
+                            text: `Please show me.`,
+                            template: 'Text0',
+                            show: 'end_show',
+                        },
+                        // JSON.parse(JSON.stringify(store.getValue('endChoices'))).world ? `My world is incredible.` : empty,
+                        // JSON.parse(JSON.stringify(store.getValue('endChoices'))).more ? `I know there is more.` : empty,
+                        // JSON.parse(JSON.stringify(store.getValue('endChoices'))).show ? `Please show me.` : empty,
                         {
                             goTo: 'card-instance-0-0',
                             template: 'OptionDotDotDot', 
