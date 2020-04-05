@@ -1,4 +1,5 @@
 import { colorValues as colors } from '../../assets/js/colors'
+import { v4 as uuidv4 } from 'uuid';
 
 const improperGoTos = []
 const renderedImproperGoTos = (goTos) => `
@@ -18,65 +19,6 @@ const renderImproperGoTos = () => {
         document.querySelectorAll('.improper-go-tos')[0].innerHTML = renderedImproperGoTos(improperGoTos)
     }
 }
-
-// console.log(colors)
-
-const createStoryCardIcon = () => {
-
-    const r4 = () => Math.round(Math.random() * 4)
-    const r15 = () => Math.round(Math.random() * 15)
-
-    return [
-        [r15(), r4()],
-        [r15(), r4()],
-        [r15(), r4()],
-        [r15(), r4()],
-        [r15(), r4()],
-        [r15(), r4()],
-        [r15(), r4()],
-        [r15(), r4()],
-        [r15(), r4()],
-    ]
-}
-
-// console.log(createStoryCardIcon())
-
-function StoryCardIcon (sci) {
-    return `<div class="inline-flex flex-col story-card-icon">
-        <div class="flex flex-row icon-tile-row flex-shrink">
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[0][0]][sci[0][1]]}"></div>
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[1][0]][sci[1][1]]}"></div>
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[2][0]][sci[2][1]]}"></div>
-        </div>
-        <div class="flex flex-row icon-tile-row flex-shrink">
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[3][0]][sci[3][1]]}"></div>
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[4][0]][sci[4][1]]}"></div>
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[5][0]][sci[5][1]]}"></div>
-        </div>
-        <div class="flex flex-row icon-tile-row flex-shrink">
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[6][0]][sci[6][1]]}"></div>
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[7][0]][sci[7][1]]}"></div>
-            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[8][0]][sci[8][1]]}"></div>
-        </div>
-</div>
-`
-}
-
-// function findParent(cards, card) {
-//     cards.map(card => {
-//         card.cardElements.go
-//     })
-// }
-
-
-// function createCardsOptionsIndex (cards) {
-//     cards.cardInstances.map(card => {
-
-//     })
-//     return `${cards.cardInstances[0].id}`
-// }
-
-// TODO: cardChildren
 
 
 function sanitizeCardOptions (cardOptionsArray) {
@@ -170,7 +112,7 @@ export function findDuplicateCardIds () {
         }
     })
 
-    console.log({uniqueIds, duplicateIds, unusedIds, improperGoTos})
+    // console.log({uniqueIds, duplicateIds, unusedIds, improperGoTos})
 }
 
 function createDepthYAxis (depthsObject) {
@@ -199,7 +141,7 @@ export function renderStoryExplorerTimeline () {
     })
     const depthUnit = 95 / largestDepth
     const multipleDepthsY = createDepthYAxis(t)
-    console.log(multipleDepthsY)
+    // console.log(multipleDepthsY)
 
     const allTimelineNodes = cards.map(c => {
         const xAdjustment = 2
@@ -220,21 +162,18 @@ export function renderStoryExplorerTimeline () {
                 } else {
                     const lineLeft = (multipleDepthsY[t[saneId]].indexOf(saneId) + 1) * 100/(multipleDepthsY[t[saneId]].length + 1) + xAdjustment
                     const lineTop = (t[saneId] * depthUnit) + yAdjustment
-                    // console.log('options', {
-                    //     saneId, lineLeft, lineTop
-                    // })
                     renderedCurrentCardOptionLines.push(`<line class="cursor-pointer" x1="${nodeLeft + xAdjustment}%" y1="${nodeTop + yAdjustment}%" x2="${lineLeft}%" y2="${lineTop}%" style="stroke:${backgroundColor};stroke-width:3;"> </line>`)    
                 }
             })
         }
-        // ${currentCardOptions && renderedCurrentCardOptionLines}
 
         setTimeout(()=>{
             if(currentCardOptions) {document.querySelectorAll('.lines')[0].innerHTML += renderedCurrentCardOptionLines.join('')}
         }, 100)
 
+        let showCardInstance = false
         const renderedOptions = `
-        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}"><span class="font-bold">${t[c]} - ${c.replace('card-instance-', '')}</span></div>`
+        <div class="timeline-node absolute z-index-5 p-4 text-center" style="top:${nodeTop}%;left:${nodeLeft}%;background-color:${backgroundColor}"><span class="font-bold">${t[c]}${showCardInstance ? ' - ' + c.replace('card-instance-', '') : ''}</span></div>`
         // console.log(renderedOptions)
         return renderedOptions
     }).join('')
@@ -244,7 +183,7 @@ export function renderStoryExplorerTimeline () {
     //     return `<div class="absolute z-index-5" style="top:${t[c] * depthUnit}%">X</div>`
     // }).join('')
 
-    console.log({largestDepth, depthUnit})
+    // console.log({largestDepth, depthUnit})
 
     // const Timeline = () => {
     //     console.log({allTimelineNodes})
@@ -266,7 +205,7 @@ export function createStoryExplorerTimeline () {
     const startTime = new Date()
     console.log(`startTime: ${startTime}`)
     this.assignDepthsToCardOptions(entryPoint, depth)
-    console.log({storyExplorerTimeline: this.storyExplorerTimeline})
+    // console.log({storyExplorerTimeline: this.storyExplorerTimeline})
     const endTime = new Date()
     const loadingTime = endTime - startTime
     console.log(`endTime: ${endTime}`)
@@ -315,17 +254,16 @@ export function StoryExplorer (cards) {
 //     </div>
 // </div>
 
-
     const inlineClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
     return `
   <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto ${inlineClass}">
     <div class="story-explorer-container text-3xl md:text-base">
         <h1 class="font-bold text-5xl mb-8 border-b-2 pb-4">Story Explorer</h1>
         <div class="flex flex-row">
-            <div class="flex flex-1 story-cards-container hidden">
+            <div class="flex flex-1 story-cards-container">
                 <div>
                     ${cards.cardInstances.map(card => {
-                        return StoryCardInstance(card)
+                        return this.StoryCardInstance(card)
                     }).join('')}            
                 </div>
             </div>
@@ -356,12 +294,29 @@ const sanitizeCardElementText = (cardElement) => {
     }
 }
 
-function StoryCardInstance (cardInstance) {
-
+export function StoryCardInstance (cardInstance) {
     const cardInstanceStoryMoments = cardInstance.cardElements
         .filter(ce => ce.goTo === undefined)
         .map((ceText, ceTextIndex) => {
-            return `<p class="py-2 ${ceTextIndex === 0 && 'font-bold'}"><em>${sanitizeCardElementText(ceText)}</em>${ceTextIndex === 0 ? `<em class="pl-4 text-gray-400">( ${cardInstance.id} )</em>` : ''}</p>`
+            let uuid = uuidv4()
+            // create the function on the App.busFunctions, which is available by calling window.bus({elId: uuid})
+            this.busFunctions[uuid] = function (data) {
+                console.log('bus', {data})
+            }
+            // must be set a bit later as DOM must load
+            setTimeout(() => {
+                // set keydown eventListener for UI cardElement
+                // passing in event object
+                document.querySelector(`#id-${uuid}`).addEventListener('keydown', (e) => {
+                    // setting conditions for keypress
+                    if(e.shiftKey && e.key === 'Enter'){
+                        console.log('SHIFT ENTER')
+                        // call window busFunction with elId and e
+                        window.bus({elId: uuid, e})
+                    }
+                })
+            }, 500)
+            return `<p class="py-2 ${ceTextIndex === 0 && 'font-bold'}"><div contenteditable id="id-${uuid}"  onBlur="window.bus({elId:'${uuid}'})">${sanitizeCardElementText(ceText)}</div></p>`
         })
         .join('')
 
@@ -380,7 +335,70 @@ function StoryCardInstance (cardInstance) {
         // ${StoryCardIcon(createStoryCardIcon())}
     
     return `<div id="id-${cardInstance.id}" class="story-card-instance block border-2 mb-8 p-8 hover:bg-gray-100 hover:pl-4 relative">
+        <em class="text-white bg-black p-3 block">${cardInstance.id}</em>
         ${cardInstanceStoryMoments}
         ${cardInstanceOptions}
     </div>`
 }
+
+
+
+// console.log(colors)
+
+const createStoryCardIcon = () => {
+
+    const r4 = () => Math.round(Math.random() * 4)
+    const r15 = () => Math.round(Math.random() * 15)
+
+    return [
+        [r15(), r4()],
+        [r15(), r4()],
+        [r15(), r4()],
+        [r15(), r4()],
+        [r15(), r4()],
+        [r15(), r4()],
+        [r15(), r4()],
+        [r15(), r4()],
+        [r15(), r4()],
+    ]
+}
+
+// console.log(createStoryCardIcon())
+
+function StoryCardIcon (sci) {
+    return `<div class="inline-flex flex-col story-card-icon">
+        <div class="flex flex-row icon-tile-row flex-shrink">
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[0][0]][sci[0][1]]}"></div>
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[1][0]][sci[1][1]]}"></div>
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[2][0]][sci[2][1]]}"></div>
+        </div>
+        <div class="flex flex-row icon-tile-row flex-shrink">
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[3][0]][sci[3][1]]}"></div>
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[4][0]][sci[4][1]]}"></div>
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[5][0]][sci[5][1]]}"></div>
+        </div>
+        <div class="flex flex-row icon-tile-row flex-shrink">
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[6][0]][sci[6][1]]}"></div>
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[7][0]][sci[7][1]]}"></div>
+            <div class="icon-color-tile flex-1 flex-shrink" style="background-color:${colors[sci[8][0]][sci[8][1]]}"></div>
+        </div>
+</div>
+`
+}
+
+// function findParent(cards, card) {
+//     cards.map(card => {
+//         card.cardElements.go
+//     })
+// }
+
+
+// function createCardsOptionsIndex (cards) {
+//     cards.cardInstances.map(card => {
+
+//     })
+//     return `${cards.cardInstances[0].id}`
+// }
+
+// TODO: cardChildren
+

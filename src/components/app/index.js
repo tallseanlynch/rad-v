@@ -3,7 +3,7 @@ import '../../assets/css/textly-utilities.css'
 import { cards } from '../../data/story.js'
 import testCardHistory from '../../data/testCardHistory.js'
 import moment from 'moment'
-import { StoryExplorer, createStoryExplorerTimeline, assignDepthsToCardOptions, findDuplicateCardIds, renderStoryExplorerTimeline } from './storyExplorer.js'
+import { StoryExplorer, createStoryExplorerTimeline, assignDepthsToCardOptions, findDuplicateCardIds, renderStoryExplorerTimeline, StoryCardInstance } from './storyExplorer.js'
 import lazyCSSComp from './lazyCSSComp.js'
 import MainMenu from '../../components/MainMenu'
 import Chapter1 from '../../components/Chapter1.js'
@@ -112,6 +112,7 @@ export default class App {
       this.assignDepthsToCardOptions = assignDepthsToCardOptions.bind(this)
       this.findDuplicateCardIds = findDuplicateCardIds.bind(this)
       this.renderStoryExplorerTimeline = renderStoryExplorerTimeline.bind(this)
+      this.StoryCardInstance = StoryCardInstance.bind(this)
     }
 
     setAppStateValue (key, value) {
@@ -183,8 +184,9 @@ export default class App {
     }
 }
 
-function bus (elId) {
-  this.busFunctions[elId].bind(this)(elId)
+function bus (data) {
+  const { elId } = data
+  this.busFunctions[elId].bind(this)(data)
 }
 
 function addClassesToDOMNode (node, classes) {
@@ -213,10 +215,10 @@ function AppContainer (config = {}) {
   <div class="app-container-wrapper">
     <div class="app-nav w-full absolute text-white text-5xl p-3">
       <h1 class="absolute toggle-story-explorer z-index-2 text-5xl font-bold absolute mr-6 right-0">
-        <span class="text-gray-300 hover:text-black cursor-pointer transition-all" onClick="bus('storyExplorerOpenClose')">+</span>
+        <span class="text-gray-300 hover:text-black cursor-pointer transition-all" onClick="bus({elId: 'storyExplorerOpenClose'})">+</span>
       </h1>
     </div>
-    <div class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0" onClick="bus('main')">
+    <div class="app-container full-card flex flex-col justify-start text-center w-full break-words h-full fixed items-center background-color-rad-0 p-8 pt-0" onClick="bus({elId: 'main'})">
       ${this.appState.storyMenu ? this.templates.BackgroundElements() : ''}
       ${this.appState.storyMenu ? this.templates.CardElements() : ''}
       ${this.appState.storyMenu ? this.templates.ForegroundElements() : ''}

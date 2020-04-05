@@ -1,0 +1,32 @@
+OBJECTIVE: User can type just like in VSCode like manner.
+
+App will have UI eventModes array that configures UI events, ex:
+{
+    eventName: 'editingCardElement', // User is... <editingCardElement>
+    events: [{
+        keyPress: { key: } keyPressFunction(),
+    }]
+}
+
+Mobile UI: has a simple floating fixed UI like Gmail
+Universal keys:
+    [ TAB ] : normal accessibility capabability
+
+CREATE card:
+    desktop: [ SHIFT + ]
+    mobile: mobile UI 
+DELETE card:
+    desktop: [ SHIFT - ]
+    mobile: mobile UI
+UPDATE cardElements: 
+    desktop:
+        User [ DOUBLE CLICKS ] on cardElement to start text input. 
+        User can then type and edit the current cardElement.
+        User unfocuses the card or cardElement after input and update happens.
+        [ SHIFT ENTER ] completes current cardElement and starts next cardElement
+        [ SHIFT LEFT ARROW ] previous cardElement
+        [ SHIFT RIGHT ARROW ] next cardElement
+    mobile:
+        User can [ DOUBLE TAP ] on cardElement to start text input.
+        User can then type and edit the current cardElement.
+        User can [ SWIPE RIGHT ] to create the next cardElement

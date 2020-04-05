@@ -98,15 +98,15 @@ export default function Element (el = {}) {
     // el.hide && console.log('hide', el.hide)
     // console.log('ELEMENT LOG', el)
 
-    if(el.show) {
-      console.log('SHOW!!!!', el.show)
-      console.log(this.getAppState()[el.show])
-    }
+    // if(el.show) {
+    //   console.log('SHOW!!!!', el.show)
+    //   console.log(this.getAppState()[el.show])
+    // }
 
-    if(el.hide) {
-      console.log('HIDE!!!!', el.hide)
-      console.log(this.getAppState()[el.hide])
-    }
+    // if(el.hide) {
+    //   console.log('HIDE!!!!', el.hide)
+    //   console.log(this.getAppState()[el.hide])
+    // }
 
     let show
     if(el.showExpectedValue) {
@@ -121,6 +121,7 @@ export default function Element (el = {}) {
       showClass = ''
     }
     const hideClass = (el.hide && hide) ? 'hidden' : ''
+    return `<div class="card-element--container ${showClass} ${hideClass} ${el.goTo ? 'card-option' : ''} ${el.cardInstance} ${el.cardElementClasses ? el.cardElementClasses : ''} object"  id="${el.generatedId}" onClick="bus({elId: '${el.generatedId}'})">${cardElementWithVariableValues}</div>`
 
-    return `<div class="card-element--container ${showClass} ${hideClass} ${el.goTo ? 'card-option' : ''} ${el.cardInstance} ${el.cardElementClasses ? el.cardElementClasses : ''} object"  id="${el.generatedId}" onClick="bus('${el.generatedId}')">${cardElementWithVariableValues}</div>`
+    // return `<div ${el.text && 'contenteditable="true"'} class="card-element--container ${showClass} ${hideClass} ${el.goTo ? 'card-option' : ''} ${el.cardInstance} ${el.cardElementClasses ? el.cardElementClasses : ''} object"  id="${el.generatedId}" onClick="bus('${el.generatedId}')">${cardElementWithVariableValues}</div>`
 }

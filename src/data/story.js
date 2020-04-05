@@ -15,8 +15,8 @@
 // //     }
 // // }
 
-import cardInstancesJSON from './cardInstances.json'
-console.log(cardInstancesJSON)
+import cardInstancesJSON from './cardInstances-1.json'
+// console.log(cardInstancesJSON)
 // No need to parse I guess...
 // const cardInstances = JSON.parse(cardInstancesJSON)
 
