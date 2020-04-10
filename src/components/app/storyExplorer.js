@@ -41,7 +41,7 @@ function returnCardById (id, cards) {
 }
 
 export function assignDepthsToCardOptions (entryPoint, depth) {
-    const thisCard = returnCardById(entryPoint, this.cards().cardInstances)
+    const thisCard = returnCardById(entryPoint, this.cards.cardInstances)
 
     if(this.storyExplorerTimeline.__debug[entryPoint] && this.storyExplorerTimeline.__debug[entryPoint].placements > 1000) {
         return
@@ -80,7 +80,7 @@ export function assignDepthsToCardOptions (entryPoint, depth) {
 
 export function findDuplicateCardIds () {
     const uniqueIds = {}
-    this.cards().cardInstances.forEach(card => {
+    this.cards.cardInstances.forEach(card => {
         if(uniqueIds[card.id]){
             uniqueIds[card.id].push(card)
         } else {
@@ -98,14 +98,14 @@ export function findDuplicateCardIds () {
 
     const unusedIds = {}
     const SEIds = Object.keys(this.storyExplorerTimeline)
-    this.cards().cardInstances.forEach(card => {
+    this.cards.cardInstances.forEach(card => {
         if(SEIds.indexOf(card.id) < 0) {
             unusedIds[card.id] = card
         }
     })
 
     const improperGoTos = {}
-    this.cards().cardInstances.forEach(card => {
+    this.cards.cardInstances.forEach(card => {
         const filteredOptions = card.cardElements.filter(cardElement => cardElement.goTo === 'card-instance-0-0')
         if(filteredOptions.length > 0) {
             improperGoTos[card.id] = card
@@ -149,7 +149,7 @@ export function renderStoryExplorerTimeline () {
         const nodeTop = t[c] * depthUnit
         const nodeLeft = (multipleDepthsY[t[c]].indexOf(c) + 1) * 100/(multipleDepthsY[t[c]].length + 1)
         const backgroundColor = colors[t[c]%15][1]
-        const currentCard = returnCardById(c, this.cards().cardInstances)
+        const currentCard = returnCardById(c, this.cards.cardInstances)
         const currentCardOptions = currentCard && currentCard.cardElements && currentCard.cardElements.filter(ce => ce.goTo !== undefined && ce.goTo !== 'card-instance-0-0')
         let renderedCurrentCardOptionLines = []
         if(currentCardOptions === undefined) {
@@ -298,10 +298,48 @@ export function StoryCardInstance (cardInstance) {
     const cardInstanceStoryMoments = cardInstance.cardElements
         .filter(ce => ce.goTo === undefined)
         .map((ceText, ceTextIndex) => {
-            let uuid = uuidv4()
+            let uuid = ceText.uuid
             // create the function on the App.busFunctions, which is available by calling window.bus({elId: uuid})
             this.busFunctions[uuid] = function (data) {
                 console.log('bus', {data})
+                // debugger
+                const targetCard = this.cards.cardInstances.filter(ci => ci.uuid === data.elCardInstanceId)
+                if(targetCard.length === 1) {
+                    const targetElement = targetCard[0].cardElements.filter(ce => ce.uuid === data.elId)
+                    // debugger
+                    const innerText = document.querySelector(`#id-${targetElement[0].uuid}`).innerText
+                    console.log('INNER TEXT', document.querySelector(`#id-${targetElement[0].uuid}`).innerText)
+                    const testData = {
+                        elId: uuid,
+                        elCardInstanceId: data.elCardInstanceId,
+                        updateData: {
+                            text: innerText
+                        }
+                    }
+                    console.log({testData})
+                    this.updateCardElement(testData)
+                    // this.updateCardElement({
+                    //     elId: uuid,
+                    //     elCardInstanceId: data.elCardInstanceId,
+                    //     updateData: {
+                    //         text: innerText
+                    //     }
+                    // })
+                    if(targetElement.length < 1) {
+                        console.log('NO TARGET ELEMENT FOUND')
+                    }
+                    if(targetElement.length > 1) {
+                        console.log('MULTIPLE TARGET ELEMENTS FOUND')
+                    }
+                    console.log({ targetCard, targetElement})
+                } else {
+                    if(targetCard.length < 1) {
+                        console.log('NO TARGET CARD FOUND')
+                    }
+                    if(targetCard.length > 1) {
+                        console.log('MULTIPLE TARGET CARDS FOUND')
+                    }
+                }
             }
             // must be set a bit later as DOM must load
             setTimeout(() => {
@@ -311,12 +349,18 @@ export function StoryCardInstance (cardInstance) {
                     // setting conditions for keypress
                     if(e.shiftKey && e.key === 'Enter'){
                         console.log('SHIFT ENTER')
+                        e.preventDefault()
                         // call window busFunction with elId and e
-                        window.bus({elId: uuid, e})
+                        // debugger
+                        window.bus({elId: uuid, elCardInstanceId: cardInstance.uuid, e})
                     }
                 })
             }, 500)
-            return `<p class="py-2 ${ceTextIndex === 0 && 'font-bold'}"><div contenteditable id="id-${uuid}"  onBlur="window.bus({elId:'${uuid}'})">${sanitizeCardElementText(ceText)}</div></p>`
+            return `<p class="py-2 ${ceTextIndex === 0 && 'font-bold'}">
+                <div contenteditable id="id-${uuid}"  onBlur="window.bus({elId:'${uuid}', elCardInstanceId:'${cardInstance.uuid}'})">
+                    ${sanitizeCardElementText(ceText)}
+                </div>
+            </p>`
         })
         .join('')
 

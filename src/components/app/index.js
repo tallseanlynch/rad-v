@@ -1,6 +1,6 @@
 import '../../assets/css/tailwind.min.css'
 import '../../assets/css/textly-utilities.css'
-import { cards } from '../../data/story.js'
+import cards from '../../data/story.js'
 import testCardHistory from '../../data/testCardHistory.js'
 import moment from 'moment'
 import { StoryExplorer, createStoryExplorerTimeline, assignDepthsToCardOptions, findDuplicateCardIds, renderStoryExplorerTimeline, StoryCardInstance } from './storyExplorer.js'
@@ -52,7 +52,7 @@ export default class App {
       this.currentCardInstanceId = 'card-instance-0-16'
       this.currentCardOptionsActive = true
       this.cardHistory = testCardHistory
-      this.cards = cards.bind(this)
+      this.cards = cards
       this.bus = bus.bind(this)
       this.busFunctions = {
         main: function () {
@@ -113,6 +113,7 @@ export default class App {
       this.findDuplicateCardIds = findDuplicateCardIds.bind(this)
       this.renderStoryExplorerTimeline = renderStoryExplorerTimeline.bind(this)
       this.StoryCardInstance = StoryCardInstance.bind(this)
+      this.updateCardElement = this.updateCardElement.bind(this)
     }
 
     setAppStateValue (key, value) {
@@ -144,6 +145,30 @@ export default class App {
       document.querySelector('.full-card').scrollTop = beforeHist
       // const afterHist = document.querySelector('.full-card').scrollTop
     }
+
+    updateCardElement (cardsData) {
+      const { elId, elCardInstanceId, updateData } = cardsData
+      this.cards.cardInstances = this.cards.cardInstances.map(ci => {
+        if(ci.uuid === elCardInstanceId) {
+          return {
+            ...ci,
+            cardElements: ci.cardElements.map(ce => {
+              if(ce.uuid === elId) {
+                return {
+                  ...ce,
+                  ...updateData
+                }
+              } else {
+                return ce
+              }
+            })
+          }
+        } else {
+          return ci
+        }
+      })
+      console.log('cards', this.cards)
+    }
     
     updateCurrentCardInstanceId (id) {
       this.currentCardInstanceId = id
@@ -158,7 +183,7 @@ export default class App {
     }
 
     getCardInstanceById (id) {
-      return this.cards().cardInstances.filter(c => c.id === id)[0]
+      return this.cards.cardInstances.filter(c => c.id === id)[0]
     }
 
     parseCardInstance (cardInstance) { 
@@ -174,11 +199,11 @@ export default class App {
     }
 
     render () {
-      window.cardInstances = JSON.stringify(this.cards().cardInstances)
+      window.cardInstances = JSON.stringify(this.cards.cardInstances)
       if (this.elem) this.elem.innerHTML = `
       ${additionalCSS}
       <section data-component="app">
-      ${this.templates.StoryExplorer(this.cards())}
+      ${this.templates.StoryExplorer(this.cards)}
       ${this.templates.AppContainer()}
       </section>`
     }

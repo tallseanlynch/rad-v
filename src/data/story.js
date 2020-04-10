@@ -16,6 +16,11 @@
 // // }
 
 import cardInstancesJSON from './cardInstances-1.json'
+export default {
+    cardInstances: cardInstancesJSON
+}
+
+
 // console.log(cardInstancesJSON)
 // No need to parse I guess...
 // const cardInstances = JSON.parse(cardInstancesJSON)
@@ -94,11 +99,6 @@ const cardProps = {
 
 // need to extract away functions in order to make cards a JSON object
 
-function cards() {
-    return {
-        cardInstances: cardInstancesJSON
-    }
-}
 //         cardInstances: [
 
 // // ##################################################################################################################################
@@ -3668,5 +3668,5 @@ function cards() {
 //     }
 // }
 
-export { cards }
+// export { cards }
 
