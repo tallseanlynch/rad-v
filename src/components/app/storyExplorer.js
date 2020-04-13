@@ -214,6 +214,16 @@ export function createStoryExplorerTimeline () {
     return this.renderStoryExplorerTimeline()
 }
 
+export function renderStoryCards () {
+    document.querySelector('.story-cards-container').innerHTML = `
+        <div>
+            ${this.cards.cardInstances.map(card => {
+                return this.StoryCardInstance(card)
+            }).join('')}            
+        </div>
+    `
+}
+
 export function StoryExplorer (cards) {    
     this.busFunctions.storyExplorerOpenClose = function () {
         this.appState.storyExplorer = !this.appState.storyExplorer
@@ -255,11 +265,53 @@ export function StoryExplorer (cards) {
 // </div>
 
     const inlineClass = this.appState.storyExplorer ? 'left-slide-in-0' : 'left-slide-out-0'
+
+    // const uuidLoadButton = uuidv4()
+    // const setLoadButtonEventHandler = () => {
+        this.busFunctions['file-upload'] = function (data) {
+            console.log(data, this)
+        }
+        setTimeout(() => {
+
+            document.querySelector('#file-upload').addEventListener('change', (e) => {
+                console.log(e.target.files[0].name)
+                // debugger
+                // let reader = new FileReader()
+                // reader.addEventListener('load', () => console.log('yo'))
+                const path = `C:\\Users\\Sean\\Downloads\\${e.target.files[0].name}`
+                fetch(path, {mode: 'no-cors'})
+                .then(response => response.json())
+                .then(data=> console.log(data))
+                .catch(error => console.error(error));
+                // fr.onload = (fre) => {
+                //     console.log('yooooo')
+                //     // console.log(fre)
+                //     // let results = JSON.parse(e.target.result)
+                //     // console.log(restults)
+                //     // // let formatted = JSON.stringify(result, null, 2)
+                //     // window.bus({elId: 'file-upload', e})
+                // }
+
+                // const path = `C:\\Users\\Sean\\Downloads\\${e.target.files[0].name}`
+                // const newJSON = require(path)
+                // console.log({
+                //     path, newJSON
+                // })
+            })
+        }, 500)
+    // }
+    // setLoadButtonEventHandler()
+
     return `
   <div class="story-card-explorer layer--main-elements block absolute z-index-2 bg-white p-8 overflow-y-auto ${inlineClass}">
     <div class="story-explorer-container text-3xl md:text-base">
-        <h1 class="font-bold text-5xl mb-8 border-b-2 pb-4">Story Explorer</h1>
-        <div class="flex flex-row">
+        <div class="story-explorer-nav fixed bg-black top-0 left-0 w-full p-2">
+            <h1 class="text-white inline-block italic mr-8 pl-8">Story Explorer</h1>
+            <label for="file-upload" class="custom-file-upload cursor-pointer bg-white rounded py-1 px-3 mr-1 inline-block">Load</label>
+            <input id="file-upload" type="file"/>
+            <div class="cursor-pointer bg-white rounded py-1 px-3 mr-1 inline-block">Save</div>
+        </div>
+        <div class="flex flex-row mt-8">
             <div class="flex flex-1 story-cards-container">
                 <div>
                     ${cards.cardInstances.map(card => {
@@ -309,22 +361,26 @@ export function StoryCardInstance (cardInstance) {
                     // debugger
                     const innerText = document.querySelector(`#id-${targetElement[0].uuid}`).innerText
                     console.log('INNER TEXT', document.querySelector(`#id-${targetElement[0].uuid}`).innerText)
-                    const testData = {
+                    const updateData = {
                         elId: uuid,
                         elCardInstanceId: data.elCardInstanceId,
                         updateData: {
                             text: innerText
                         }
                     }
-                    console.log({testData})
-                    this.updateCardElement(testData)
-                    // this.updateCardElement({
-                    //     elId: uuid,
-                    //     elCardInstanceId: data.elCardInstanceId,
-                    //     updateData: {
-                    //         text: innerText
-                    //     }
-                    // })
+                    console.log({updateData})
+                    this.updateCardElement(updateData)
+                    if(data.createNewCardElement) {
+                        const uuidNewCardElement = uuidv4()
+                        this.createNewCardElement({
+                            elId: uuid,
+                            elCardInstanceId: cardInstance.uuid,
+                            uuidNewCardElement
+                        })
+                        this.renderStoryCards()
+                        document.querySelector(`#id-${uuidNewCardElement}`).focus()
+                        
+                    }
                     if(targetElement.length < 1) {
                         console.log('NO TARGET ELEMENT FOUND')
                     }
@@ -352,12 +408,12 @@ export function StoryCardInstance (cardInstance) {
                         e.preventDefault()
                         // call window busFunction with elId and e
                         // debugger
-                        window.bus({elId: uuid, elCardInstanceId: cardInstance.uuid, e})
+                        window.bus({elId: uuid, elCardInstanceId: cardInstance.uuid, e, createNewCardElement: true})
                     }
                 })
             }, 500)
             return `<p class="py-2 ${ceTextIndex === 0 && 'font-bold'}">
-                <div contenteditable id="id-${uuid}"  onBlur="window.bus({elId:'${uuid}', elCardInstanceId:'${cardInstance.uuid}'})">
+                <div contenteditable id="id-${uuid}" class="inline-block"  onBlur="window.bus({elId:'${uuid}', elCardInstanceId:'${cardInstance.uuid}'})">
                     ${sanitizeCardElementText(ceText)}
                 </div>
             </p>`

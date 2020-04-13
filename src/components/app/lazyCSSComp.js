@@ -18,6 +18,14 @@ const lazyCSSComp = (options) => {
     return `
 <style>
 
+input[type="file"] {
+    display: none;
+}
+
+    .story-explorer-nav {
+        z-index: 5000;
+    }
+
     .timeline-container {
         height: 5000px;        
     }

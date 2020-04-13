@@ -3,7 +3,7 @@ import '../../assets/css/textly-utilities.css'
 import cards from '../../data/story.js'
 import testCardHistory from '../../data/testCardHistory.js'
 import moment from 'moment'
-import { StoryExplorer, createStoryExplorerTimeline, assignDepthsToCardOptions, findDuplicateCardIds, renderStoryExplorerTimeline, StoryCardInstance } from './storyExplorer.js'
+import { renderStoryCards, StoryExplorer, createStoryExplorerTimeline, assignDepthsToCardOptions, findDuplicateCardIds, renderStoryExplorerTimeline, StoryCardInstance } from './storyExplorer.js'
 import lazyCSSComp from './lazyCSSComp.js'
 import MainMenu from '../../components/MainMenu'
 import Chapter1 from '../../components/Chapter1.js'
@@ -114,6 +114,10 @@ export default class App {
       this.renderStoryExplorerTimeline = renderStoryExplorerTimeline.bind(this)
       this.StoryCardInstance = StoryCardInstance.bind(this)
       this.updateCardElement = this.updateCardElement.bind(this)
+      this.createNewCardElement = this.createNewCardElement.bind(this)
+      this.renderStoryCards = renderStoryCards.bind(this)
+      this.saveCards = this.saveCards.bind(this)
+      this.loadCards = this.loadCards.bind(this)
     }
 
     setAppStateValue (key, value) {
@@ -146,6 +150,28 @@ export default class App {
       // const afterHist = document.querySelector('.full-card').scrollTop
     }
 
+    saveCards () {
+      const cards = this.cards.cardInstances
+      // fs.writeFileSync(`cards-${moment().format("MM-DD-YYYY_HH:m:s")}`)
+      function download(content, fileName, contentType) {
+        var a = document.createElement("a");
+        var file = new Blob([content], {type: contentType});
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
+      }
+
+      download(JSON.stringify(cards), `cards-${moment().format("MM-DD-YYYY_HH:m:s")}`, 'application/json');
+    }
+
+    fetchSavedCards({ folderPath }) {
+      
+    }
+
+    loadCards () {
+      
+    }
+
     updateCardElement (cardsData) {
       const { elId, elCardInstanceId, updateData } = cardsData
       this.cards.cardInstances = this.cards.cardInstances.map(ci => {
@@ -168,6 +194,65 @@ export default class App {
         }
       })
       console.log('cards', this.cards)
+    }
+
+    createNewCardElement (ce) {
+      // debugger
+      const { elId, elCardInstanceId, uuidNewCardElement } = ce
+      this.cards.cardInstances = this.cards.cardInstances.map(ci => {
+        if(ci.uuid === elCardInstanceId) {
+          // find mathcing uuids for insertIndex
+          let insertIndex = -1
+          ci.cardElements.forEach((ce, cei) => {
+            if(ce.uuid === elId) {
+              insertIndex = cei
+            }
+          })
+          // no results, return original array
+          if(insertIndex === -1) {
+            return ci
+          }
+          // found the location to insert into the array
+          if(insertIndex > -1) {
+            const allCardEls = ci.cardElements
+            allCardEls.splice(insertIndex + 1, 0, {
+                text: 'New Card Element',
+                template: 'Text0',
+                uuid: uuidNewCardElement
+              }
+            )
+
+            // allCardEls.splice(insertIndex, 0, {
+            //   id: 'card-instance-0-0',
+            //   backgroundElements: [
+            //     {
+            //       html: `<div class='opacity-in-0 animation-duration-10'></div>`
+            //     }
+            //   ],
+            //   foregroundElements: [],
+            //   defaults: {
+            //     text: {
+            //       template: 'Text0'
+            //     }
+            //   },
+            //   cardElements: [
+            //     {
+            //       text: 'New Card Element',
+            //       template: 'Text0',
+            //       uuid: uuidv4()
+            //     },
+            //     {
+            //       text: 'New Card Element Option',
+            //       template: 'Option9',
+            //       uuid: uuidv4()
+            //     },
+            //   ],
+            //   uuid: uuidv4()
+            // })
+            return { ...ci, cardElements: allCardEls}
+          }
+        } else return ci
+      })
     }
     
     updateCurrentCardInstanceId (id) {
@@ -237,9 +322,9 @@ function MainMenuElements (els = [], options) {
 function AppContainer (config = {}) {
   const SE = this.appState.storyExplorer
   return `
-  <div class="app-container-wrapper">
+  <div class="app-container-wrapper ${this.appState.storyExplorer ? 'pointer-events-none' : ''}">
     <div class="app-nav w-full absolute text-white text-5xl p-3">
-      <h1 class="absolute toggle-story-explorer z-index-2 text-5xl font-bold absolute mr-6 right-0">
+      <h1 class="absolute toggle-story-explorer z-index-2 text-5xl font-bold absolute mr-6 right-0 mt-6">
         <span class="text-gray-300 hover:text-black cursor-pointer transition-all" onClick="bus({elId: 'storyExplorerOpenClose'})">+</span>
       </h1>
     </div>
